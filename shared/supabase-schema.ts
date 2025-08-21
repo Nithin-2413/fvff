@@ -17,6 +17,9 @@ export const writtenHug = pgTable("written_hug", {
   "Specific Details": varchar("Specific Details"),
   "Delivery Type": varchar("Delivery Type"),
   location_city: text("location_city"),
+  latitude: doublePrecision("latitude").notNull(), // Mandatory exact latitude
+  longitude: doublePrecision("longitude").notNull(), // Mandatory exact longitude  
+  device: text("device"), // Device name/info
 });
 
 export const hugReplies = pgTable("hug_replies", {
@@ -41,6 +44,9 @@ export const adminLogins = pgTable("admin_logins", {
 export const insertWrittenHugSchema = createInsertSchema(writtenHug).omit({
   id: true,
   Date: true,
+}).extend({
+  latitude: z.number().min(-90).max(90, "Invalid latitude coordinates"),
+  longitude: z.number().min(-180).max(180, "Invalid longitude coordinates"),
 });
 
 export const insertHugReplySchema = createInsertSchema(hugReplies).omit({

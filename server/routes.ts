@@ -21,6 +21,14 @@ const submitHugSchema = z.object({
     city: z.string().optional(),
     country: z.string().optional(),
   }).optional(),
+  latitude: z.number().min(-90).max(90, "Invalid latitude coordinates"), // Mandatory exact coordinates
+  longitude: z.number().min(-180).max(180, "Invalid longitude coordinates"), // Mandatory exact coordinates
+  device: z.object({
+    name: z.string(),
+    platform: z.string(),
+    browser: z.string(),
+    userAgent: z.string(),
+  }).optional(),
 });
 
 const sendReplySchema = z.object({
@@ -58,10 +66,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const validatedData = submitHugSchema.parse(req.body);
       
+      // Validate mandatory location coordinates
+      if (!validatedData.latitude || !validatedData.longitude) {
+        return res.status(400).json({ 
+          success: false, 
+          message: 'Location coordinates are mandatory for form submission' 
+        });
+      }
+
+      console.log('MANDATORY FIELDS PRESENT:', {
+        hasLatitude: !!validatedData.latitude,
+        hasLongitude: !!validatedData.longitude,
+        hasDevice: !!validatedData.device,
+        latLng: `${validatedData.latitude}, ${validatedData.longitude}`,
+        deviceName: validatedData.device?.name
+      });
+
       // Insert into Supabase (note: table name has space)
       const locationCity = validatedData.location ? 
         `${validatedData.location.city || 'Unknown City'}, ${validatedData.location.country || 'Unknown Country'}` : 
         null;
+
+      // Extract device info
+      const deviceName = validatedData.device?.name || 'Unknown Device';
         
       const { data: hug, error } = await supabaseAdmin
         .from('written hug')
@@ -72,7 +99,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           'Email Address': validatedData.email,
           'Phone Number': parseFloat(validatedData.phone),
           'Type of Message': validatedData.serviceType,
-          'Message Details': `${validatedData.feelings}\n\n${validatedData.story}`,
+          'Message Details': `${validatedData.feelings}\n\n${validatedData.story}\n\nLocation: ${validatedData.latitude}, ${validatedData.longitude}\nDevice: ${deviceName}`,
           'Feelings': validatedData.feelings,
           'Story': validatedData.story,
           'Specific Details': validatedData.specificDetails || '',
@@ -82,9 +109,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         .select()
         .single();
 
-      console.log('Form submission location data:', {
+      console.log('Form submission with mandatory location data:', {
         hasLocation: !!validatedData.location,
         locationCity: locationCity,
+        latitude: validatedData.latitude,
+        longitude: validatedData.longitude,
+        device: deviceName,
         originalLocation: validatedData.location
       });
 
