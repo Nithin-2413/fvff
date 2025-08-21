@@ -437,9 +437,9 @@ const Index = () => {
               <p className="font-bold text-muted-foreground times-new-roman-italic">…but rarely saying it meaningfully.</p>
             </div>
 
-            <div className="text-center py-12">
-              <h3 className="text-5xl md:text-6xl font-bold mb-8 great-vibes-font leading-tight">
-                <span className="bg-gradient-to-r from-primary via-purple-600 to-pink-600 bg-clip-text text-transparent block">
+            <div className="text-center py-12 overflow-visible">
+              <h3 className="text-4xl md:text-5xl font-bold mb-8 leading-relaxed px-4">
+                <span className="bg-gradient-to-r from-primary via-purple-600 to-pink-600 bg-clip-text text-transparent block mb-2">
                   We're the translators
                 </span>
                 <span className="bg-gradient-to-r from-pink-600 via-rose-500 to-red-500 bg-clip-text text-transparent block">
