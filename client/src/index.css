@@ -807,3 +807,31 @@ html {
     transform: rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg)) translateZ(200px) scale(1.1) !important;
   }
 }
+
+/* Admin Dashboard Enhanced Animations */
+@keyframes admin-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes admin-pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(225, 29, 72, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(225, 29, 72, 0.4), 0 0 30px rgba(225, 29, 72, 0.1); }
+}
+
+@keyframes admin-slide-in {
+  from { transform: translateX(-10px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.admin-float {
+  animation: admin-float 3s ease-in-out infinite;
+}
+
+.admin-pulse-glow {
+  animation: admin-pulse-glow 2s ease-in-out infinite;
+}
+
+.admin-slide-in {
+  animation: admin-slide-in 0.3s ease-out;
+}

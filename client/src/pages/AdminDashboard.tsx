@@ -263,14 +263,14 @@ const AdminDashboard = () => {
       </div>
       
       {/* Header */}
-      <div className="bg-white shadow-sm border-b border-rose-100 relative z-10">
+      <div className="bg-gradient-to-r from-rose-50 via-pink-50 to-purple-50 shadow-lg border-b border-rose-200/50 relative z-10 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 gap-4">
             <div className="flex items-center space-x-3 min-w-0 flex-1">
               <img src="https://res.cloudinary.com/dwmybitme/image/upload/v1755357106/image_1_o0l7go.png" alt="Logo" className="h-8 w-8" />
               <div>
-                <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Admin Dashboard</h1>
-                <p className="text-xs sm:text-sm text-gray-500">The Written Hug Management</p>
+                <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-transparent">Admin Dashboard</h1>
+                <p className="text-xs sm:text-sm text-rose-500 font-medium">The Written Hug Management</p>
               </div>
             </div>
             <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
@@ -278,12 +278,12 @@ const AdminDashboard = () => {
                 onClick={() => window.open('/', '_blank')} 
                 variant="outline" 
                 size="sm"
-                className="flex items-center space-x-1 sm:space-x-2 rounded-full text-xs sm:text-sm"
+                className="flex items-center space-x-1 sm:space-x-2 rounded-full text-xs sm:text-sm admin-pulse-glow hover:scale-105 transition-all duration-300"
               >
                 <Globe className="w-4 h-4" />
                 <span className="hidden sm:inline">Written Hug</span>
               </Button>
-              <Button onClick={handleLogout} variant="outline" size="sm" className="rounded-full text-xs sm:text-sm">
+              <Button onClick={handleLogout} variant="outline" size="sm" className="rounded-full text-xs sm:text-sm hover:scale-105 transition-all duration-300">
                 Logout
               </Button>
             </div>
@@ -292,59 +292,73 @@ const AdminDashboard = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
+        {/* Welcome Section */}
+        <div className="mb-8 text-center admin-slide-in">
+          <h2 className="text-3xl font-bold great-vibes-font bg-gradient-to-r from-rose-600 via-pink-600 to-purple-600 bg-clip-text text-transparent mb-2 admin-float">Welcome to Your Dashboard</h2>
+          <p className="text-gray-600 text-lg">Manage your heartfelt messages with love and care ✨</p>
+        </div>
+
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-white border-0 shadow-md">
-            <CardContent className="p-6">
+          <Card className="relative overflow-hidden border-0 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-blue-50 to-cyan-50 admin-slide-in">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-400/10 to-cyan-400/10 animate-pulse"></div>
+            <CardContent className="p-6 relative z-10">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Total Messages</p>
-                  <p className="text-3xl font-bold text-gray-900">{stats.total}</p>
+                  <p className="text-sm font-medium text-blue-700 mb-1">Total Messages</p>
+                  <p className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">{stats.total}</p>
+                  <p className="text-xs text-blue-500 mt-1">💌 All time</p>
                 </div>
-                <div className="h-12 w-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <MessageSquare className="h-6 w-6 text-blue-600" />
+                <div className="h-14 w-14 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-xl flex items-center justify-center shadow-lg">
+                  <MessageSquare className="h-7 w-7 text-white" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-white border-0 shadow-md">
-            <CardContent className="p-6">
+          <Card className="relative overflow-hidden border-0 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-orange-50 to-amber-50 admin-slide-in">
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-400/10 to-amber-400/10 animate-pulse"></div>
+            <CardContent className="p-6 relative z-10">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">New Messages</p>
-                  <p className="text-3xl font-bold text-blue-600">{stats.newCount}</p>
+                  <p className="text-sm font-medium text-orange-700 mb-1">New Messages</p>
+                  <p className="text-3xl font-bold bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">{stats.newCount}</p>
+                  <p className="text-xs text-orange-500 mt-1">⏰ Awaiting response</p>
                 </div>
-                <div className="h-12 w-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <Clock className="h-6 w-6 text-blue-600" />
+                <div className="h-14 w-14 bg-gradient-to-r from-orange-400 to-amber-400 rounded-xl flex items-center justify-center shadow-lg animate-pulse">
+                  <Clock className="h-7 w-7 text-white" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-white border-0 shadow-md">
-            <CardContent className="p-6">
+          <Card className="relative overflow-hidden border-0 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-green-50 to-emerald-50 admin-slide-in">
+            <div className="absolute inset-0 bg-gradient-to-r from-green-400/10 to-emerald-400/10 animate-pulse"></div>
+            <CardContent className="p-6 relative z-10">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Replied</p>
-                  <p className="text-3xl font-bold text-green-600">{stats.repliedCount}</p>
+                  <p className="text-sm font-medium text-green-700 mb-1">Replied</p>
+                  <p className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">{stats.repliedCount}</p>
+                  <p className="text-xs text-green-500 mt-1">✅ Completed</p>
                 </div>
-                <div className="h-12 w-12 bg-green-100 rounded-lg flex items-center justify-center">
-                  <TrendingUp className="h-6 w-6 text-green-600" />
+                <div className="h-14 w-14 bg-gradient-to-r from-green-400 to-emerald-400 rounded-xl flex items-center justify-center shadow-lg">
+                  <TrendingUp className="h-7 w-7 text-white" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-white border-0 shadow-md">
-            <CardContent className="p-6">
+          <Card className="relative overflow-hidden border-0 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-purple-50 to-pink-50 admin-slide-in">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-400/10 to-pink-400/10 animate-pulse"></div>
+            <CardContent className="p-6 relative z-10">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">In Progress</p>
-                  <p className="text-3xl font-bold text-yellow-600">{stats.inProgressCount}</p>
+                  <p className="text-sm font-medium text-purple-700 mb-1">In Progress</p>
+                  <p className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">{stats.inProgressCount}</p>
+                  <p className="text-xs text-purple-500 mt-1">🎨 Being crafted</p>
                 </div>
-                <div className="h-12 w-12 bg-yellow-100 rounded-lg flex items-center justify-center">
-                  <Users className="h-6 w-6 text-yellow-600" />
+                <div className="h-14 w-14 bg-gradient-to-r from-purple-400 to-pink-400 rounded-xl flex items-center justify-center shadow-lg">
+                  <Users className="h-7 w-7 text-white" />
                 </div>
               </div>
             </CardContent>
@@ -353,48 +367,53 @@ const AdminDashboard = () => {
 
         {/* Main Content */}
         <Tabs defaultValue="orders" className="space-y-6">
-          <TabsList className="bg-white border border-rose-100 p-1 rounded-lg shadow-sm">
+          <TabsList className="bg-gradient-to-r from-white to-rose-50 border-2 border-rose-200/50 p-1 rounded-xl shadow-lg backdrop-blur-sm">
             <TabsTrigger 
               value="orders" 
-              className="px-6 py-2 text-sm font-medium data-[state=active]:bg-rose-500 data-[state=active]:text-white data-[state=active]:shadow-sm"
+              className="px-6 py-3 text-sm font-medium rounded-lg transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-rose-500 data-[state=active]:to-pink-500 data-[state=active]:text-white data-[state=active]:shadow-xl hover:bg-rose-50"
             >
               <BarChart3 className="w-4 h-4 mr-2" />
-              Dashboard
+              📈 Dashboard
             </TabsTrigger>
             <TabsTrigger 
               value="communications" 
-              className="px-6 py-2 text-sm font-medium data-[state=active]:bg-rose-500 data-[state=active]:text-white data-[state=active]:shadow-sm"
+              className="px-6 py-3 text-sm font-medium rounded-lg transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-rose-500 data-[state=active]:to-pink-500 data-[state=active]:text-white data-[state=active]:shadow-xl hover:bg-rose-50"
             >
               <MessageSquare className="w-4 h-4 mr-2" />
-              Communications
+              💬 Communications
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="orders">
-            <Card className="bg-white border-0 shadow-md">
-              <CardHeader className="border-b border-gray-100 bg-gray-50">
-                <CardTitle className="text-xl text-gray-900 flex items-center">
-                  <img src="https://res.cloudinary.com/dwmybitme/image/upload/v1755357106/image_1_o0l7go.png" alt="Logo" className="w-5 h-5 mr-2" />
-                  Message Orders Overview
+            <Card className="bg-gradient-to-br from-white to-rose-50/30 border-0 shadow-xl backdrop-blur-sm">
+              <CardHeader className="border-b border-rose-200/50 bg-gradient-to-r from-rose-100/50 to-pink-100/50">
+                <CardTitle className="text-xl font-bold flex items-center">
+                  <img src="https://res.cloudinary.com/dwmybitme/image/upload/v1755357106/image_1_o0l7go.png" alt="Logo" className="w-6 h-6 mr-3" />
+                  <span className="bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-transparent">Message Orders Overview</span>
+                  <span className="ml-2 text-lg">💌</span>
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-6">
                 {/* Filters */}
-                <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                    <Input
-                      placeholder="Search by name, email, or message type..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10 border-gray-200 focus:border-rose-300 focus:ring-rose-200"
-                    />
-                  </div>
-                  
-                  <Select value={statusFilter} onValueChange={setStatusFilter}>
-                    <SelectTrigger className="border-gray-200 focus:border-rose-300 focus:ring-rose-200">
-                      <SelectValue placeholder="Filter by status" />
-                    </SelectTrigger>
+                <div className="mb-8 p-4 bg-gradient-to-r from-rose-50/50 to-pink-50/50 rounded-xl border border-rose-200/30">
+                  <h3 className="text-lg font-semibold text-rose-700 mb-4 flex items-center">
+                    🔍 Search & Filter Messages
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="relative">
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-rose-400 h-4 w-4" />
+                      <Input
+                        placeholder="Search by name, email, or message type..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="pl-10 border-rose-200 focus:border-rose-400 focus:ring-rose-300 bg-white/80 backdrop-blur-sm rounded-lg"
+                      />
+                    </div>
+                    
+                    <Select value={statusFilter} onValueChange={setStatusFilter}>
+                      <SelectTrigger className="border-rose-200 focus:border-rose-400 focus:ring-rose-300 bg-white/80 backdrop-blur-sm rounded-lg">
+                        <SelectValue placeholder="Filter by status" />
+                      </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">All Status</SelectItem>
                       <SelectItem value="new">New</SelectItem>
@@ -404,10 +423,10 @@ const AdminDashboard = () => {
                     </SelectContent>
                   </Select>
 
-                  <Select value={typeFilter} onValueChange={setTypeFilter}>
-                    <SelectTrigger className="border-gray-200 focus:border-rose-300 focus:ring-rose-200">
-                      <SelectValue placeholder="Filter by type" />
-                    </SelectTrigger>
+                    <Select value={typeFilter} onValueChange={setTypeFilter}>
+                      <SelectTrigger className="border-rose-200 focus:border-rose-400 focus:ring-rose-300 bg-white/80 backdrop-blur-sm rounded-lg">
+                        <SelectValue placeholder="Filter by type" />
+                      </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">All Types</SelectItem>
                       <SelectItem value="love letter">Love Letter</SelectItem>
@@ -415,22 +434,25 @@ const AdminDashboard = () => {
                       <SelectItem value="apology">Apology</SelectItem>
                       <SelectItem value="celebration">Celebration</SelectItem>
                     </SelectContent>
-                  </Select>
+                    </Select>
+                  </div>
                 </div>
 
                 {/* Orders Table */}
                 <div className="overflow-x-auto">
                   <div className="min-w-full">
                     {filteredHugs.length === 0 ? (
-                      <div className="text-center py-12">
-                        <MessageSquare className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                        <p className="text-gray-500 text-lg">No messages found</p>
-                        <p className="text-gray-400 text-sm">Try adjusting your search filters</p>
+                      <div className="text-center py-16">
+                        <div className="bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl p-8 mx-auto max-w-md">
+                          <MessageSquare className="h-16 w-16 text-rose-300 mx-auto mb-4" />
+                          <p className="text-rose-600 text-xl font-semibold mb-2">📮 No messages found</p>
+                          <p className="text-rose-400 text-sm">Try adjusting your search filters or check back later!</p>
+                        </div>
                       </div>
                     ) : (
                       <div className="space-y-3">
                         {filteredHugs.map((hug) => (
-                          <div key={hug.id} className="bg-gray-50 border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                          <div key={hug.id} className="bg-gradient-to-r from-white to-rose-50/30 border border-rose-200/50 rounded-xl p-5 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-[1.02] backdrop-blur-sm admin-slide-in">
                             <div className="grid grid-cols-1 lg:grid-cols-6 gap-4 items-center">
                               <div className="lg:col-span-2">
                                 <div className="flex items-center space-x-3">
