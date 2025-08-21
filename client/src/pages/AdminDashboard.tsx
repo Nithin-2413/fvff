@@ -38,6 +38,39 @@ const AdminDashboard = () => {
   const [, setLocation] = useLocation();
   const audioRef = useBackgroundMusic(0.32);
 
+  // Authentication check
+  useEffect(() => {
+    const isAuthenticated = sessionStorage.getItem('adminAuthenticated');
+    const loginTime = sessionStorage.getItem('adminLoginTime');
+    
+    if (!isAuthenticated || !loginTime) {
+      toast({
+        title: "Access Denied",
+        description: "Please login to access admin dashboard.",
+        variant: "destructive"
+      });
+      setLocation('/admin/login');
+      return;
+    }
+    
+    // Session timeout after 2 hours
+    const loginDate = new Date(loginTime);
+    const now = new Date();
+    const hoursDiff = (now.getTime() - loginDate.getTime()) / (1000 * 60 * 60);
+    
+    if (hoursDiff > 2) {
+      sessionStorage.removeItem('adminAuthenticated');
+      sessionStorage.removeItem('adminLoginTime');
+      toast({
+        title: "Session Expired",
+        description: "Please login again.",
+        variant: "destructive"
+      });
+      setLocation('/admin/login');
+      return;
+    }
+  }, [setLocation, toast]);
+
   useEffect(() => {
     fetchHugs();
     fetchUnreadCount();
@@ -71,6 +104,23 @@ const AdminDashboard = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleLogout = () => {
+    // Clear session data
+    sessionStorage.removeItem('adminAuthenticated');
+    sessionStorage.removeItem('adminLoginTime');
+    sessionStorage.removeItem('adminUsername');
+    
+    toast({
+      title: "Logged Out",
+      description: "You have been securely logged out.",
+    });
+    
+    // Redirect to login page
+    setTimeout(() => {
+      setLocation('/admin/login');
+    }, 1000);
   };
 
   const fetchUnreadCount = async () => {
@@ -123,10 +173,6 @@ const AdminDashboard = () => {
 
   const stats = getStats();
 
-  const handleLogout = () => {
-    sessionStorage.removeItem('adminLoggedIn');
-    setLocation('/admin/login');
-  };
 
   if (loading) {
     return (

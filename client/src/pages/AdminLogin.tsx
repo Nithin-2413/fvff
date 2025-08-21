@@ -154,9 +154,10 @@ const AdminLogin = () => {
       const result = await response.json();
 
       if (result.success) {
-        // Store login state in localStorage
-        localStorage.setItem('adminLoggedIn', 'true');
-        localStorage.setItem('adminUsername', username);
+        // Store secure session state
+        sessionStorage.setItem('adminAuthenticated', 'true');
+        sessionStorage.setItem('adminLoginTime', new Date().toISOString());
+        sessionStorage.setItem('adminUsername', username);
 
         toast({
           title: "Welcome back!",

@@ -52,6 +52,42 @@ const AdminConversation = () => {
   const [currentStatus, setCurrentStatus] = useState(hug?.Status || 'New');
   const [updatingStatus, setUpdatingStatus] = useState(false);
 
+  // Authentication check
+  useEffect(() => {
+    const isAuthenticated = sessionStorage.getItem('adminAuthenticated');
+    const loginTime = sessionStorage.getItem('adminLoginTime');
+    
+    if (!isAuthenticated || !loginTime) {
+      toast({
+        title: "Access Denied",
+        description: "Please login to access admin pages.",
+        variant: "destructive"
+      });
+      setLocation('/admin/login');
+      return;
+    }
+    
+    // Session timeout after 2 hours
+    const loginDate = new Date(loginTime);
+    const now = new Date();
+    const hoursDiff = (now.getTime() - loginDate.getTime()) / (1000 * 60 * 60);
+    
+    if (hoursDiff > 2) {
+      sessionStorage.removeItem('adminAuthenticated');
+      sessionStorage.removeItem('adminLoginTime');
+      sessionStorage.removeItem('adminUsername');
+      toast({
+        title: "Session Expired",
+        description: "Please login again.",
+        variant: "destructive"
+      });
+      setLocation('/admin/login');
+      return;
+    }
+    
+    setAuthenticated(true);
+  }, [setLocation, toast]);
+
   useEffect(() => {
     if (id) {
       fetchConversation(id);

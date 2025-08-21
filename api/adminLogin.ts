@@ -27,8 +27,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     const { username, password, location } = adminLoginSchema.parse(req.body);
     
-    // Simple hardcoded admin credentials
-    if (username === 'SonuHoney' && password === 'Chipmunk@15#') {
+    // Secure admin credentials from environment variables
+    const adminUsername = process.env.ADMIN_USERNAME || 'admin';
+    const adminPassword = process.env.ADMIN_PASSWORD || 'changeThisPassword!';
+    
+    if (username === adminUsername && password === adminPassword) {
       // Log the admin login with location data
       if (location) {
         try {

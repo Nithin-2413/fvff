@@ -413,7 +413,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Admin login
+  // Rate limiting for admin login attempts
+  const loginAttempts = new Map<string, { attempts: number; lastAttempt: number; blockedUntil?: number }>();
+  
   app.post("/api/adminLogin", async (req, res) => {
+    const clientIP = (req.headers['x-forwarded-for'] as string)?.split(',')[0].trim() || 
+                     req.headers['x-real-ip'] as string || 
+                     req.ip || 'unknown';
+    const now = Date.now();
+    const attempts = loginAttempts.get(clientIP) || { attempts: 0, lastAttempt: 0 };
+    
+    // Check if IP is currently blocked
+    if (attempts.blockedUntil && now < attempts.blockedUntil) {
+      const timeLeft = Math.ceil((attempts.blockedUntil - now) / (60 * 1000));
+      return res.status(429).json({ 
+        success: false, 
+        message: `Too many failed login attempts. Try again in ${timeLeft} minutes.` 
+      });
+    }
+    
+    // Reset attempts after 1 hour of no activity
+    if (now - attempts.lastAttempt > 60 * 60 * 1000) {
+      attempts.attempts = 0;
+      attempts.blockedUntil = undefined;
+    }
     try {
       const validatedData = adminLoginSchema.parse(req.body);
       
@@ -425,8 +448,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
-      // Simple authentication check
-      if (validatedData.username === "SonuHoney" && validatedData.password === "Chipmunk@15#") {
+      // Secure authentication using environment variables
+      const adminUsername = process.env.ADMIN_USERNAME || 'admin';
+      const adminPassword = process.env.ADMIN_PASSWORD || 'changeThisPassword!';
+      
+      if (validatedData.username === adminUsername && validatedData.password === adminPassword) {
         // Log the admin login with location data - MANDATORY
         try {
           const locationString = `${validatedData.location.city || 'Unknown City'}, ${validatedData.location.country || 'Unknown Country'} (${validatedData.latitude}, ${validatedData.longitude})`;
@@ -470,6 +496,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
         
         res.json({ success: true, message: "Login successful", location: validatedData.location });
       } else {
+        // Failed login attempt - increment counter
+        attempts.attempts += 1;
+        attempts.lastAttempt = now;
+        
+        // Block IP after 5 failed attempts for 15 minutes
+        if (attempts.attempts >= 5) {
+          attempts.blockedUntil = now + (15 * 60 * 1000);
+          loginAttempts.set(clientIP, attempts);
+          
+          // Log suspicious activity
+          console.warn(`SECURITY ALERT: IP ${clientIP} blocked after 5 failed admin login attempts`);
+          
+          return res.status(429).json({ 
+            success: false, 
+            message: "Too many failed attempts. IP blocked for 15 minutes." 
+          });
+        }
+        
+        loginAttempts.set(clientIP, attempts);
         res.status(401).json({ success: false, message: "Invalid credentials" });
       }
     } catch (error) {
