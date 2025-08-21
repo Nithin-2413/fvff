@@ -24,9 +24,9 @@ const ExactThreeBackground = () => {
       let scene = new THREE.Scene();
       scene.background = new THREE.Color(0x160016);
       let camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 1, 1000);
-      // Mobile zoom adjustment - closer camera for mobile devices
+      // Mobile zoom adjustment - slightly closer camera for mobile devices
       const isMobile = window.innerWidth < 768;
-      const zPosition = isMobile ? 31.5 : 35; // 10% closer on mobile
+      const zPosition = isMobile ? 33.5 : 35; // 5% closer on mobile
       camera.position.set(0, 8, zPosition);
       let renderer = new THREE.WebGLRenderer({antialias: true, alpha: false});
       renderer.setSize(innerWidth, innerHeight);

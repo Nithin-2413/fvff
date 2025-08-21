@@ -146,8 +146,8 @@ const AdminLogin = () => {
       <div className="relative z-50 min-h-screen px-4 py-4" style={{pointerEvents: 'none'}}>
         <div className="compact-glassmorphism-card" style={{pointerEvents: 'auto'}}>
           <div className="text-center mb-3">
-            <p className="playfair-display text-sm font-bold bg-gradient-to-r from-amber-400 via-yellow-300 to-orange-400 bg-clip-text text-transparent" style={{
-              backgroundImage: 'linear-gradient(45deg, #fbbf24, #fde047, #fb923c)',
+            <p className="playfair-display text-xs font-bold bg-gradient-to-r from-amber-400 via-purple-400 to-violet-500 bg-clip-text text-transparent" style={{
+              backgroundImage: 'linear-gradient(45deg, #fbbf24, #a855f7, #8b5cf6)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
@@ -162,7 +162,7 @@ const AdminLogin = () => {
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="h-9 flex-1 bg-transparent border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 focus:ring-0 focus:bg-transparent hover:bg-transparent rounded-lg transition-all duration-300 text-sm"
+                className="h-8 flex-1 bg-transparent border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 focus:ring-0 focus:bg-transparent hover:bg-transparent rounded-lg transition-all duration-300 text-xs"
                 placeholder="Username"
                 required
                 data-testid="input-username"
@@ -172,7 +172,7 @@ const AdminLogin = () => {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="h-9 flex-1 bg-transparent border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 focus:ring-0 focus:bg-transparent hover:bg-transparent rounded-lg transition-all duration-300 text-sm"
+                className="h-8 flex-1 bg-transparent border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 focus:ring-0 focus:bg-transparent hover:bg-transparent rounded-lg transition-all duration-300 text-xs"
                 placeholder="Password"
                 required
                 data-testid="input-password"
@@ -180,7 +180,7 @@ const AdminLogin = () => {
               <Button
                 type="submit"
                 disabled={loading || !locationPermissionGranted}
-                className="h-9 px-4 bg-white/10 hover:bg-white/15 border border-white/30 text-white font-medium transition-all duration-300 rounded-lg backdrop-blur-sm text-sm whitespace-nowrap"
+                className="h-8 px-3 bg-white/10 hover:bg-white/15 border border-white/30 text-white font-medium transition-all duration-300 rounded-lg backdrop-blur-sm text-xs whitespace-nowrap"
                 data-testid="button-login"
               >
                 {loading ? (
