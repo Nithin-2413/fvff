@@ -79,41 +79,27 @@ const CEOSection = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-6 mt-8">
-              <Card className="sparkle-button glass-premium group hover:shadow-lg transition-all duration-300 border-2 border-pink-300/50 rounded-2xl relative overflow-hidden">
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-pink-400/20 via-purple-400/20 to-pink-400/20 animate-pulse opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="star-1">⭐</div>
-                <div className="star-2">✨</div>
-                <div className="star-3">❤️</div>
-                <div className="star-4">🎁</div>
-                <div className="star-5">⭐</div>
-                <div className="star-6">✨</div>
-                <div className="star-7">❤️</div>
-                <div className="star-8">🎁</div>
+              <Card className="glass-premium group hover:shadow-xl transition-all duration-500 border-2 border-pink-300/50 rounded-2xl relative overflow-hidden hover:scale-105">
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-pink-400/10 via-purple-400/10 to-pink-400/10 opacity-50 group-hover:opacity-80 transition-opacity duration-500"></div>
                 <CardContent className="p-6 text-center relative z-10">
-                  <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full flex items-center justify-center">
+                  <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full flex items-center justify-center group-hover:shadow-lg transition-shadow duration-300">
                     <Heart className="w-6 h-6 text-white fill-current" />
                   </div>
-                  <h4 className="text-lg font-semibold mb-2">Endless</h4>
+                  <h4 className="text-lg font-semibold mb-2 text-pink-600">Endless</h4>
                   <p className="text-sm text-muted-foreground">Love & Passion</p>
+                  <div className="mt-2 text-xs opacity-70">⭐✨❤️🎁</div>
                 </CardContent>
               </Card>
               
-              <Card className="sparkle-button glass-premium group hover:shadow-lg transition-all duration-300 border-2 border-yellow-300/50 rounded-2xl relative overflow-hidden">
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-yellow-400/20 via-orange-400/20 to-yellow-400/20 animate-pulse opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="star-1">⭐</div>
-                <div className="star-2">✨</div>
-                <div className="star-3">❤️</div>
-                <div className="star-4">🎁</div>
-                <div className="star-5">⭐</div>
-                <div className="star-6">✨</div>
-                <div className="star-7">❤️</div>
-                <div className="star-8">🎁</div>
+              <Card className="glass-premium group hover:shadow-xl transition-all duration-500 border-2 border-yellow-300/50 rounded-2xl relative overflow-hidden hover:scale-105">
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-yellow-400/10 via-orange-400/10 to-yellow-400/10 opacity-50 group-hover:opacity-80 transition-opacity duration-500"></div>
                 <CardContent className="p-6 text-center relative z-10">
-                  <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center">
+                  <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center group-hover:shadow-lg transition-shadow duration-300">
                     <Sparkles className="w-6 h-6 text-white" />
                   </div>
-                  <h4 className="text-lg font-semibold mb-2">Pure</h4>
+                  <h4 className="text-lg font-semibold mb-2 text-yellow-600">Pure</h4>
                   <p className="text-sm text-muted-foreground">Magic & Wonder</p>
+                  <div className="mt-2 text-xs opacity-70">⭐✨❤️🎁</div>
                 </CardContent>
               </Card>
             </div>

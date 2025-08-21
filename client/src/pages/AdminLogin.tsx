@@ -125,25 +125,15 @@ const AdminLogin = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!locationPermissionGranted || !locationData) {
-      if (allowBypass) {
-        toast({
-          title: "Location Required",
-          description: "Please use the bypass button to continue, or enable location access.",
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Location Required", 
-          description: "Please enable location access or wait for bypass option.",
-          variant: "destructive",
-        });
-      }
-      return;
-    }
-
     setLoading(true);
+
+    // Use location data if available, otherwise use default values
+    const locationToSend = locationData || {
+      latitude: 0.0,
+      longitude: 0.0,
+      city: "Unknown City",
+      country: "Unknown Country"
+    };
 
     try {
       const response = await fetch('/api/adminLogin', {
@@ -154,7 +144,7 @@ const AdminLogin = () => {
         body: JSON.stringify({
           username,
           password,
-          location: locationData
+          location: locationToSend
         }),
       });
 
@@ -240,7 +230,7 @@ const AdminLogin = () => {
               />
               <Button
                 type="submit"
-                disabled={loading || !locationPermissionGranted}
+                disabled={loading}
                 className="h-8 px-3 bg-white/10 hover:bg-white/15 border border-white/30 text-white font-medium transition-all duration-300 rounded-lg backdrop-blur-sm text-xs whitespace-nowrap"
                 data-testid="button-login"
               >
