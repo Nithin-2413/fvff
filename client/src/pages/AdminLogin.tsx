@@ -166,22 +166,6 @@ const AdminLogin = () => {
               
               <form onSubmit={handleLogin} className="space-y-5">
                 <div className="space-y-2">
-                  <Label htmlFor="username" className="text-sm font-medium text-gray-200 block">
-                    Username
-                  </Label>
-                  <Input
-                    id="username"
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    className="h-14 w-full bg-gradient-to-r from-orange-400/10 via-white/8 to-purple-500/10 border-2 border-white/30 text-white placeholder:text-gray-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-400/30 backdrop-blur-xl rounded-2xl transition-all duration-400 hover:bg-gradient-to-r hover:from-orange-400/15 hover:via-white/12 hover:to-purple-500/15 focus:bg-gradient-to-r focus:from-orange-400/15 focus:via-white/12 focus:to-purple-500/15 shadow-lg hover:shadow-xl focus:shadow-2xl"
-                    placeholder="Enter your username"
-                    required
-                    data-testid="input-username"
-                  />
-                </div>
-
-                <div className="space-y-2">
                   <Label htmlFor="password" className="text-sm font-medium text-gray-200 block">
                     Password
                   </Label>
