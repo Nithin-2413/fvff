@@ -39,21 +39,21 @@ const Index = () => {
     {
       title: "Love Letters",
       description: "Express your deepest feelings with beautifully crafted love letters that speak directly to the heart.",
-      image: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=800&h=600&fit=crop",
+      image: "/attached_assets/generated_images/romantic_love_letter_envelope_5f91e768.png",
       price: "₹899",
       note: "Add-ons available based on specific requirements"
     },
     {
       title: "Gratitude Messages", 
       description: "Say thank you in the most meaningful way with personalized gratitude letters that touch souls.",
-      image: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=800&h=600&fit=crop",
+      image: "/attached_assets/generated_images/gratitude_letter_on_table_7a137446.png",
       price: "₹899",
       note: "Add-ons available based on specific requirements"
     },
     {
       title: "Apology Letters",
       description: "Mend hearts and relationships with sincere, heartfelt apology messages that heal wounds.",
-      image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=800&h=600&fit=crop",
+      image: "/attached_assets/generated_images/sad_apology_letter_envelope_56041cde.png",
       price: "₹799",
       note: "Add-ons available based on specific requirements"
     },
@@ -328,10 +328,10 @@ const Index = () => {
 
             <div className="text-center py-12 overflow-visible">
               <h3 className="text-4xl md:text-5xl font-bold mb-8 playfair-display leading-relaxed px-4">
-                <span className="bg-gradient-to-r from-primary via-purple-600 to-pink-600 bg-clip-text text-transparent block mb-2">
+                <span className="bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent block mb-2">
                   We're the translators
                 </span>
-                <span className="bg-gradient-to-r from-pink-600 via-rose-500 to-red-500 bg-clip-text text-transparent block">
+                <span className="bg-gradient-to-r from-purple-500 to-indigo-500 bg-clip-text text-transparent block">
                   of the heart.
                 </span>
               </h3>

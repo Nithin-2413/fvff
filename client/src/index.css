@@ -1286,3 +1286,38 @@ html {
     --hue: 360;
   }
 }
+
+/* Enhanced Focus Styles with Gradient Glow */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  border: 2px solid transparent !important;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(45deg, #ec4899, #8b5cf6, #3b82f6) border-box !important;
+  box-shadow: 0 0 20px rgba(236, 72, 153, 0.3),
+              0 0 40px rgba(139, 92, 246, 0.2),
+              0 0 60px rgba(59, 130, 246, 0.1) !important;
+  animation: gradientGlow 2s ease-in-out infinite alternate !important;
+}
+
+/* Dark mode focus styles */
+.dark input:focus,
+.dark textarea:focus,
+.dark select:focus {
+  background: linear-gradient(rgb(31, 41, 55), rgb(31, 41, 55)) padding-box,
+              linear-gradient(45deg, #ec4899, #8b5cf6, #3b82f6) border-box !important;
+}
+
+@keyframes gradientGlow {
+  0% {
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.3),
+                0 0 40px rgba(139, 92, 246, 0.2),
+                0 0 60px rgba(59, 130, 246, 0.1);
+  }
+  100% {
+    box-shadow: 0 0 30px rgba(236, 72, 153, 0.4),
+                0 0 50px rgba(139, 92, 246, 0.3),
+                0 0 70px rgba(59, 130, 246, 0.2);
+  }
+}
