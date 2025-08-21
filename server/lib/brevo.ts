@@ -136,7 +136,7 @@ export async function sendSubmissionEmail(params: EmailSubmissionParams): Promis
     const adminEmail = {
       "sender": {
         "email": "thewrittenhug@gmail.com",
-        "name": "The Written Hug System"
+        "name": "CEO - The Written Hug"
       },
       "to": [{
         "email": "thewrittenhug@gmail.com", 
