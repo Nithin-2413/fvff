@@ -7,7 +7,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useLocation } from 'wouter';
 import { LogIn, MapPin, Sparkles } from 'lucide-react';
 import logoImage from '@assets/Untitled design (2)_1755165830517.png';
-import SimpleStarBackground from '@/components/SimpleStarBackground';
+import ExactThreeBackground from '@/components/ExactThreeBackground';
 
 interface LocationData {
   latitude: number;
@@ -140,26 +140,27 @@ const AdminLogin = () => {
 
   return (
     <div className="min-h-screen bg-black overflow-hidden premium-scroll relative">
-      {/* Animated Particle Background */}
-      <SimpleStarBackground className="opacity-90" />
+      {/* Interactive 3D Background */}
+      <ExactThreeBackground />
 
 
       <div className="relative z-20 min-h-screen flex items-center justify-center p-6">
-        <div className="w-full max-w-md">
-          <Card className="border-white/20 shadow-2xl backdrop-blur-xl bg-black/30 ring-1 ring-white/10">
-            <CardHeader className="text-center space-y-4">
-              <div className="mx-auto w-16 h-16">
-                <img src="https://res.cloudinary.com/dwmybitme/image/upload/v1755357106/image_1_o0l7go.png" alt="The Written Hug" className="h-16 w-16 rounded-full object-cover shadow-lg transform scale-130" />
+        <div className="interactive-card">
+          <div className="glow"></div>
+          <div className="card-content">
+            <div className="w-full max-w-md space-y-6">
+              <div className="text-center space-y-4">
+                <div className="mx-auto w-16 h-16">
+                  <img src="https://res.cloudinary.com/dwmybitme/image/upload/v1755357106/image_1_o0l7go.png" alt="The Written Hug" className="h-16 w-16 rounded-full object-cover shadow-lg transform scale-130" />
+                </div>
+                <h1 className="text-3xl great-vibes-font bg-gradient-to-r from-orange-400 to-purple-400 bg-clip-text text-transparent">
+                  Admin Portal
+                </h1>
+                <p className="text-gray-300">
+                  The Written Hug - Admin Access
+                </p>
               </div>
-              <CardTitle className="text-3xl great-vibes-font bg-gradient-to-r from-orange-400 to-purple-400 bg-clip-text text-transparent">
-                Admin Portal
-              </CardTitle>
-              <p className="text-gray-300">
-                The Written Hug - Admin Access
-              </p>
-              {/* Location verification happens silently in background */}
-            </CardHeader>
-            <CardContent className="space-y-6">
+              
               <form onSubmit={handleLogin} className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="username" className="text-sm font-medium text-gray-200">
@@ -217,8 +218,8 @@ const AdminLogin = () => {
                   )}
                 </Button>
               </form>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
       </div>
     </div>
