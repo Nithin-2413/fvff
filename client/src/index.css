@@ -894,10 +894,10 @@ html {
 }
 
 .interactive-card {
-  --card-color: hsl(260deg 100% 3%);
-  --text-color: hsl(260deg 10% 55%);
-  --card-radius: 3.6vw;
-  --card-width: 35vw;
+  --card-color: hsla(260deg 100% 3% / 0.3);
+  --text-color: hsl(260deg 10% 75%);
+  --card-radius: min(3.6vw, 24px);
+  --card-width: min(90vw, 400px);
   --border-width: 3px;
   --bg-size: 1;
   --hue: 0;
@@ -908,12 +908,12 @@ html {
   --glow-scale: 1.5;
   --scale-factor: 1;
   --glow-blur: 6;
-  --glow-opacity: 1;
+  --glow-opacity: 0.8;
   --glow-radius: 100;
   --glow-rotate-unit: 1deg;
 
-  width: min(480px, var(--card-width));
-  aspect-ratio: 1.5/1;
+  width: var(--card-width);
+  min-height: auto;
   color: white;
   margin: auto;
   display: flex;
@@ -923,6 +923,8 @@ html {
   z-index: 2;
   border-radius: var(--card-radius);
   cursor: pointer;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .interactive-card:hover .card-content {
@@ -968,7 +970,8 @@ html {
   justify-content: center;
   font-weight: 800;
   color: var(--text-color);
-  padding: calc(var(--card-width) / 8);
+  padding: clamp(16px, 4vw, 32px);
+  backdrop-filter: blur(20px);
 }
 
 .card-content:before {
@@ -978,17 +981,17 @@ html {
   width: 100%;
   height: 100%;
   border-radius: calc(calc(var(--card-radius) * 0.9));
-  box-shadow: 0 0 20px black;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   mix-blend-mode: color-burn;
   z-index: -1;
-  background: hsl(0deg 0% 16%)
+  background: hsla(0deg 0% 16% / 0.2)
     radial-gradient(
       30% 30% at calc(var(--bg-x) * 1%) calc(var(--bg-y) * 1%),
-      hsl(calc(calc(var(--hue) * var(--hue-speed)) * 1deg) 100% 90%)
+      hsla(calc(calc(var(--hue) * var(--hue-speed)) * 1deg) 100% 90% / 0.4)
         calc(0% * var(--bg-size)),
-      hsl(calc(calc(var(--hue) * var(--hue-speed)) * 1deg) 100% 80%)
+      hsla(calc(calc(var(--hue) * var(--hue-speed)) * 1deg) 100% 80% / 0.3)
         calc(20% * var(--bg-size)),
-      hsl(calc(calc(var(--hue) * var(--hue-speed)) * 1deg) 100% 60%)
+      hsla(calc(calc(var(--hue) * var(--hue-speed)) * 1deg) 100% 60% / 0.2)
         calc(40% * var(--bg-size)),
       transparent 100%
     );
@@ -1003,12 +1006,12 @@ html {
   --glow-translate-y: 0;
   display: block;
   position: absolute;
-  width: calc(var(--card-width) / 5);
-  height: calc(var(--card-width) / 5);
+  width: min(80px, calc(var(--card-width) / 5));
+  height: min(80px, calc(var(--card-width) / 5));
   animation: rotate var(--animation-speed) linear infinite;
   transform: rotateZ(calc(var(--rotate) * var(--glow-rotate-unit)));
   transform-origin: center;
-  border-radius: calc(var(--glow-radius) * 10vw);
+  border-radius: calc(var(--glow-radius) * min(10vw, 60px));
 }
 
 .glow:after {
@@ -1020,9 +1023,9 @@ html {
   height: 130%;
   left: -15%;
   top: -15%;
-  background: hsl(calc(calc(var(--hue) * var(--hue-speed)) * 1deg) 100% 60%);
+  background: hsla(calc(calc(var(--hue) * var(--hue-speed)) * 1deg) 100% 60% / 0.8);
   position: relative;
-  border-radius: calc(var(--glow-radius) * 10vw);
+  border-radius: calc(var(--glow-radius) * min(10vw, 60px));
   animation: hue-animation var(--animation-speed) linear infinite;
   transform: scaleY(calc(var(--glow-scale) * var(--scale-factor) / 1.1))
     scaleX(calc(var(--glow-scale) * var(--scale-factor) * 1.2))
