@@ -149,10 +149,11 @@ const ContactForm = () => {
     try {
       const canvas = document.createElement('canvas');
       const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-      if (gl) {
-        const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+      if (gl && 'getExtension' in gl) {
+        const webglContext = gl as WebGLRenderingContext;
+        const debugInfo = webglContext.getExtension('WEBGL_debug_renderer_info');
         if (debugInfo) {
-          gpuInfo = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || 'Unknown-GPU';
+          gpuInfo = webglContext.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || 'Unknown-GPU';
         }
       }
     } catch (e) {
