@@ -438,7 +438,7 @@ const Index = () => {
             </div>
 
             <div className="text-center py-12 overflow-visible">
-              <h3 className="text-4xl md:text-5xl font-bold mb-8 leading-relaxed px-4">
+              <h3 className="text-5xl md:text-6xl font-bold mb-8 great-vibes-font leading-relaxed px-4">
                 <span className="bg-gradient-to-r from-primary via-purple-600 to-pink-600 bg-clip-text text-transparent block mb-2">
                   We're the translators
                 </span>
