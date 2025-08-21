@@ -144,7 +144,7 @@ const AdminLogin = () => {
       <ExactThreeBackground />
 
       <div className="relative z-50 min-h-screen px-4 py-4" style={{pointerEvents: 'none'}}>
-        <div className="compact-glassmorphism-card" style={{pointerEvents: 'auto', marginTop: window.innerWidth < 768 ? '24px' : '0px'}}>
+        <div className="compact-glassmorphism-card" style={{pointerEvents: 'auto', marginTop: window.innerWidth < 768 ? '48px' : '0px'}}>
           <div className="text-center mb-3">
             <p className="playfair-display text-sm font-bold bg-gradient-to-r from-amber-400 via-purple-400 to-violet-500 bg-clip-text text-transparent" style={{
               backgroundImage: 'linear-gradient(45deg, #fbbf24, #a855f7, #8b5cf6)',
