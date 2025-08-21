@@ -25,13 +25,13 @@ const ExactThreeBackground = () => {
       scene.background = new THREE.Color(0x160016);
       let camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 1, 1000);
       camera.position.set(0, 4, 21);
-      let renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
+      let renderer = new THREE.WebGLRenderer({antialias: true, alpha: false});
       renderer.setSize(innerWidth, innerHeight);
       renderer.domElement.style.position = 'fixed';
       renderer.domElement.style.top = '0';
       renderer.domElement.style.left = '0';
       renderer.domElement.style.zIndex = '1';
-      renderer.domElement.style.pointerEvents = 'none';
+      renderer.domElement.style.pointerEvents = 'auto';
       
       const mountElement = document.getElementById('three-background-mount');
       if (mountElement) {
@@ -47,8 +47,6 @@ const ExactThreeBackground = () => {
       let controls = new OrbitControls(camera, renderer.domElement);
       controls.enableDamping = true;
       controls.enablePan = false;
-      controls.autoRotate = true;
-      controls.autoRotateSpeed = 0.5;
 
       let gu = {
         time: {value: 0}
@@ -134,16 +132,13 @@ const ExactThreeBackground = () => {
 
       let clock = new THREE.Clock();
 
-      const animate = () => {
-        requestAnimationFrame(animate);
+      renderer.setAnimationLoop(() => {
         controls.update();
         let t = clock.getElapsedTime() * 0.5;
         gu.time.value = t * Math.PI;
         p.rotation.y = t * 0.05;
         renderer.render(scene, camera);
-      };
-      
-      animate();
+      });
 
       // Cleanup function
       window.threeCleanup = () => {

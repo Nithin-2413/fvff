@@ -143,8 +143,8 @@ const AdminLogin = () => {
       {/* Interactive 3D Background */}
       <ExactThreeBackground />
 
-      <div className="relative z-20 min-h-screen flex items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
-        <div className="interactive-card w-full">
+      <div className="relative z-50 min-h-screen flex items-center justify-center px-4 py-8 sm:px-6 lg:px-8" style={{pointerEvents: 'none'}}>
+        <div className="interactive-card w-full" style={{pointerEvents: 'auto'}}>
           <div className="glow"></div>
           <div className="card-content">
             <div className="w-full space-y-6">
