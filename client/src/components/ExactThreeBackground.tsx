@@ -1,47 +1,54 @@
-import React, { useRef, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
-interface ExactThreeBackgroundProps {
-  className?: string;
+declare global {
+  interface Window {
+    threeCleanup?: () => void;
+  }
 }
 
-const ExactThreeBackground: React.FC<ExactThreeBackgroundProps> = ({ className = '' }) => {
+const ExactThreeBackground = () => {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!mountRef.current) return;
 
+    // Create script element for Three.js
     const script = document.createElement('script');
     script.type = 'module';
-    script.textContent = `
+    script.innerHTML = `
       import * as THREE from "https://cdn.skypack.dev/three@0.136.0";
       import {OrbitControls} from "https://cdn.skypack.dev/three@0.136.0/examples/jsm/controls/OrbitControls";
-
-      (() => {
-        const container = document.getElementById('exact-three-container');
-        if (!container) {
-          console.warn('Container not found');
-          return;
-        }
 
       console.clear();
 
       let scene = new THREE.Scene();
       scene.background = new THREE.Color(0x160016);
-      let camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 1, 1000);
+      let camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 1, 1000);
       camera.position.set(0, 4, 21);
-      let renderer = new THREE.WebGLRenderer();
-      renderer.setSize(container.clientWidth, container.clientHeight);
-      container.appendChild(renderer.domElement);
+      let renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
+      renderer.setSize(innerWidth, innerHeight);
+      renderer.domElement.style.position = 'fixed';
+      renderer.domElement.style.top = '0';
+      renderer.domElement.style.left = '0';
+      renderer.domElement.style.zIndex = '1';
+      renderer.domElement.style.pointerEvents = 'none';
       
+      const mountElement = document.getElementById('three-background-mount');
+      if (mountElement) {
+        mountElement.appendChild(renderer.domElement);
+      }
+
       window.addEventListener("resize", event => {
-        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.aspect = innerWidth / innerHeight;
         camera.updateProjectionMatrix();
-        renderer.setSize(container.clientWidth, container.clientHeight);
-      });
+        renderer.setSize(innerWidth, innerHeight);
+      })
 
       let controls = new OrbitControls(camera, renderer.domElement);
       controls.enableDamping = true;
       controls.enablePan = false;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.5;
 
       let gu = {
         time: {value: 0}
@@ -123,37 +130,45 @@ const ExactThreeBackground: React.FC<ExactThreeBackgroundProps> = ({ className =
       let p = new THREE.Points(g, m);
       p.rotation.order = "ZYX";
       p.rotation.z = 0.2;
-      scene.add(p);
+      scene.add(p)
 
       let clock = new THREE.Clock();
 
-      renderer.setAnimationLoop(() => {
+      const animate = () => {
+        requestAnimationFrame(animate);
         controls.update();
         let t = clock.getElapsedTime() * 0.5;
         gu.time.value = t * Math.PI;
         p.rotation.y = t * 0.05;
         renderer.render(scene, camera);
-      });
-      })();
+      };
+      
+      animate();
+
+      // Cleanup function
+      window.threeCleanup = () => {
+        if (renderer) {
+          renderer.dispose();
+          if (renderer.domElement && renderer.domElement.parentNode) {
+            renderer.domElement.parentNode.removeChild(renderer.domElement);
+          }
+        }
+      };
     `;
-    
+
     document.head.appendChild(script);
 
     return () => {
+      if (window.threeCleanup) {
+        window.threeCleanup();
+      }
       if (script.parentNode) {
         script.parentNode.removeChild(script);
       }
     };
   }, []);
 
-  return (
-    <div 
-      id="exact-three-container"
-      ref={mountRef} 
-      className={`absolute inset-0 w-full h-full ${className}`}
-      style={{ zIndex: 1 }}
-    />
-  );
+  return <div id="three-background-mount" ref={mountRef} className="fixed inset-0 z-1" />;
 };
 
 export default ExactThreeBackground;
