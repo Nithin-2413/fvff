@@ -54,27 +54,115 @@ const ContactForm = () => {
   const [locationStatus, setLocationStatus] = useState<'requesting' | 'granted' | 'denied'>('requesting');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Get device information
+  // Get comprehensive device information
   const getDeviceInfo = (): DeviceInfo => {
     const ua = navigator.userAgent;
     let platform = 'Unknown';
     let browser = 'Unknown';
     
-    // Detect platform
-    if (ua.includes('Windows')) platform = 'Windows';
-    else if (ua.includes('Mac OS')) platform = 'macOS';
+    // Accurate platform detection
+    if (ua.includes('Windows NT 10.0')) platform = 'Windows 10/11';
+    else if (ua.includes('Windows NT 6.3')) platform = 'Windows 8.1';
+    else if (ua.includes('Windows NT 6.1')) platform = 'Windows 7';
+    else if (ua.includes('Windows')) platform = 'Windows';
+    else if (ua.includes('Intel Mac OS X')) {
+      const macMatch = ua.match(/Mac OS X (\d+_\d+_?\d*)/);
+      if (macMatch) {
+        const version = macMatch[1].replace(/_/g, '.');
+        platform = `macOS ${version}`;
+      } else {
+        platform = 'macOS';
+      }
+    }
+    else if (ua.includes('Linux') && ua.includes('Android')) {
+      const androidMatch = ua.match(/Android (\d+\.?\d*\.?\d*)/);
+      if (androidMatch) {
+        platform = `Android ${androidMatch[1]}`;
+      } else {
+        platform = 'Android';
+      }
+    }
+    else if (ua.includes('iPhone OS')) {
+      const iosMatch = ua.match(/iPhone OS (\d+_\d+_?\d*)/);
+      if (iosMatch) {
+        const version = iosMatch[1].replace(/_/g, '.');
+        platform = `iOS ${version}`;
+      } else {
+        platform = 'iOS';
+      }
+    }
+    else if (ua.includes('iPad')) {
+      const ipadMatch = ua.match(/OS (\d+_\d+_?\d*)/);
+      if (ipadMatch) {
+        const version = ipadMatch[1].replace(/_/g, '.');
+        platform = `iPadOS ${version}`;
+      } else {
+        platform = 'iPadOS';
+      }
+    }
     else if (ua.includes('Linux')) platform = 'Linux';
-    else if (ua.includes('Android')) platform = 'Android';
-    else if (ua.includes('iPhone') || ua.includes('iPad')) platform = 'iOS';
+    else if (ua.includes('CrOS')) platform = 'Chrome OS';
 
-    // Detect browser
-    if (ua.includes('Chrome') && !ua.includes('Edge')) browser = 'Chrome';
-    else if (ua.includes('Safari') && !ua.includes('Chrome')) browser = 'Safari';
-    else if (ua.includes('Firefox')) browser = 'Firefox';
-    else if (ua.includes('Edge')) browser = 'Edge';
+    // Accurate browser detection with versions
+    if (ua.includes('Edg/')) {
+      const edgeMatch = ua.match(/Edg\/(\d+\.\d+)/);
+      browser = edgeMatch ? `Edge ${edgeMatch[1]}` : 'Edge';
+    }
+    else if (ua.includes('Chrome/') && !ua.includes('Edg')) {
+      const chromeMatch = ua.match(/Chrome\/(\d+\.\d+)/);
+      browser = chromeMatch ? `Chrome ${chromeMatch[1]}` : 'Chrome';
+    }
+    else if (ua.includes('Safari/') && !ua.includes('Chrome')) {
+      const safariMatch = ua.match(/Version\/(\d+\.\d+)/);
+      browser = safariMatch ? `Safari ${safariMatch[1]}` : 'Safari';
+    }
+    else if (ua.includes('Firefox/')) {
+      const firefoxMatch = ua.match(/Firefox\/(\d+\.\d+)/);
+      browser = firefoxMatch ? `Firefox ${firefoxMatch[1]}` : 'Firefox';
+    }
+    else if (ua.includes('Opera/') || ua.includes('OPR/')) {
+      const operaMatch = ua.match(/(?:Opera\/|OPR\/)(\d+\.\d+)/);
+      browser = operaMatch ? `Opera ${operaMatch[1]}` : 'Opera';
+    }
+
+    // Additional comprehensive device details
+    const screenInfo = `${screen.width}x${screen.height}`;
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const language = navigator.language;
+    const colorDepth = screen.colorDepth;
+    const pixelDepth = screen.pixelDepth;
+    const touchSupport = 'ontouchstart' in window ? 'Touch' : 'No-Touch';
+    const cookiesEnabled = navigator.cookieEnabled ? 'Cookies-On' : 'Cookies-Off';
+    
+    // Hardware concurrency (CPU cores)
+    const cpuCores = navigator.hardwareConcurrency || 'Unknown';
+    
+    // Memory info (if available)
+    const memory = (navigator as any).deviceMemory ? `${(navigator as any).deviceMemory}GB-RAM` : 'Unknown-RAM';
+    
+    // Connection info (if available)
+    const connection = (navigator as any).connection;
+    const networkType = connection ? connection.effectiveType || 'Unknown-Network' : 'Unknown-Network';
+    
+    // WebGL renderer (if available for device fingerprinting)
+    let gpuInfo = 'Unknown-GPU';
+    try {
+      const canvas = document.createElement('canvas');
+      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      if (gl) {
+        const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+        if (debugInfo) {
+          gpuInfo = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || 'Unknown-GPU';
+        }
+      }
+    } catch (e) {
+      gpuInfo = 'Unknown-GPU';
+    }
+    
+    const deviceName = `${platform} | ${browser} | ${screenInfo} | ${language} | ${timezone} | ${touchSupport} | ${cookiesEnabled} | ${cpuCores}cores | ${memory} | ${networkType}`;
     
     return {
-      name: `${platform} - ${browser}`,
+      name: deviceName,
       platform,
       browser,
       userAgent: ua
