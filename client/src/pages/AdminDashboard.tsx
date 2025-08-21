@@ -265,25 +265,25 @@ const AdminDashboard = () => {
       {/* Header */}
       <div className="bg-white shadow-sm border-b border-rose-100 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center space-x-3">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 gap-4">
+            <div className="flex items-center space-x-3 min-w-0 flex-1">
               <img src="https://res.cloudinary.com/dwmybitme/image/upload/v1755357106/image_1_o0l7go.png" alt="Logo" className="h-8 w-8" />
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
-                <p className="text-sm text-gray-500">The Written Hug Management</p>
+                <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Admin Dashboard</h1>
+                <p className="text-xs sm:text-sm text-gray-500">The Written Hug Management</p>
               </div>
             </div>
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
               <Button 
                 onClick={() => window.open('/', '_blank')} 
                 variant="outline" 
                 size="sm"
-                className="flex items-center space-x-2 rounded-full"
+                className="flex items-center space-x-1 sm:space-x-2 rounded-full text-xs sm:text-sm"
               >
                 <Globe className="w-4 h-4" />
-                <span>Written Hug</span>
+                <span className="hidden sm:inline">Written Hug</span>
               </Button>
-              <Button onClick={handleLogout} variant="outline" size="sm" className="rounded-full">
+              <Button onClick={handleLogout} variant="outline" size="sm" className="rounded-full text-xs sm:text-sm">
                 Logout
               </Button>
             </div>
@@ -456,7 +456,7 @@ const AdminDashboard = () => {
                               </div>
                               
                               <div>
-                                <Badge className={`text-xs border ${getStatusColor(hug.Status)}`}>
+                                <Badge className={`text-xs border hover:opacity-80 transition-opacity ${getStatusColor(hug.Status)}`}>
                                   {hug.Status || 'New'}
                                 </Badge>
                               </div>

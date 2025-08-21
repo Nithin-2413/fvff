@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { Link, useParams, useLocation } from 'wouter';
 import { ArrowLeft, Send, Calendar, Mail, User, Heart, Phone, Package, Sparkles, MapPin } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import backgroundMusic from '@assets/WhatsApp Audio 2025-08-15 at 12.09.54 AM_1755197391594.mp4';
 
 interface Hug {
@@ -48,6 +49,8 @@ const AdminConversation = () => {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [currentStatus, setCurrentStatus] = useState(hug?.Status || 'New');
+  const [updatingStatus, setUpdatingStatus] = useState(false);
 
   // Initialize background music and finisher header animation
   useEffect(() => {
@@ -189,6 +192,13 @@ const AdminConversation = () => {
     }
   }, [id]);
 
+  // Update current status when hug data loads
+  useEffect(() => {
+    if (hug) {
+      setCurrentStatus(hug.Status || 'New');
+    }
+  }, [hug]);
+
   const fetchConversation = async () => {
     try {
       const response = await fetch(`/api/getConversation?hugid=${id}`);
@@ -212,6 +222,45 @@ const AdminConversation = () => {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Function to handle status update
+  const handleStatusUpdate = async (newStatus: string) => {
+    if (!hug || newStatus === currentStatus) return;
+    
+    setUpdatingStatus(true);
+    try {
+      const response = await fetch('/api/updateOrderStatus', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: hug.id,
+          status: newStatus
+        }),
+      });
+
+      if (response.ok) {
+        setCurrentStatus(newStatus);
+        setHug({ ...hug, Status: newStatus });
+        toast({
+          title: "Status Updated",
+          description: `Order status changed to ${newStatus}`,
+        });
+      } else {
+        throw new Error('Failed to update status');
+      }
+    } catch (error) {
+      console.error('Error updating status:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update order status",
+        variant: "destructive",
+      });
+    } finally {
+      setUpdatingStatus(false);
     }
   };
 
@@ -462,13 +511,22 @@ const AdminConversation = () => {
                 </div>
                 <div className="p-3 bg-purple-50 rounded-lg">
                   <Label className="text-sm font-medium text-purple-700">Status</Label>
-                  <div className="mt-2">
-                    <Badge 
-                      variant={hug.Status === 'New' ? 'default' : 'secondary'}
-                      className={hug.Status === 'New' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}
-                    >
-                      {hug.Status}
-                    </Badge>
+                  <div className="mt-2 space-y-2">
+                    <Select value={currentStatus} onValueChange={handleStatusUpdate} disabled={updatingStatus}>
+                      <SelectTrigger className="border-purple-200 focus:border-purple-300 focus:ring-purple-200">
+                        <SelectValue placeholder="Select status" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="New">New</SelectItem>
+                        <SelectItem value="In Progress">In Progress</SelectItem>
+                        <SelectItem value="Replied">Replied</SelectItem>
+                        <SelectItem value="Client Replied">Client Replied</SelectItem>
+                        <SelectItem value="Completed">Completed</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {updatingStatus && (
+                      <p className="text-xs text-purple-600">Updating status...</p>
+                    )}
                   </div>
                 </div>
               </div>

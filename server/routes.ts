@@ -431,6 +431,47 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Update order status endpoint
+  app.post('/api/updateOrderStatus', async (req, res) => {
+    try {
+      const { id, status } = req.body;
+
+      if (!id || !status) {
+        return res.status(400).json({
+          success: false,
+          message: 'Missing id or status'
+        });
+      }
+
+      // Update the status in Supabase
+      const { data, error } = await supabaseAdmin
+        .from('written hug')
+        .update({ Status: status })
+        .eq('id', id)
+        .select();
+
+      if (error) {
+        console.error('Supabase error updating status:', error);
+        return res.status(500).json({
+          success: false,
+          message: 'Failed to update status'
+        });
+      }
+
+      return res.json({
+        success: true,
+        message: 'Status updated successfully',
+        data: data
+      });
+    } catch (error) {
+      console.error('Error updating order status:', error);
+      return res.status(500).json({
+        success: false,
+        message: 'Internal server error'
+      });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
