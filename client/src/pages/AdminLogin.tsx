@@ -146,8 +146,13 @@ const AdminLogin = () => {
       <div className="relative z-50 min-h-screen px-4 py-4" style={{pointerEvents: 'none'}}>
         <div className="compact-glassmorphism-card" style={{pointerEvents: 'auto'}}>
           <div className="text-center mb-3">
-            <p className="playfair-display-font text-lg font-semibold bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 bg-clip-text text-transparent">
-              Yoo Chipmunk<br />Lets Verify whether its you!
+            <p className="playfair-display text-sm font-bold bg-gradient-to-r from-amber-400 via-yellow-300 to-orange-400 bg-clip-text text-transparent" style={{
+              backgroundImage: 'linear-gradient(45deg, #fbbf24, #fde047, #fb923c)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>
+              Yoo Chipmunk, Lets Verify whether its you!
             </p>
           </div>
           <form onSubmit={handleLogin} className="space-y-3">

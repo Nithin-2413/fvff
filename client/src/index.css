@@ -283,6 +283,11 @@
   .great-vibes-font {
     font-family: 'Great Vibes', cursive;
   }
+  
+  .playfair-display {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+  }
 }
 
 /* Glass effect for premium navbar */
