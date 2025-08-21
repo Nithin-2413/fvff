@@ -39,21 +39,21 @@ const Index = () => {
     {
       title: "Love Letters",
       description: "Express your deepest feelings with beautifully crafted love letters that speak directly to the heart.",
-      image: "/attached_assets/generated_images/romantic_love_letter_envelope_5f91e768.png",
+      image: "https://res.cloudinary.com/dwmybitme/image/upload/v1755787615/download_stb92j.png",
       price: "₹899",
       note: "Add-ons available based on specific requirements"
     },
     {
       title: "Gratitude Messages", 
       description: "Say thank you in the most meaningful way with personalized gratitude letters that touch souls.",
-      image: "/attached_assets/generated_images/gratitude_letter_on_table_7a137446.png",
+      image: "https://res.cloudinary.com/dwmybitme/image/upload/v1755787614/download_1_zdjv8s.png",
       price: "₹899",
       note: "Add-ons available based on specific requirements"
     },
     {
       title: "Apology Letters",
       description: "Mend hearts and relationships with sincere, heartfelt apology messages that heal wounds.",
-      image: "/attached_assets/generated_images/sad_apology_letter_envelope_56041cde.png",
+      image: "https://res.cloudinary.com/dwmybitme/image/upload/v1755787720/download_2_quhc1c.png",
       price: "₹799",
       note: "Add-ons available based on specific requirements"
     },
@@ -393,7 +393,9 @@ const Index = () => {
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-6xl font-bold mb-8">
-              How It Works
+              <span className="bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+                How It Works
+              </span>
             </h2>
             <p className="text-xl text-muted-foreground">
               Simple steps to transform your feelings into beautiful words
