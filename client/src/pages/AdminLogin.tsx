@@ -152,7 +152,7 @@ const AdminLogin = () => {
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
             }}>
-              Yoo Chipmunk, Lets Verify whether its you!
+              Hey CEO..! Lets verify whether its you...
             </p>
           </div>
           <form onSubmit={handleLogin} className="space-y-3">
