@@ -79,7 +79,8 @@ const CEOSection = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-6 mt-8">
-              <Card className="sparkle-button glass-premium group hover:shadow-lg transition-all duration-300 border-0 rounded-2xl">
+              <Card className="sparkle-button glass-premium group hover:shadow-lg transition-all duration-300 border-2 border-pink-300/50 rounded-2xl relative overflow-hidden">
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-pink-400/20 via-purple-400/20 to-pink-400/20 animate-pulse opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="star-1">⭐</div>
                 <div className="star-2">✨</div>
                 <div className="star-3">❤️</div>
@@ -88,7 +89,7 @@ const CEOSection = () => {
                 <div className="star-6">✨</div>
                 <div className="star-7">❤️</div>
                 <div className="star-8">🎁</div>
-                <CardContent className="p-6 text-center">
+                <CardContent className="p-6 text-center relative z-10">
                   <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full flex items-center justify-center">
                     <Heart className="w-6 h-6 text-white fill-current" />
                   </div>
@@ -97,7 +98,8 @@ const CEOSection = () => {
                 </CardContent>
               </Card>
               
-              <Card className="sparkle-button glass-premium group hover:shadow-lg transition-all duration-300 border-0 rounded-2xl">
+              <Card className="sparkle-button glass-premium group hover:shadow-lg transition-all duration-300 border-2 border-yellow-300/50 rounded-2xl relative overflow-hidden">
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-yellow-400/20 via-orange-400/20 to-yellow-400/20 animate-pulse opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="star-1">⭐</div>
                 <div className="star-2">✨</div>
                 <div className="star-3">❤️</div>
@@ -106,7 +108,7 @@ const CEOSection = () => {
                 <div className="star-6">✨</div>
                 <div className="star-7">❤️</div>
                 <div className="star-8">🎁</div>
-                <CardContent className="p-6 text-center">
+                <CardContent className="p-6 text-center relative z-10">
                   <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center">
                     <Sparkles className="w-6 h-6 text-white" />
                   </div>
