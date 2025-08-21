@@ -79,7 +79,7 @@ const CEOSection = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-6 mt-8">
-              <Card className="sparkle-button glass-premium group hover:shadow-2xl hover:scale-105 transition-all duration-500 border-2 border-pink-200/50 rounded-2xl bg-gradient-to-br from-pink-50/80 to-purple-50/80 hover:from-pink-100/90 hover:to-purple-100/90">
+              <Card className="sparkle-button glass-premium group hover:shadow-lg transition-all duration-300 border-0 rounded-2xl">
                 <div className="star-1">⭐</div>
                 <div className="star-2">✨</div>
                 <div className="star-3">❤️</div>
@@ -88,16 +88,16 @@ const CEOSection = () => {
                 <div className="star-6">✨</div>
                 <div className="star-7">❤️</div>
                 <div className="star-8">🎁</div>
-                <CardContent className="p-8 text-center">
-                  <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300">
-                    <Heart className="w-8 h-8 text-white fill-current group-hover:scale-110 transition-transform duration-300" />
+                <CardContent className="p-6 text-center">
+                  <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full flex items-center justify-center">
+                    <Heart className="w-6 h-6 text-white fill-current" />
                   </div>
-                  <h4 className="text-2xl font-bold mb-3 bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">Endless</h4>
-                  <p className="text-lg font-semibold text-pink-700">Love & Passion</p>
+                  <h4 className="text-lg font-semibold mb-2">Endless</h4>
+                  <p className="text-sm text-muted-foreground">Love & Passion</p>
                 </CardContent>
               </Card>
               
-              <Card className="sparkle-button glass-premium group hover:shadow-2xl hover:scale-105 transition-all duration-500 border-2 border-yellow-200/50 rounded-2xl bg-gradient-to-br from-yellow-50/80 to-orange-50/80 hover:from-yellow-100/90 hover:to-orange-100/90">
+              <Card className="sparkle-button glass-premium group hover:shadow-lg transition-all duration-300 border-0 rounded-2xl">
                 <div className="star-1">⭐</div>
                 <div className="star-2">✨</div>
                 <div className="star-3">❤️</div>
@@ -106,12 +106,12 @@ const CEOSection = () => {
                 <div className="star-6">✨</div>
                 <div className="star-7">❤️</div>
                 <div className="star-8">🎁</div>
-                <CardContent className="p-8 text-center">
-                  <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300">
-                    <Sparkles className="w-8 h-8 text-white group-hover:scale-110 transition-transform duration-300" />
+                <CardContent className="p-6 text-center">
+                  <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center">
+                    <Sparkles className="w-6 h-6 text-white" />
                   </div>
-                  <h4 className="text-2xl font-bold mb-3 bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">Pure</h4>
-                  <p className="text-lg font-semibold text-orange-700">Magic & Wonder</p>
+                  <h4 className="text-lg font-semibold mb-2">Pure</h4>
+                  <p className="text-sm text-muted-foreground">Magic & Wonder</p>
                 </CardContent>
               </Card>
             </div>
