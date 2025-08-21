@@ -38,7 +38,7 @@ const CEOSection = () => {
           <div className="relative flex justify-center lg:justify-end">
             <div className="ceo-image-container">
               <img
-                src="https://res.cloudinary.com/dwmybitme/image/upload/v1755611787/1755611700815_uibhfu.png"
+                src="https://res.cloudinary.com/dwmybitme/image/upload/v1755754989/Picsart_25-08-21_10-57-51-782_xvvkyq.png"
                 alt="Onaamika Sadguru"
                 className="ceo-image w-96 h-96 object-contain"
                 style={{
