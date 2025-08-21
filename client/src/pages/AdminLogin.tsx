@@ -144,90 +144,46 @@ const AdminLogin = () => {
       <ExactThreeBackground />
 
       <div className="relative z-50 min-h-screen flex items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
-        <div className="interactive-card w-full">
-          <div className="glow"></div>
-          <div className="card-content">
-            <div className="w-full space-y-6">
-              <div className="text-center space-y-4">
-                <div className="mx-auto w-16 h-16 sm:w-20 sm:h-20">
-                  <img 
-                    src="https://res.cloudinary.com/dwmybitme/image/upload/v1755357106/image_1_o0l7go.png" 
-                    alt="The Written Hug" 
-                    className="h-16 w-16 sm:h-20 sm:w-20 rounded-full object-cover shadow-lg transform hover:scale-110 transition-transform duration-300" 
-                  />
-                </div>
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl great-vibes-font bg-gradient-to-r from-orange-400 via-pink-400 to-purple-400 bg-clip-text text-transparent animate-pulse">
-                  Admin Portal
-                </h1>
-                <p className="text-gray-300 text-sm sm:text-base font-light">
-                  The Written Hug - Secure Admin Access
-                </p>
-              </div>
-              
-              <form onSubmit={handleLogin} className="space-y-5">
-                <div className="space-y-2">
-                  <Label htmlFor="password" className="text-sm font-medium text-gray-200 block">
-                    Password
-                  </Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="h-14 w-full bg-gradient-to-r from-purple-500/10 via-white/8 to-orange-400/10 border-2 border-white/30 text-white placeholder:text-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-400/30 backdrop-blur-xl rounded-2xl transition-all duration-400 hover:bg-gradient-to-r hover:from-purple-500/15 hover:via-white/12 hover:to-orange-400/15 focus:bg-gradient-to-r focus:from-purple-500/15 focus:via-white/12 focus:to-orange-400/15 shadow-lg hover:shadow-xl focus:shadow-2xl"
-                    placeholder="Enter your password"
-                    required
-                    data-testid="input-password"
-                  />
-                </div>
+        <div className="simple-glassmorphism-card">
+          <form onSubmit={handleLogin} className="space-y-4">
+            <Input
+              id="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="h-12 w-full bg-white/5 border border-white/20 text-white placeholder:text-gray-300 focus:border-white/40 focus:ring-1 focus:ring-white/20 backdrop-blur-md rounded-xl transition-all duration-300"
+              placeholder="Username"
+              required
+              data-testid="input-username"
+            />
 
-                <div className="pt-2">
-                  <Button
-                    type="submit"
-                    disabled={loading || !locationPermissionGranted}
-                    className="w-full h-16 bg-gradient-to-r from-orange-400 via-pink-500 to-purple-600 hover:from-orange-500 hover:via-pink-600 hover:to-purple-700 text-white font-bold text-lg transition-all duration-500 shadow-2xl hover:shadow-3xl disabled:opacity-50 rounded-2xl backdrop-blur-xl transform hover:scale-105 active:scale-95 sparkle-button border-2 border-white/20 hover:border-white/30"
-                    data-testid="button-login"
-                  >
-                    <div className="star-1">✦</div>
-                    <div className="star-2">✧</div>
-                    <div className="star-3">✦</div>
-                    <div className="star-4">✧</div>
-                    <div className="star-5">✦</div>
-                    <div className="star-6">✧</div>
-                    <div className="star-7">✦</div>
-                    <div className="star-8">✧</div>
-                    {loading ? (
-                      <div className="flex items-center justify-center space-x-2">
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                        <span className="text-sm sm:text-base">Authenticating...</span>
-                      </div>
-                    ) : !locationPermissionGranted ? (
-                      <div className="flex items-center justify-center space-x-2">
-                        <MapPin className="h-5 w-5" />
-                        <span className="text-sm sm:text-base">Securing Connection...</span>
-                      </div>
-                    ) : (
-                      <div className="flex items-center justify-center space-x-2">
-                        <LogIn className="h-5 w-5" />
-                        <span className="text-sm sm:text-base font-medium">Access Portal</span>
-                      </div>
-                    )}
-                  </Button>
-                </div>
+            <Input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="h-12 w-full bg-white/5 border border-white/20 text-white placeholder:text-gray-300 focus:border-white/40 focus:ring-1 focus:ring-white/20 backdrop-blur-md rounded-xl transition-all duration-300"
+              placeholder="Password"
+              required
+              data-testid="input-password"
+            />
 
-                {locationData && (
-                  <div className="text-center text-xs text-gray-300 mt-4 p-3 bg-white/8 rounded-xl backdrop-blur-lg border border-white/10 shadow-lg">
-                    <div className="flex items-center justify-center space-x-2">
-                      <MapPin className="h-3 w-3 text-orange-400" />
-                      <span className="font-medium">
-                        Secured from {locationData.city || 'Unknown'}, {locationData.country || 'Location'}
-                      </span>
-                    </div>
-                  </div>
-                )}
-              </form>
-            </div>
-          </div>
+            <Button
+              type="submit"
+              disabled={loading || !locationPermissionGranted}
+              className="w-full h-12 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-medium transition-all duration-300 rounded-xl backdrop-blur-md transform hover:scale-105"
+              data-testid="button-login"
+            >
+              {loading ? (
+                <div className="flex items-center justify-center space-x-2">
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  <span>Login</span>
+                </div>
+              ) : (
+                <span>Login</span>
+              )}
+            </Button>
+          </form>
         </div>
       </div>
     </div>
