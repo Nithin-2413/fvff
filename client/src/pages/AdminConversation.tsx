@@ -1,15 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Button } from '@/components/ui/button';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { useToast } from '@/hooks/use-toast';
-import { Link, useParams, useLocation } from 'wouter';
-import { ArrowLeft, Send, Calendar, Mail, User, Heart, Phone, Package, Sparkles, MapPin } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import backgroundMusic from '@assets/WhatsApp Audio 2025-08-15 at 12.09.54 AM_1755197391594.mp4';
+import { useToast } from '@/hooks/use-toast';
+import { ArrowLeft, Send, User, Mail, Phone, MessageSquare, Clock, MapPin, Heart, Star, Globe } from 'lucide-react';
+import { useLocation, useParams } from 'wouter';
+import { useBackgroundMusic } from '@/hooks/useBackgroundMusic';
 
 interface Hug {
   id: string;
@@ -46,135 +44,17 @@ const AdminConversation = () => {
   const [adminName, setAdminName] = useState('CEO-The Written Hug');
   const [sending, setSending] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
-  const [, setLocation] = useLocation();
   const { toast } = useToast();
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const [, setLocation] = useLocation();
+  const audioRef = useBackgroundMusic(0.32);
   const [currentStatus, setCurrentStatus] = useState(hug?.Status || 'New');
   const [updatingStatus, setUpdatingStatus] = useState(false);
 
-  // Initialize background music and finisher header animation
   useEffect(() => {
-    // Setup background music
-    const setupBackgroundMusic = () => {
-      if (audioRef.current) {
-        const audio = audioRef.current;
-        audio.volume = 0.32;
-        audio.loop = true;
-        audio.preload = 'auto';
-        audio.autoplay = true;
-        audio.muted = false;
-
-        // Enhanced auto-play for all devices including mobile  
-        const playMusic = async () => {
-          // Strategy 1: Direct play
-          try {
-            await audio.play();
-            console.log('Music started automatically');
-            return;
-          } catch (e) {
-            console.log('Direct play failed, trying muted approach');
-          }
-
-          // Strategy 2: Muted play then unmute
-          try {
-            audio.muted = true;
-            await audio.play();
-            audio.muted = false;
-            console.log('Music started with muted workaround');
-            return;
-          } catch (e) {
-            console.log('Muted approach failed, setting up interaction listeners');
-          }
-
-          // Strategy 3: Comprehensive interaction listeners for mobile
-          const startMusic = async () => {
-            try {
-              await audio.play();
-              console.log('Music started on user interaction');
-              ['click', 'touchstart', 'touchend', 'touchmove', 'scroll', 'mousemove', 'keydown', 'focus'].forEach(event => {
-                document.removeEventListener(event, startMusic);
-                window.removeEventListener(event, startMusic);
-              });
-            } catch (err) {
-              console.log('Failed to start music even with interaction:', err);
-            }
-          };
-
-          ['click', 'touchstart', 'touchend', 'touchmove', 'scroll', 'mousemove', 'keydown'].forEach(event => {
-            document.addEventListener(event, startMusic, { once: true, passive: true });
-          });
-          ['focus', 'blur', 'resize', 'orientationchange'].forEach(event => {
-            window.addEventListener(event, startMusic, { once: true });
-          });
-
-          // Special mobile device handling
-          if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            setTimeout(() => {
-              if (audio.paused) {
-                console.log('Mobile device detected, trying delayed start');
-                playMusic();
-              }
-            }, 1500);
-          }
-        };
-
-        // Start music
-        playMusic();
-      }
-    };
-
-    setupBackgroundMusic();
-
-    // Initialize finisher header animation
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/finisher-header@1.7.6/dist/finisher-header.es5.min.js';
-    script.onload = () => {
-      if (window.FinisherHeader) {
-        new window.FinisherHeader({
-          "count": 100,
-          "size": {
-            "min": 2,
-            "max": 4,
-            "pulse": 0.1
-          },
-          "speed": {
-            "x": {
-              "min": 0,
-              "max": 0.4
-            },
-            "y": {
-              "min": 0,
-              "max": 0.7
-            }
-          },
-          "colors": {
-            "background": "#ffffff",
-            "particles": [
-              "#d041c5",
-              "#42c0f2",
-              "#d27e35",
-              "#6a13a1"
-            ]
-          },
-          "blending": "overlay",
-          "opacity": {
-            "center": 1,
-            "edge": 0
-          },
-          "skew": 0,
-          "shapes": [
-            "t",
-            "s"
-          ]
-        });
-      }
-    };
-    document.head.appendChild(script);
-
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []);
+    if (id) {
+      fetchConversation(id);
+    }
+  }, [id]);
 
   // Check authentication
   useEffect(() => {
@@ -186,12 +66,6 @@ const AdminConversation = () => {
     }
   }, [setLocation]);
 
-  useEffect(() => {
-    if (id) {
-      fetchConversation();
-    }
-  }, [id]);
-
   // Update current status when hug data loads
   useEffect(() => {
     if (hug) {
@@ -199,9 +73,9 @@ const AdminConversation = () => {
     }
   }, [hug]);
 
-  const fetchConversation = async () => {
+  const fetchConversation = async (hugId: string) => {
     try {
-      const response = await fetch(`/api/getConversation?hugid=${id}`);
+      const response = await fetch(`/api/getConversation?hugid=${hugId}`);
       const result = await response.json();
 
       if (result.success) {
@@ -228,7 +102,7 @@ const AdminConversation = () => {
   // Function to handle status update
   const handleStatusUpdate = async (newStatus: string) => {
     if (!hug || newStatus === currentStatus) return;
-    
+
     setUpdatingStatus(true);
     try {
       const response = await fetch('/api/updateOrderStatus', {
@@ -335,7 +209,7 @@ const AdminConversation = () => {
 
       if (result.success) {
         // Update the reply in the UI
-        setReplies(replies.map(reply => 
+        setReplies(replies.map(reply =>
           reply.id === replyId ? { ...reply, is_read: true } : reply
         ));
       }
@@ -382,7 +256,7 @@ const AdminConversation = () => {
     <div className="min-h-screen bg-background overflow-hidden premium-scroll relative">
       {/* Cosmic Premium Background */}
       <div className="cosmic-background"></div>
-      
+
       {/* Animated Star Background */}
       <div className="star-background">
         <div id="stars"></div>
@@ -395,10 +269,8 @@ const AdminConversation = () => {
         </div>
       </div>
 
-      {/* Background Music */}
-      <audio ref={audioRef} preload="auto">
-        <source src={backgroundMusic} type="audio/mpeg" />
-      </audio>
+      {/* Background Music - Controlled by useBackgroundMusic hook */}
+      <audio ref={audioRef} preload="auto" loop></audio>
 
       {/* Animated Background Header */}
       <div className="finisher-header absolute inset-0 w-full h-full" style={{ zIndex: 0 }}></div>
@@ -596,8 +468,8 @@ const AdminConversation = () => {
                       }`}>
                         <span>{reply.sender_name}</span>
                         <span className={`px-2 py-1 rounded-full text-xs ${
-                          reply.sender_type === 'admin' 
-                            ? 'bg-white/20 text-white' 
+                          reply.sender_type === 'admin'
+                            ? 'bg-white/20 text-white'
                             : 'bg-gray-300 text-gray-700'
                         }`}>
                           {reply.sender_type}

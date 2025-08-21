@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight, Heart, Mail, Star, Users, Clock, MapPin, Sparkles, Gift, MessageCircle, PenTool } from 'lucide-react';
@@ -11,131 +11,20 @@ import FAQSection from '@/components/FAQSection';
 import WhyWeExistSection from '@/components/WhyWeExistSection';
 import StillNotSureSection from '@/components/StillNotSureSection';
 import Carousel3D from '@/components/Carousel3D';
-const backgroundMusic = 'https://res.cloudinary.com/dwmybitme/video/upload/v1755353394/WhatsApp_Audio_2025-08-15_at_12.09.54_AM_fn8je9.m4a';
+import { useBackgroundMusic } from '@/hooks/useBackgroundMusic';
 
 const Index = () => {
   const [scrollY, setScrollY] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const targetVolume = 0.32; // 32% volume
-  let isPlaying = false;
+  const audioRef = useBackgroundMusic(0.32);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
     setIsVisible(true);
 
-    // Setup background music with auto-play
-    const setupBackgroundMusic = () => {
-      if (audioRef.current) {
-        const audio = audioRef.current;
-        audio.loop = true;
-        audio.preload = 'auto';
-        audio.volume = targetVolume;
-
-        // Enhanced play music function for all devices including mobile
-        const playMusic = async () => {
-          if (isPlaying) return;
-
-          // Strategy 1: Direct play attempt
-          try {
-            audio.currentTime = 0;
-            await audio.play();
-            isPlaying = true;
-            console.log('Background music started successfully');
-            return;
-          } catch (error) {
-            console.log('Direct play failed, trying muted approach');
-          }
-
-          // Strategy 2: Muted then unmute approach
-          try {
-            audio.muted = true;
-            await audio.play();
-            isPlaying = true;
-            setTimeout(() => {
-              audio.muted = false;
-              audio.volume = targetVolume;
-            }, 100);
-            console.log('Muted approach successful');
-            return;
-          } catch (mutedError) {
-            console.log('Muted approach failed, setting up interaction listeners');
-          }
-
-          // Strategy 3: Comprehensive interaction listeners for mobile
-          const startMusicOnInteraction = async () => {
-            try {
-              audio.currentTime = 0;
-              await audio.play();
-              isPlaying = true;
-              console.log('Music started on user interaction');
-              // Remove all listeners after success
-              ['click', 'touchstart', 'touchend', 'touchmove', 'scroll', 'mousemove', 'keydown', 'focus', 'blur', 'resize'].forEach(event => {
-                document.removeEventListener(event, startMusicOnInteraction);
-                window.removeEventListener(event, startMusicOnInteraction);
-              });
-            } catch (err) {
-              console.log('Failed to start music even with interaction:', err);
-            }
-          };
-
-          // Add comprehensive listeners including mobile-specific events
-          ['click', 'touchstart', 'touchend', 'touchmove', 'scroll', 'mousemove', 'keydown'].forEach(event => {
-            document.addEventListener(event, startMusicOnInteraction, { once: true, passive: true });
-          });
-          ['focus', 'blur', 'resize', 'orientationchange'].forEach(event => {
-            window.addEventListener(event, startMusicOnInteraction, { once: true });
-          });
-
-          // Special mobile device detection and handling
-          if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            // Additional mobile-specific attempts
-            setTimeout(() => {
-              if (!isPlaying) {
-                console.log('Mobile device detected, trying delayed start');
-                playMusic();
-              }
-            }, 1500);
-            
-            // Try on visibility change for mobile apps
-            document.addEventListener('visibilitychange', () => {
-              if (document.visibilityState === 'visible' && !isPlaying) {
-                playMusic();
-              }
-            });
-          }
-        };
-
-
-        // Handle page visibility change
-        const handleVisibilityChange = () => {
-          if (document.visibilityState === 'visible' && !isPlaying) {
-            playMusic();
-          } else if (document.visibilityState === 'hidden' && isPlaying) {
-            audio.pause();
-            isPlaying = false;
-          }
-        };
-
-        // Start music immediately
-        playMusic();
-
-        document.addEventListener('visibilitychange', handleVisibilityChange);
-
-        return () => {
-          document.removeEventListener('visibilitychange', handleVisibilityChange);
-        };
-      }
-    };
-
-    setupBackgroundMusic();
-
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      if (audioRef.current) {
-        audioRef.current.pause();
-      }
     };
   }, []);
 
@@ -196,8 +85,8 @@ const Index = () => {
 
       {/* Background Music */}
       <audio ref={audioRef} preload="auto">
-        <source src={backgroundMusic} type="audio/mp4" />
-        <source src={backgroundMusic} type="audio/mpeg" />
+        <source src="https://res.cloudinary.com/dwmybitme/video/upload/v1755353394/WhatsApp_Audio_2025-08-15_at_12.09.54_AM_fn8je9.m4a" type="audio/mp4" />
+        <source src="https://res.cloudinary.com/dwmybitme/video/upload/v1755353394/WhatsApp_Audio_2025-08-15_at_12.09.54_AM_fn8je9.m4a" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
       {/* Enhanced Floating Elements that scroll with page */}

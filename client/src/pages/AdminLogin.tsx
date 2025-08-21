@@ -8,6 +8,7 @@ import { useLocation } from 'wouter';
 import { LogIn, MapPin, Sparkles } from 'lucide-react';
 import logoImage from '@assets/Untitled design (2)_1755165830517.png';
 import ExactThreeBackground from '@/components/ExactThreeBackground';
+import { useBackgroundMusic } from '@/hooks/useBackgroundMusic';
 
 interface LocationData {
   latitude: number;
@@ -24,6 +25,7 @@ const AdminLogin = () => {
   const [locationPermissionGranted, setLocationPermissionGranted] = useState(false);
   const [, setLocation] = useLocation();
   const { toast } = useToast();
+  const audioRef = useBackgroundMusic(0.32);
 
   useEffect(() => {
     // Request location permission when component mounts
@@ -142,6 +144,13 @@ const AdminLogin = () => {
     <div className="min-h-screen bg-black overflow-hidden premium-scroll relative">
       {/* Interactive 3D Background */}
       <ExactThreeBackground />
+
+      {/* Background Music */}
+      <audio ref={audioRef} preload="auto">
+        <source src="https://res.cloudinary.com/dwmybitme/video/upload/v1755353394/WhatsApp_Audio_2025-08-15_at_12.09.54_AM_fn8je9.m4a" type="audio/mp4" />
+        <source src="https://res.cloudinary.com/dwmybitme/video/upload/v1755353394/WhatsApp_Audio_2025-08-15_at_12.09.54_AM_fn8je9.m4a" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
 
       <div className="relative z-50 min-h-screen px-4 py-4" style={{pointerEvents: 'none'}}>
         <div className="compact-glassmorphism-card" style={{pointerEvents: 'auto', marginTop: window.innerWidth < 768 ? '48px' : '0px'}}>

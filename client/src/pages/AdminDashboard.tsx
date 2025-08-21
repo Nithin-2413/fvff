@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -9,7 +9,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Eye, Search, Filter, Calendar, User, Mail, Phone, MessageSquare, BarChart3, Users, TrendingUp, Clock, Globe, Heart } from 'lucide-react';
 import logoImage from '@assets/Untitled design (2)_1755165830517.png';
 import { useLocation } from 'wouter';
-const backgroundMusic = 'https://res.cloudinary.com/dwmybitme/video/upload/v1755353394/WhatsApp_Audio_2025-08-15_at_12.09.54_AM_fn8je9.m4a';
+import { useBackgroundMusic } from '@/hooks/useBackgroundMusic';
 
 interface Hug {
   id: string;
@@ -36,82 +36,11 @@ const AdminDashboard = () => {
   const [unreadCount, setUnreadCount] = useState(0);
   const { toast } = useToast();
   const [, setLocation] = useLocation();
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const audioRef = useBackgroundMusic(0.32);
 
   useEffect(() => {
     fetchHugs();
     fetchUnreadCount();
-    
-    // Setup background music
-    const setupBackgroundMusic = () => {
-      if (audioRef.current) {
-        const audio = audioRef.current;
-        audio.volume = 0.32;
-        audio.loop = true;
-        audio.preload = 'auto';
-        audio.autoplay = true;
-        audio.muted = false;
-        
-        // Enhanced auto-play for all devices including mobile
-        const playMusic = async () => {
-          // Strategy 1: Direct play
-          try {
-            await audio.play();
-            console.log('Music started automatically');
-            return;
-          } catch (e) {
-            console.log('Direct play failed, trying muted approach');
-          }
-
-          // Strategy 2: Muted play then unmute
-          try {
-            audio.muted = true;
-            await audio.play();
-            audio.muted = false;
-            console.log('Music started with muted workaround');
-            return;
-          } catch (e) {
-            console.log('Muted approach failed, setting up interaction listeners');
-          }
-
-          // Strategy 3: Comprehensive interaction listeners for mobile
-          const startMusic = async () => {
-            try {
-              await audio.play();
-              console.log('Music started on user interaction');
-              ['click', 'touchstart', 'touchend', 'touchmove', 'scroll', 'mousemove', 'keydown', 'focus'].forEach(event => {
-                document.removeEventListener(event, startMusic);
-                window.removeEventListener(event, startMusic);
-              });
-            } catch (err) {
-              console.log('Failed to start music even with interaction:', err);
-            }
-          };
-            
-          ['click', 'touchstart', 'touchend', 'touchmove', 'scroll', 'mousemove', 'keydown'].forEach(event => {
-            document.addEventListener(event, startMusic, { once: true, passive: true });
-          });
-          ['focus', 'blur', 'resize', 'orientationchange'].forEach(event => {
-            window.addEventListener(event, startMusic, { once: true });
-          });
-
-          // Special mobile device handling
-          if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            setTimeout(() => {
-              if (audio.paused) {
-                console.log('Mobile device detected, trying delayed start');
-                playMusic();
-              }
-            }, 1500);
-          }
-        };
-
-        // Start music
-        playMusic();
-      }
-    };
-
-    setupBackgroundMusic();
     
     // Set up periodic refresh for unread count
     const interval = setInterval(fetchUnreadCount, 30000); // Refresh every 30 seconds
@@ -229,8 +158,8 @@ const AdminDashboard = () => {
       
       {/* Background Music */}
       <audio ref={audioRef} preload="auto">
-        <source src={backgroundMusic} type="audio/mp4" />
-        <source src={backgroundMusic} type="audio/mpeg" />
+        <source src="https://res.cloudinary.com/dwmybitme/video/upload/v1755353394/WhatsApp_Audio_2025-08-15_at_12.09.54_AM_fn8je9.m4a" type="audio/mp4" />
+        <source src="https://res.cloudinary.com/dwmybitme/video/upload/v1755353394/WhatsApp_Audio_2025-08-15_at_12.09.54_AM_fn8je9.m4a" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
       {/* Background Floating Elements */}
