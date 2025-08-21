@@ -7,6 +7,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useLocation } from 'wouter';
 import { LogIn, MapPin, Sparkles } from 'lucide-react';
 import logoImage from '@assets/Untitled design (2)_1755165830517.png';
+import SimpleStarBackground from '@/components/SimpleStarBackground';
 
 interface LocationData {
   latitude: number;
@@ -136,111 +137,24 @@ const AdminLogin = () => {
     }
   };
 
-  useEffect(() => {
-    // Initialize the finisher header animation
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/finisher-header@1.7.6/dist/finisher-header.es5.min.js';
-    script.onload = () => {
-      if (window.FinisherHeader) {
-        new window.FinisherHeader({
-          "count": 100,
-          "size": {
-            "min": 2,
-            "max": 4,
-            "pulse": 0.1
-          },
-          "speed": {
-            "x": {
-              "min": 0,
-              "max": 0.4
-            },
-            "y": {
-              "min": 0,
-              "max": 0.7
-            }
-          },
-          "colors": {
-            "background": "#ffffff",
-            "particles": [
-              "#d041c5",
-              "#42c0f2",
-              "#d27e35",
-              "#6a13a1"
-            ]
-          },
-          "blending": "overlay",
-          "opacity": {
-            "center": 1,
-            "edge": 0
-          },
-          "skew": 0,
-          "shapes": [
-            "t",
-            "s"
-          ]
-        });
-      }
-    };
-    document.head.appendChild(script);
-
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []);
 
   return (
-    <div className="min-h-screen bg-background overflow-hidden premium-scroll relative">
-      {/* Cosmic Premium Background */}
-      <div className="cosmic-background"></div>
+    <div className="min-h-screen bg-black overflow-hidden premium-scroll relative">
+      {/* Animated Particle Background */}
+      <SimpleStarBackground className="opacity-90" />
 
-      {/* Animated Star Background */}
-      <div className="star-background">
-        <div id="stars"></div>
-        <div id="stars2"></div>
-        <div id="stars3"></div>
-        <div className="night">
-          {Array.from({ length: 6 }, (_, i) => (
-            <div key={i} className="shooting_star"></div>
-          ))}
-        </div>
-      </div>
-
-      {/* Animated Background Header */}
-      <div className="finisher-header absolute inset-0 w-full h-full" style={{ zIndex: 0 }}></div>
-
-      {/* Enhanced Floating Elements */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
-        <div className="absolute top-32 left-16 animate-float opacity-10">
-          <span className="text-2xl">💝</span>
-        </div>
-        <div className="absolute top-96 right-20 animate-float delay-1000 opacity-15">
-          <span className="text-lg">⭐</span>
-        </div>
-        <div className="absolute top-[400px] left-1/4 animate-float delay-2000 opacity-20">
-          <Sparkles className="w-5 h-5 text-purple-200" />
-        </div>
-        <div className="absolute top-[600px] right-1/3 animate-float delay-3000 opacity-15">
-          <span className="text-xl">🎁</span>
-        </div>
-        <div className="absolute top-[200px] right-1/4 animate-float delay-4000 opacity-10">
-          <span className="text-lg">💖</span>
-        </div>
-        <div className="absolute top-[500px] left-1/3 animate-float delay-5000 opacity-15">
-          <span className="text-sm">✨</span>
-        </div>
-      </div>
 
       <div className="relative z-20 min-h-screen flex items-center justify-center p-6">
         <div className="w-full max-w-md">
-          <Card className="border-rose-200/30 shadow-2xl backdrop-blur-md bg-white/95 dark:bg-gray-900/95">
+          <Card className="border-white/20 shadow-2xl backdrop-blur-xl bg-black/30 ring-1 ring-white/10">
             <CardHeader className="text-center space-y-4">
               <div className="mx-auto w-16 h-16">
                 <img src="https://res.cloudinary.com/dwmybitme/image/upload/v1755357106/image_1_o0l7go.png" alt="The Written Hug" className="h-16 w-16 rounded-full object-cover shadow-lg transform scale-130" />
               </div>
-              <CardTitle className="text-3xl great-vibes-font bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-transparent">
+              <CardTitle className="text-3xl great-vibes-font bg-gradient-to-r from-orange-400 to-purple-400 bg-clip-text text-transparent">
                 Admin Portal
               </CardTitle>
-              <p className="text-muted-foreground">
+              <p className="text-gray-300">
                 The Written Hug - Admin Access
               </p>
               {/* Location verification happens silently in background */}
@@ -248,7 +162,7 @@ const AdminLogin = () => {
             <CardContent className="space-y-6">
               <form onSubmit={handleLogin} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="username" className="text-sm font-medium">
+                  <Label htmlFor="username" className="text-sm font-medium text-gray-200">
                     Username
                   </Label>
                   <Input
@@ -256,7 +170,7 @@ const AdminLogin = () => {
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className="h-12 border-rose-200/50 focus:border-rose-400 focus:ring-rose-400/20 backdrop-blur-sm"
+                    className="h-12 bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-orange-400 focus:ring-orange-400/20 backdrop-blur-md"
                     placeholder="Enter your username"
                     required
                     data-testid="input-username"
@@ -264,7 +178,7 @@ const AdminLogin = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="password" className="text-sm font-medium">
+                  <Label htmlFor="password" className="text-sm font-medium text-gray-200">
                     Password
                   </Label>
                   <Input
@@ -272,7 +186,7 @@ const AdminLogin = () => {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="h-12 border-rose-200/50 focus:border-rose-400 focus:ring-rose-400/20 backdrop-blur-sm"
+                    className="h-12 bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-orange-400 focus:ring-orange-400/20 backdrop-blur-md"
                     placeholder="Enter your password"
                     required
                     data-testid="input-password"
@@ -282,7 +196,7 @@ const AdminLogin = () => {
                 <Button
                   type="submit"
                   disabled={loading || !locationPermissionGranted}
-                  className="w-full h-12 bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white font-medium transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 rounded-full"
+                  className="w-full h-12 bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white font-medium transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 rounded-full backdrop-blur-sm"
                   data-testid="button-login"
                 >
                   {loading ? (
