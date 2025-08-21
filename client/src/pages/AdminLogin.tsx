@@ -145,8 +145,13 @@ const AdminLogin = () => {
 
       <div className="relative z-50 min-h-screen px-4 py-4" style={{pointerEvents: 'none'}}>
         <div className="compact-glassmorphism-card" style={{pointerEvents: 'auto'}}>
+          <div className="text-center mb-3">
+            <p className="playfair-display-font text-lg font-semibold bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 bg-clip-text text-transparent">
+              Yoo Chipmunk<br />Lets Verify whether its you!
+            </p>
+          </div>
           <form onSubmit={handleLogin} className="space-y-3">
-            <div className="flex space-x-3">
+            <div className="flex space-x-2">
               <Input
                 id="username"
                 type="text"
@@ -167,23 +172,22 @@ const AdminLogin = () => {
                 required
                 data-testid="input-password"
               />
-            </div>
-
-            <Button
-              type="submit"
-              disabled={loading || !locationPermissionGranted}
-              className="w-full h-9 bg-white/10 hover:bg-white/15 border border-white/30 text-white font-medium transition-all duration-300 rounded-lg backdrop-blur-sm text-sm"
-              data-testid="button-login"
-            >
-              {loading ? (
-                <div className="flex items-center justify-center space-x-2">
-                  <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              <Button
+                type="submit"
+                disabled={loading || !locationPermissionGranted}
+                className="h-9 px-4 bg-white/10 hover:bg-white/15 border border-white/30 text-white font-medium transition-all duration-300 rounded-lg backdrop-blur-sm text-sm whitespace-nowrap"
+                data-testid="button-login"
+              >
+                {loading ? (
+                  <div className="flex items-center justify-center space-x-2">
+                    <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <span className="hidden sm:inline">Login</span>
+                  </div>
+                ) : (
                   <span>Login</span>
-                </div>
-              ) : (
-                <span>Login</span>
-              )}
-            </Button>
+                )}
+              </Button>
+            </div>
           </form>
         </div>
       </div>
