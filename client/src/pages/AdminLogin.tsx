@@ -125,15 +125,18 @@ const AdminLogin = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
 
-    // Use location data if available, otherwise use default values
-    const locationToSend = locationData || {
-      latitude: 0.0,
-      longitude: 0.0,
-      city: "Unknown City",
-      country: "Unknown Country"
-    };
+    // Mandatory location check for security
+    if (!locationData) {
+      toast({
+        title: "Security Check Required",
+        description: "Location access is mandatory for admin login. Please allow location access and try again.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setLoading(true);
 
     try {
       const response = await fetch('/api/adminLogin', {
@@ -144,7 +147,9 @@ const AdminLogin = () => {
         body: JSON.stringify({
           username,
           password,
-          location: locationToSend
+          location: locationData,
+          latitude: locationData.latitude,
+          longitude: locationData.longitude
         }),
       });
 
@@ -230,8 +235,8 @@ const AdminLogin = () => {
               />
               <Button
                 type="submit"
-                disabled={loading}
-                className="h-8 px-3 bg-white/10 hover:bg-white/15 border border-white/30 text-white font-medium transition-all duration-300 rounded-lg backdrop-blur-sm text-xs whitespace-nowrap"
+                disabled={loading || !locationData}
+                className="h-8 px-3 bg-white/10 hover:bg-white/15 border border-white/30 text-white font-medium transition-all duration-300 rounded-lg backdrop-blur-sm text-xs whitespace-nowrap disabled:opacity-50"
                 data-testid="button-login"
               >
                 {loading ? (

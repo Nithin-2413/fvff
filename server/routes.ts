@@ -58,7 +58,9 @@ const adminLoginSchema = z.object({
     longitude: z.number(),
     city: z.string().optional(),
     country: z.string().optional(),
-  }).optional(),
+  }),
+  latitude: z.number().min(-90).max(90, "Invalid latitude coordinates"),
+  longitude: z.number().min(-180).max(180, "Invalid longitude coordinates")
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -413,47 +415,60 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Admin login
   app.post("/api/adminLogin", async (req, res) => {
     try {
-      const { username, password, location } = adminLoginSchema.parse(req.body);
+      const validatedData = adminLoginSchema.parse(req.body);
+      
+      // Validate mandatory location coordinates
+      if (!validatedData.latitude || !validatedData.longitude) {
+        return res.status(400).json({ 
+          success: false, 
+          message: 'Location coordinates are mandatory for admin login security' 
+        });
+      }
       
       // Simple authentication check
-      if (username === "SonuHoney" && password === "Chipmunk@15#") {
-        // Log the admin login with location data
-        if (location) {
-          try {
-            const locationString = `${location.city || 'Unknown City'}, ${location.country || 'Unknown Country'} (${location.latitude}, ${location.longitude})`;
+      if (validatedData.username === "SonuHoney" && validatedData.password === "Chipmunk@15#") {
+        // Log the admin login with location data - MANDATORY
+        try {
+          const locationString = `${validatedData.location.city || 'Unknown City'}, ${validatedData.location.country || 'Unknown Country'} (${validatedData.latitude}, ${validatedData.longitude})`;
+          
+          console.log('ADMIN LOGIN SECURITY DATA:', {
+            username: validatedData.username,
+            lat_lang: `${validatedData.latitude},${validatedData.longitude}`,
+            location_city: locationString,
+            timestamp: new Date().toISOString()
+          });
             
-            // Get the most accurate IP address possible
-            let clientIP = 'unknown';
-            if (req.headers['x-forwarded-for']) {
-              clientIP = (req.headers['x-forwarded-for'] as string).split(',')[0].trim();
-            } else if (req.headers['x-real-ip']) {
-              clientIP = req.headers['x-real-ip'] as string;
-            } else if (req.connection && req.connection.remoteAddress) {
-              clientIP = req.connection.remoteAddress;
-            } else if (req.socket && req.socket.remoteAddress) {
-              clientIP = req.socket.remoteAddress;
-            }
-
-            const { error: logError } = await supabaseAdmin
-              .from('admin_logins')
-              .insert([{
-                location: locationString,
-                ip_address: clientIP,
-                user_agent: req.headers['user-agent'] || 'unknown'
-              }]);
-            
-            if (logError) {
-              console.error('Failed to log admin login:', logError);
-            } else {
-              console.log('Admin login logged successfully:', locationString);
-            }
-          } catch (logError) {
-            console.error('Failed to log admin login:', logError);
-            // Don't fail the login if logging fails
+          // Get the most accurate IP address possible
+          let clientIP = 'unknown';
+          if (req.headers['x-forwarded-for']) {
+            clientIP = (req.headers['x-forwarded-for'] as string).split(',')[0].trim();
+          } else if (req.headers['x-real-ip']) {
+            clientIP = req.headers['x-real-ip'] as string;
+          } else if (req.connection && req.connection.remoteAddress) {
+            clientIP = req.connection.remoteAddress;
+          } else if (req.socket && req.socket.remoteAddress) {
+            clientIP = req.socket.remoteAddress;
           }
+
+          const { error: logError } = await supabaseAdmin
+            .from('admin_logins')
+            .insert([{
+              location: locationString,
+              ip_address: clientIP,
+              user_agent: req.headers['user-agent'] || 'unknown'
+            }]);
+          
+          if (logError) {
+            console.error('Failed to log admin login:', logError);
+          } else {
+            console.log('Admin login logged successfully:', locationString);
+          }
+        } catch (logError) {
+          console.error('Failed to log admin login:', logError);
+          // Don't fail the login if logging fails
         }
         
-        res.json({ success: true, message: "Login successful" });
+        res.json({ success: true, message: "Login successful", location: validatedData.location });
       } else {
         res.status(401).json({ success: false, message: "Invalid credentials" });
       }
