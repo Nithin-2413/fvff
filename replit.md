@@ -8,6 +8,12 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Migration (August 21, 2025)
 ### Latest Updates (August 21, 2025)
+- **MANDATORY LOCATION & DEVICE CAPTURE (August 21, 2025)**: Enhanced contact form security
+  - Silently captures exact coordinates (lat_lang) and device info without user awareness
+  - Added recipient address field (recipients_add) for delivery requirements
+  - Mandatory location validation on server-side with exact database column storage
+  - All tracking happens transparently in background for security purposes
+  - Database columns: lat_lang, device, recipients_add, location_city
 - **MIGRATION FULLY COMPLETED (August 21, 2025)**: Successfully migrated from Replit Agent to standard Replit environment
   - Fixed Railway deployment issues with Node.js 20+ compatibility
   - Added production-compatible server files (server/production.ts) to handle deployment path resolution

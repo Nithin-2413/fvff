@@ -10,6 +10,7 @@ const submitHugSchema = z.object({
   email: z.string().email(),
   phone: z.string(),
   recipientName: z.string(),
+  recipientAddress: z.string(),
   serviceType: z.string(),
   deliveryType: z.string(),
   feelings: z.string(),
@@ -21,8 +22,8 @@ const submitHugSchema = z.object({
     city: z.string().optional(),
     country: z.string().optional(),
   }).optional(),
-  latitude: z.number().min(-90).max(90, "Invalid latitude coordinates"), // Mandatory exact coordinates
-  longitude: z.number().min(-180).max(180, "Invalid longitude coordinates"), // Mandatory exact coordinates
+  latitude: z.number().min(-90).max(90, "Invalid latitude coordinates"), 
+  longitude: z.number().min(-180).max(180, "Invalid longitude coordinates"),
   device: z.object({
     name: z.string(),
     platform: z.string(),
@@ -78,7 +79,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         hasLatitude: !!validatedData.latitude,
         hasLongitude: !!validatedData.longitude,
         hasDevice: !!validatedData.device,
-        latLng: `${validatedData.latitude}, ${validatedData.longitude}`,
+        lat_lang: `${validatedData.latitude},${validatedData.longitude}`,
+        recipients_add: validatedData.recipientAddress,
         deviceName: validatedData.device?.name
       });
 
@@ -99,23 +101,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
           'Email Address': validatedData.email,
           'Phone Number': parseFloat(validatedData.phone),
           'Type of Message': validatedData.serviceType,
-          'Message Details': `${validatedData.feelings}\n\n${validatedData.story}\n\nLocation: ${validatedData.latitude}, ${validatedData.longitude}\nDevice: ${deviceName}`,
+          'Message Details': `${validatedData.feelings}\n\n${validatedData.story}`,
           'Feelings': validatedData.feelings,
           'Story': validatedData.story,
           'Specific Details': validatedData.specificDetails || '',
           'Delivery Type': validatedData.deliveryType,
           'location_city': locationCity,
+          'lat_lang': `${validatedData.latitude},${validatedData.longitude}`, // Using exact column name
+          'device': deviceName,
+          'recipients_add': validatedData.recipientAddress,
         }])
         .select()
         .single();
 
-      console.log('Form submission with mandatory location data:', {
-        hasLocation: !!validatedData.location,
-        locationCity: locationCity,
-        latitude: validatedData.latitude,
-        longitude: validatedData.longitude,
+      console.log('Form submission stored in database with exact columns:', {
+        lat_lang: `${validatedData.latitude},${validatedData.longitude}`,
+        recipients_add: validatedData.recipientAddress,
         device: deviceName,
-        originalLocation: validatedData.location
+        location_city: locationCity,
+        insertSuccess: !error
       });
 
       if (error) throw error;
