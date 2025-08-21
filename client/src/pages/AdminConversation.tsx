@@ -5,7 +5,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, Send, User, Mail, Phone, MessageSquare, Clock, MapPin, Heart, Star, Globe } from 'lucide-react';
+import { ArrowLeft, Send, User, Mail, Phone, MessageSquare, Clock, MapPin, Heart, Star, Globe, Sparkles, Package, Calendar } from 'lucide-react';
+import { Label } from '@/components/ui/label';
+import { Link } from 'wouter';
 import { useLocation, useParams } from 'wouter';
 import { useBackgroundMusic } from '@/hooks/useBackgroundMusic';
 

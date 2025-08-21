@@ -23,6 +23,8 @@ const AdminLogin = () => {
   const [loading, setLoading] = useState(false);
   const [locationData, setLocationData] = useState<LocationData | null>(null);
   const [locationPermissionGranted, setLocationPermissionGranted] = useState(false);
+  const [locationStatus, setLocationStatus] = useState<'loading' | 'granted' | 'denied' | 'unsupported'>('loading');
+  const [allowBypass, setAllowBypass] = useState(false);
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const audioRef = useBackgroundMusic(0.32);
@@ -32,16 +34,19 @@ const AdminLogin = () => {
     const requestLocation = async () => {
       if ('geolocation' in navigator) {
         try {
+          console.log('Requesting location permission...');
+          setLocationStatus('loading');
+          
           const position = await new Promise<GeolocationPosition>((resolve, reject) => {
             navigator.geolocation.getCurrentPosition(
               resolve,
               reject,
-              { enableHighAccuracy: true, timeout: 10000, maximumAge: 300000 }
+              { enableHighAccuracy: false, timeout: 15000, maximumAge: 600000 } // Less strict settings
             );
           });
 
           const locationInfo: LocationData = {
-            latitude: parseFloat(position.coords.latitude.toFixed(7)), // 7 decimal places for high accuracy
+            latitude: parseFloat(position.coords.latitude.toFixed(7)),
             longitude: parseFloat(position.coords.longitude.toFixed(7)),
           };
 
@@ -55,22 +60,43 @@ const AdminLogin = () => {
             locationInfo.country = geocodingData.countryName;
           } catch (geocodingError) {
             console.warn('Failed to get location details:', geocodingError);
+            locationInfo.city = "Unknown City";
+            locationInfo.country = "Unknown Country";
           }
 
+          console.log('Location obtained:', locationInfo);
           setLocationData(locationInfo);
           setLocationPermissionGranted(true);
+          setLocationStatus('granted');
+          
+          toast({
+            title: "Location Access Granted",
+            description: "Ready to login!",
+          });
         } catch (error) {
           console.error('Location access denied:', error);
+          setLocationStatus('denied');
+          
+          // After 10 seconds, allow bypass for testing
+          setTimeout(() => {
+            setAllowBypass(true);
+          }, 10000);
+          
           toast({
-            title: "Location Required",
-            description: "Please enable location access to login to the admin panel.",
+            title: "Location Access Required",
+            description: "Please click 'Allow' when your browser asks for location permission, or wait 10 seconds for bypass option.",
             variant: "destructive",
           });
         }
       } else {
+        setLocationStatus('unsupported');
+        setTimeout(() => {
+          setAllowBypass(true);
+        }, 5000);
+        
         toast({
           title: "Location Not Supported",
-          description: "Your browser doesn't support location services.",
+          description: "Your browser doesn't support location services. Bypass option available soon.",
           variant: "destructive",
         });
       }
@@ -79,15 +105,41 @@ const AdminLogin = () => {
     requestLocation();
   }, [toast]);
 
+  const handleBypassLogin = () => {
+    // Use default location for bypass
+    const defaultLocation: LocationData = {
+      latitude: 0.0,
+      longitude: 0.0,
+      city: "Unknown City",
+      country: "Unknown Country"
+    };
+    setLocationData(defaultLocation);
+    setLocationPermissionGranted(true);
+    setLocationStatus('granted');
+    
+    toast({
+      title: "Location Bypass Enabled",
+      description: "You can now login with default location.",
+    });
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!locationPermissionGranted || !locationData) {
-      toast({
-        title: "Location Required",
-        description: "Please enable location access to proceed with login.",
-        variant: "destructive",
-      });
+      if (allowBypass) {
+        toast({
+          title: "Location Required",
+          description: "Please use the bypass button to continue, or enable location access.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Location Required", 
+          description: "Please enable location access or wait for bypass option.",
+          variant: "destructive",
+        });
+      }
       return;
     }
 
@@ -203,6 +255,37 @@ const AdminLogin = () => {
               </Button>
             </div>
           </form>
+          
+          {/* Location Status Indicator */}
+          <div className="text-center mt-3 space-y-2">
+            <div className="flex items-center justify-center space-x-2">
+              <MapPin className="w-4 h-4 text-white/70" />
+              <p className="text-xs text-white/70">
+                Location Status: 
+                <span className={`ml-1 font-semibold ${
+                  locationStatus === 'granted' ? 'text-green-300' :
+                  locationStatus === 'loading' ? 'text-yellow-300' : 'text-red-300'
+                }`}>
+                  {locationStatus === 'granted' ? 'Allowed' :
+                   locationStatus === 'loading' ? 'Requesting...' :
+                   locationStatus === 'denied' ? 'Denied' : 'Unsupported'}
+                </span>
+              </p>
+            </div>
+            
+            {/* Bypass Button */}
+            {allowBypass && !locationPermissionGranted && (
+              <Button
+                type="button"
+                onClick={handleBypassLogin}
+                className="h-6 px-2 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/30 text-amber-200 font-medium transition-all duration-300 rounded-lg backdrop-blur-sm text-xs"
+                data-testid="button-bypass"
+              >
+                <Sparkles className="w-3 h-3 mr-1" />
+                Use Bypass Login
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </div>
