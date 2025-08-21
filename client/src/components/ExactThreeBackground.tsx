@@ -31,7 +31,7 @@ const ExactThreeBackground = () => {
       renderer.domElement.style.top = '0';
       renderer.domElement.style.left = '0';
       renderer.domElement.style.zIndex = '1';
-      renderer.domElement.style.pointerEvents = 'auto';
+      renderer.domElement.style.pointerEvents = 'none';
       
       const mountElement = document.getElementById('three-background-mount');
       if (mountElement) {
