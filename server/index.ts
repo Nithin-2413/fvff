@@ -39,6 +39,27 @@ app.use((req, res, next) => {
   next();
 });
 
+// Process signal handlers for graceful shutdown
+process.on('SIGTERM', () => {
+  console.log('Received SIGTERM signal. Shutting down gracefully...');
+  process.exit(0);
+});
+
+process.on('SIGINT', () => {
+  console.log('Received SIGINT signal. Shutting down gracefully...');
+  process.exit(0);
+});
+
+process.on('uncaughtException', (error) => {
+  console.error('Uncaught Exception:', error);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+  process.exit(1);
+});
+
 (async () => {
   const server = await registerRoutes(app);
 
