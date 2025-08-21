@@ -174,7 +174,7 @@ const AdminLogin = () => {
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className="h-12 w-full bg-white/12 border-white/25 text-white placeholder:text-gray-300 focus:border-orange-400 focus:ring-orange-400/25 backdrop-blur-lg rounded-xl transition-all duration-300 hover:bg-white/18 focus:bg-white/18 shadow-inner"
+                    className="h-14 w-full bg-gradient-to-r from-orange-400/10 via-white/8 to-purple-500/10 border-2 border-white/30 text-white placeholder:text-gray-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-400/30 backdrop-blur-xl rounded-2xl transition-all duration-400 hover:bg-gradient-to-r hover:from-orange-400/15 hover:via-white/12 hover:to-purple-500/15 focus:bg-gradient-to-r focus:from-orange-400/15 focus:via-white/12 focus:to-purple-500/15 shadow-lg hover:shadow-xl focus:shadow-2xl"
                     placeholder="Enter your username"
                     required
                     data-testid="input-username"
@@ -190,7 +190,7 @@ const AdminLogin = () => {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="h-12 w-full bg-white/12 border-white/25 text-white placeholder:text-gray-300 focus:border-orange-400 focus:ring-orange-400/25 backdrop-blur-lg rounded-xl transition-all duration-300 hover:bg-white/18 focus:bg-white/18 shadow-inner"
+                    className="h-14 w-full bg-gradient-to-r from-purple-500/10 via-white/8 to-orange-400/10 border-2 border-white/30 text-white placeholder:text-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-400/30 backdrop-blur-xl rounded-2xl transition-all duration-400 hover:bg-gradient-to-r hover:from-purple-500/15 hover:via-white/12 hover:to-orange-400/15 focus:bg-gradient-to-r focus:from-purple-500/15 focus:via-white/12 focus:to-orange-400/15 shadow-lg hover:shadow-xl focus:shadow-2xl"
                     placeholder="Enter your password"
                     required
                     data-testid="input-password"
@@ -201,7 +201,7 @@ const AdminLogin = () => {
                   <Button
                     type="submit"
                     disabled={loading || !locationPermissionGranted}
-                    className="w-full h-12 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 hover:from-orange-600 hover:via-pink-600 hover:to-purple-700 text-white font-medium transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 rounded-full backdrop-blur-sm transform hover:scale-105 active:scale-95 sparkle-button"
+                    className="w-full h-16 bg-gradient-to-r from-orange-400 via-pink-500 to-purple-600 hover:from-orange-500 hover:via-pink-600 hover:to-purple-700 text-white font-bold text-lg transition-all duration-500 shadow-2xl hover:shadow-3xl disabled:opacity-50 rounded-2xl backdrop-blur-xl transform hover:scale-105 active:scale-95 sparkle-button border-2 border-white/20 hover:border-white/30"
                     data-testid="button-login"
                   >
                     <div className="star-1">✦</div>
