@@ -11,6 +11,7 @@ import FAQSection from '@/components/FAQSection';
 import WhyWeExistSection from '@/components/WhyWeExistSection';
 import StillNotSureSection from '@/components/StillNotSureSection';
 import Carousel3D from '@/components/Carousel3D';
+import TranslatorsSection from '@/components/TranslatorsSection';
 const backgroundMusic = 'https://res.cloudinary.com/dwmybitme/video/upload/v1755353394/WhatsApp_Audio_2025-08-15_at_12.09.54_AM_fn8je9.m4a';
 
 const Index = () => {
@@ -395,6 +396,9 @@ const Index = () => {
       {/* Why We Exist Section */}
       <WhyWeExistSection />
 
+      {/* Translators of the Heart Section */}
+      <TranslatorsSection />
+
       {/* New Business Story Section */}
       <section className="py-32 px-6 bg-gradient-to-b from-pink-50/10 to-purple-50/10 relative overflow-hidden z-10">
         <div className="max-w-4xl mx-auto relative z-10">
@@ -442,11 +446,6 @@ const Index = () => {
               And that's okay. That's where we come in.
             </p>
 
-            <div className="text-center py-8">
-              <p className="text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent times-new-roman-italic">
-                We're the translators of the heart.
-              </p>
-            </div>
 
             <p className="text-muted-foreground times-new-roman-italic">
               At The Written Hug, we turn raw, unspoken feelings into beautiful, soul-stirring letters.<br />
