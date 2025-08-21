@@ -145,8 +145,8 @@ const AdminLogin = () => {
 
       <div className="relative z-50 min-h-screen px-4 py-4" style={{pointerEvents: 'none'}}>
         <div className="compact-glassmorphism-card" style={{pointerEvents: 'auto'}}>
-          <div className="text-center mb-3">
-            <p className="playfair-display text-xs font-bold bg-gradient-to-r from-amber-400 via-purple-400 to-violet-500 bg-clip-text text-transparent" style={{
+          <div className="text-center mb-2">
+            <p className="playfair-display text-sm font-bold bg-gradient-to-r from-amber-400 via-purple-400 to-violet-500 bg-clip-text text-transparent" style={{
               backgroundImage: 'linear-gradient(45deg, #fbbf24, #a855f7, #8b5cf6)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -155,14 +155,14 @@ const AdminLogin = () => {
               Yoo Chipmunk, Lets Verify whether its you!
             </p>
           </div>
-          <form onSubmit={handleLogin} className="space-y-3">
+          <form onSubmit={handleLogin} className="space-y-2">
             <div className="flex space-x-2">
               <Input
                 id="username"
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="h-8 flex-1 bg-transparent border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 focus:ring-0 focus:bg-transparent hover:bg-transparent rounded-lg transition-all duration-300 text-xs"
+                className="h-8 w-24 bg-transparent border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 focus:ring-0 focus:bg-transparent hover:bg-transparent rounded-lg transition-all duration-300 text-xs"
                 placeholder="Username"
                 required
                 data-testid="input-username"
@@ -172,7 +172,7 @@ const AdminLogin = () => {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="h-8 flex-1 bg-transparent border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 focus:ring-0 focus:bg-transparent hover:bg-transparent rounded-lg transition-all duration-300 text-xs"
+                className="h-8 w-24 bg-transparent border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 focus:ring-0 focus:bg-transparent hover:bg-transparent rounded-lg transition-all duration-300 text-xs"
                 placeholder="Password"
                 required
                 data-testid="input-password"
