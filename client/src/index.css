@@ -303,29 +303,32 @@
 .interactive-card {
   position: relative;
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
   margin: 0 auto;
-  border-radius: 20px;
+  border-radius: 24px;
   overflow: hidden;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 
-    0 25px 50px -12px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    0 30px 60px -12px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 8px 32px rgba(0, 0, 0, 0.12);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: auto;
   z-index: 100;
 }
 
 .interactive-card:hover {
-  transform: translateY(-8px) scale(1.02);
+  transform: translateY(-10px) scale(1.03);
   box-shadow: 
-    0 35px 70px -12px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(255, 255, 255, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    0 40px 80px -12px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 16px 48px rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .glow {
@@ -386,12 +389,28 @@
   background: rgba(255, 255, 255, 0.3);
 }
 
-/* Responsive adjustments */
+/* Enhanced Responsive Design */
+@media (max-width: 768px) {
+  .interactive-card {
+    max-width: 95%;
+    margin: 1rem auto;
+    border-radius: 20px;
+  }
+  
+  .card-content {
+    padding: 1.75rem;
+  }
+  
+  .interactive-card:hover {
+    transform: translateY(-6px) scale(1.02);
+  }
+}
+
 @media (max-width: 640px) {
   .interactive-card {
     max-width: 100%;
-    margin: 1rem;
-    border-radius: 16px;
+    margin: 0.75rem;
+    border-radius: 18px;
   }
   
   .card-content {
@@ -404,8 +423,23 @@
 }
 
 @media (max-width: 480px) {
+  .interactive-card {
+    margin: 0.5rem;
+    border-radius: 16px;
+  }
+  
   .card-content {
     padding: 1.25rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .interactive-card {
+    margin: 0.25rem;
+  }
+  
+  .card-content {
+    padding: 1rem;
   }
 }
 

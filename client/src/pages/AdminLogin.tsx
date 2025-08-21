@@ -156,7 +156,7 @@ const AdminLogin = () => {
                     className="h-16 w-16 sm:h-20 sm:w-20 rounded-full object-cover shadow-lg transform hover:scale-110 transition-transform duration-300" 
                   />
                 </div>
-                <h1 className="text-3xl sm:text-4xl great-vibes-font bg-gradient-to-r from-orange-400 via-pink-400 to-purple-400 bg-clip-text text-transparent animate-pulse">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl great-vibes-font bg-gradient-to-r from-orange-400 via-pink-400 to-purple-400 bg-clip-text text-transparent animate-pulse">
                   Admin Portal
                 </h1>
                 <p className="text-gray-300 text-sm sm:text-base font-light">
@@ -174,7 +174,7 @@ const AdminLogin = () => {
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className="h-12 w-full bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-orange-400 focus:ring-orange-400/20 backdrop-blur-md rounded-xl transition-all duration-200 hover:bg-white/15 focus:bg-white/15"
+                    className="h-12 w-full bg-white/12 border-white/25 text-white placeholder:text-gray-300 focus:border-orange-400 focus:ring-orange-400/25 backdrop-blur-lg rounded-xl transition-all duration-300 hover:bg-white/18 focus:bg-white/18 shadow-inner"
                     placeholder="Enter your username"
                     required
                     data-testid="input-username"
@@ -190,7 +190,7 @@ const AdminLogin = () => {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="h-12 w-full bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-orange-400 focus:ring-orange-400/20 backdrop-blur-md rounded-xl transition-all duration-200 hover:bg-white/15 focus:bg-white/15"
+                    className="h-12 w-full bg-white/12 border-white/25 text-white placeholder:text-gray-300 focus:border-orange-400 focus:ring-orange-400/25 backdrop-blur-lg rounded-xl transition-all duration-300 hover:bg-white/18 focus:bg-white/18 shadow-inner"
                     placeholder="Enter your password"
                     required
                     data-testid="input-password"
@@ -232,10 +232,10 @@ const AdminLogin = () => {
                 </div>
 
                 {locationData && (
-                  <div className="text-center text-xs text-gray-400 mt-4 p-3 bg-white/5 rounded-lg backdrop-blur-sm">
-                    <div className="flex items-center justify-center space-x-1">
-                      <MapPin className="h-3 w-3" />
-                      <span>
+                  <div className="text-center text-xs text-gray-300 mt-4 p-3 bg-white/8 rounded-xl backdrop-blur-lg border border-white/10 shadow-lg">
+                    <div className="flex items-center justify-center space-x-2">
+                      <MapPin className="h-3 w-3 text-orange-400" />
+                      <span className="font-medium">
                         Secured from {locationData.city || 'Unknown'}, {locationData.country || 'Location'}
                       </span>
                     </div>
