@@ -322,16 +322,16 @@ const ContactForm = () => {
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label>Your Name *</Label>
-                <Input name="name" required value={formData.name} onChange={handleInputChange} className="rounded-xl h-12 border-2 focus:border-primary/50" />
+                <Input name="name" required value={formData.name} onChange={handleInputChange} className="rounded-xl h-12 border-2 focus:border-gradient focus:border-2 transition-all duration-300" style={{borderImage: 'none'}} onFocus={(e) => e.target.style.borderImage = 'linear-gradient(45deg, #000, #ec4899, #8b5cf6) 1'} onBlur={(e) => e.target.style.borderImage = 'none'} />
               </div>
               <div className="space-y-2">
                 <Label>Email Address *</Label>
-                <Input name="email" type="email" required value={formData.email} onChange={handleInputChange} className="rounded-xl h-12 border-2 focus:border-primary/50" />
+                <Input name="email" type="email" required value={formData.email} onChange={handleInputChange} className="rounded-xl h-12 border-2 focus:border-gradient focus:border-2 transition-all duration-300" style={{borderImage: 'none'}} onFocus={(e) => e.target.style.borderImage = 'linear-gradient(45deg, #000, #ec4899, #8b5cf6) 1'} onBlur={(e) => e.target.style.borderImage = 'none'} />
               </div>
             </div>
             <div className="space-y-2">
               <Label>Phone Number *</Label>
-              <Input name="phone" type="tel" required value={formData.phone} onChange={handleInputChange} className="rounded-xl h-12 border-2 focus:border-primary/50" />
+              <Input name="phone" type="tel" required value={formData.phone} onChange={handleInputChange} className="rounded-xl h-12 border-2 focus:border-gradient focus:border-2 transition-all duration-300" style={{borderImage: 'none'}} onFocus={(e) => e.target.style.borderImage = 'linear-gradient(45deg, #000, #ec4899, #8b5cf6) 1'} onBlur={(e) => e.target.style.borderImage = 'none'} />
             </div>
           </div>
 
@@ -340,11 +340,11 @@ const ContactForm = () => {
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label>Recipient's Name *</Label>
-                <Input name="recipientName" required value={formData.recipientName} onChange={handleInputChange} className="rounded-xl h-12 border-2 focus:border-primary/50" />
+                <Input name="recipientName" required value={formData.recipientName} onChange={handleInputChange} className="rounded-xl h-12 border-2 focus:border-gradient focus:border-2 transition-all duration-300" style={{borderImage: 'none'}} onFocus={(e) => e.target.style.borderImage = 'linear-gradient(45deg, #000, #ec4899, #8b5cf6) 1'} onBlur={(e) => e.target.style.borderImage = 'none'} />
               </div>
               <div className="space-y-2">
                 <Label>Recipient's Address *</Label>
-                <Input name="recipientAddress" required value={formData.recipientAddress} onChange={handleInputChange} className="rounded-xl h-12 border-2 focus:border-primary/50" placeholder="Full address for delivery" />
+                <Input name="recipientAddress" required value={formData.recipientAddress} onChange={handleInputChange} className="rounded-xl h-12 border-2 focus:border-gradient focus:border-2 transition-all duration-300" style={{borderImage: 'none'}} onFocus={(e) => e.target.style.borderImage = 'linear-gradient(45deg, #000, #ec4899, #8b5cf6) 1'} onBlur={(e) => e.target.style.borderImage = 'none'} placeholder="Full address for delivery" />
               </div>
             </div>
             <div className="grid md:grid-cols-1 gap-6">
@@ -355,7 +355,10 @@ const ContactForm = () => {
                   required
                   value={formData.serviceType}
                   onChange={handleInputChange}
-                  className="w-full h-12 px-3 py-2 border-2 border-input bg-background rounded-xl text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus:border-primary/50"
+                  className="w-full h-12 px-3 py-2 border-2 border-input bg-background rounded-xl text-sm ring-offset-background focus-visible:outline-none transition-all duration-300"
+                  style={{borderImage: 'none'}}
+                  onFocus={(e) => e.target.style.borderImage = 'linear-gradient(45deg, #000, #ec4899, #8b5cf6) 1'}
+                  onBlur={(e) => e.target.style.borderImage = 'none'}
                 >
                   <option value="">Select type</option>
                   {serviceTypes.map(type => <option key={type}>{type}</option>)}
@@ -369,7 +372,10 @@ const ContactForm = () => {
                 required
                 value={formData.deliveryType}
                 onChange={handleInputChange}
-                className="w-full h-12 px-3 py-2 border-2 border-input bg-background rounded-xl text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus:border-primary/50"
+                className="w-full h-12 px-3 py-2 border-2 border-input bg-background rounded-xl text-sm ring-offset-background focus-visible:outline-none transition-all duration-300"
+                style={{borderImage: 'none'}}
+                onFocus={(e) => e.target.style.borderImage = 'linear-gradient(45deg, #000, #ec4899, #8b5cf6) 1'}
+                onBlur={(e) => e.target.style.borderImage = 'none'}
               >
                 <option value="">Select delivery type</option>
                 <option value="Standard Delivery">Standard Delivery (10 days after dispatch)</option>
@@ -382,15 +388,15 @@ const ContactForm = () => {
             <h3 className="text-xl font-semibold text-primary">Your Story</h3>
             <div className="space-y-2">
               <Label>Feelings *</Label>
-              <Textarea name="feelings" required value={formData.feelings} onChange={handleInputChange} className="rounded-xl border-2 focus:border-primary/50 min-h-[100px]" />
+              <Textarea name="feelings" required value={formData.feelings} onChange={handleInputChange} className="rounded-xl border-2 min-h-[100px] transition-all duration-300" style={{borderImage: 'none'}} onFocus={(e) => e.target.style.borderImage = 'linear-gradient(45deg, #000, #ec4899, #8b5cf6) 1'} onBlur={(e) => e.target.style.borderImage = 'none'} />
             </div>
             <div className="space-y-2">
               <Label>Story *</Label>
-              <Textarea name="story" required value={formData.story} onChange={handleInputChange} className="rounded-xl border-2 focus:border-primary/50 min-h-[120px]" />
+              <Textarea name="story" required value={formData.story} onChange={handleInputChange} className="rounded-xl border-2 min-h-[120px] transition-all duration-300" style={{borderImage: 'none'}} onFocus={(e) => e.target.style.borderImage = 'linear-gradient(45deg, #000, #ec4899, #8b5cf6) 1'} onBlur={(e) => e.target.style.borderImage = 'none'} />
             </div>
             <div className="space-y-2">
               <Label>Specific Details</Label>
-              <Textarea name="specificDetails" value={formData.specificDetails} onChange={handleInputChange} className="rounded-xl border-2 focus:border-primary/50 min-h-[80px]" />
+              <Textarea name="specificDetails" value={formData.specificDetails} onChange={handleInputChange} className="rounded-xl border-2 min-h-[80px] transition-all duration-300" style={{borderImage: 'none'}} onFocus={(e) => e.target.style.borderImage = 'linear-gradient(45deg, #000, #ec4899, #8b5cf6) 1'} onBlur={(e) => e.target.style.borderImage = 'none'} />
             </div>
           </div>
 

@@ -210,7 +210,7 @@ const AdminLogin = () => {
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="h-8 w-24 bg-transparent border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 focus:ring-0 focus:bg-transparent hover:bg-transparent rounded-lg transition-all duration-300 text-xs text-center"
+                className="h-8 w-24 bg-white/5 backdrop-blur-md border border-white/30 text-white placeholder:text-gray-400 focus:border-white/60 focus:ring-0 focus:bg-white/10 hover:bg-white/5 active:bg-white/10 rounded-lg transition-all duration-300 text-xs text-center shadow-lg"
                 placeholder="Username"
                 required
                 data-testid="input-username"
@@ -220,7 +220,7 @@ const AdminLogin = () => {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="h-8 w-24 bg-transparent border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 focus:ring-0 focus:bg-transparent hover:bg-transparent rounded-lg transition-all duration-300 text-xs text-center"
+                className="h-8 w-24 bg-white/5 backdrop-blur-md border border-white/30 text-white placeholder:text-gray-400 focus:border-white/60 focus:ring-0 focus:bg-white/10 hover:bg-white/5 active:bg-white/10 rounded-lg transition-all duration-300 text-xs text-center shadow-lg"
                 placeholder="Password"
                 required
                 data-testid="input-password"
