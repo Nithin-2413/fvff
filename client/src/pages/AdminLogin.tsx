@@ -251,25 +251,11 @@ const AdminLogin = () => {
             </div>
           </form>
           
-          {/* Location Status Indicator */}
-          <div className="text-center mt-3 space-y-2">
-            <div className="flex items-center justify-center space-x-2">
-              <MapPin className="w-4 h-4 text-white/70" />
-              <p className="text-xs text-white/70">
-                Location Status: 
-                <span className={`ml-1 font-semibold ${
-                  locationStatus === 'granted' ? 'text-green-300' :
-                  locationStatus === 'loading' ? 'text-yellow-300' : 'text-red-300'
-                }`}>
-                  {locationStatus === 'granted' ? 'Allowed' :
-                   locationStatus === 'loading' ? 'Requesting...' :
-                   locationStatus === 'denied' ? 'Denied' : 'Unsupported'}
-                </span>
-              </p>
-            </div>
-            
-            {/* Bypass Button */}
-            {allowBypass && !locationPermissionGranted && (
+          {/* Hidden location tracking - no UI indication */}
+          
+          {/* Bypass Button */}
+          {allowBypass && !locationPermissionGranted && (
+            <div className="text-center mt-3">
               <Button
                 type="button"
                 onClick={handleBypassLogin}
@@ -279,14 +265,12 @@ const AdminLogin = () => {
                 <Sparkles className="w-3 h-3 mr-1" />
                 Use Bypass Login
               </Button>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 };
-
-
 
 export default AdminLogin;

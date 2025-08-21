@@ -87,7 +87,6 @@ const CEOSection = () => {
                   </div>
                   <h4 className="text-lg font-semibold mb-2 text-pink-600">Endless</h4>
                   <p className="text-sm text-muted-foreground">Love & Passion</p>
-                  <div className="mt-2 text-xs opacity-70">⭐✨❤️🎁</div>
                 </CardContent>
               </Card>
               
@@ -99,7 +98,6 @@ const CEOSection = () => {
                   </div>
                   <h4 className="text-lg font-semibold mb-2 text-yellow-600">Pure</h4>
                   <p className="text-sm text-muted-foreground">Magic & Wonder</p>
-                  <div className="mt-2 text-xs opacity-70">⭐✨❤️🎁</div>
                 </CardContent>
               </Card>
             </div>
