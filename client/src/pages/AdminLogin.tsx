@@ -143,40 +143,41 @@ const AdminLogin = () => {
       {/* Interactive 3D Background */}
       <ExactThreeBackground />
 
-      <div className="relative z-50 min-h-screen flex items-center justify-center px-4 py-8 sm:px-6 lg:px-8" style={{pointerEvents: 'none'}}>
-        <div className="simple-glassmorphism-card" style={{pointerEvents: 'auto'}}>
-          <form onSubmit={handleLogin} className="space-y-4">
-            <Input
-              id="username"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="h-12 w-full bg-white/8 border border-white/25 text-white placeholder:text-gray-300 focus:border-white/50 focus:ring-1 focus:ring-white/30 backdrop-blur-sm rounded-xl transition-all duration-300"
-              placeholder="Username"
-              required
-              data-testid="input-username"
-            />
-
-            <Input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="h-12 w-full bg-white/8 border border-white/25 text-white placeholder:text-gray-300 focus:border-white/50 focus:ring-1 focus:ring-white/30 backdrop-blur-sm rounded-xl transition-all duration-300"
-              placeholder="Password"
-              required
-              data-testid="input-password"
-            />
+      <div className="relative z-50 min-h-screen px-4 py-4" style={{pointerEvents: 'none'}}>
+        <div className="compact-glassmorphism-card" style={{pointerEvents: 'auto'}}>
+          <form onSubmit={handleLogin} className="space-y-3">
+            <div className="flex space-x-3">
+              <Input
+                id="username"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="h-9 flex-1 bg-transparent border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 focus:ring-0 focus:bg-transparent hover:bg-transparent rounded-lg transition-all duration-300 text-sm"
+                placeholder="Username"
+                required
+                data-testid="input-username"
+              />
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="h-9 flex-1 bg-transparent border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 focus:ring-0 focus:bg-transparent hover:bg-transparent rounded-lg transition-all duration-300 text-sm"
+                placeholder="Password"
+                required
+                data-testid="input-password"
+              />
+            </div>
 
             <Button
               type="submit"
               disabled={loading || !locationPermissionGranted}
-              className="w-full h-12 bg-white/12 hover:bg-white/18 border border-white/25 text-white font-medium transition-all duration-300 rounded-xl backdrop-blur-sm transform hover:scale-105"
+              className="w-full h-9 bg-white/10 hover:bg-white/15 border border-white/30 text-white font-medium transition-all duration-300 rounded-lg backdrop-blur-sm text-sm"
               data-testid="button-login"
             >
               {loading ? (
                 <div className="flex items-center justify-center space-x-2">
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                   <span>Login</span>
                 </div>
               ) : (
