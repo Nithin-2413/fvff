@@ -143,15 +143,15 @@ const AdminLogin = () => {
       {/* Interactive 3D Background */}
       <ExactThreeBackground />
 
-      <div className="relative z-50 min-h-screen flex items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
-        <div className="simple-glassmorphism-card">
+      <div className="relative z-50 min-h-screen flex items-center justify-center px-4 py-8 sm:px-6 lg:px-8" style={{pointerEvents: 'none'}}>
+        <div className="simple-glassmorphism-card" style={{pointerEvents: 'auto'}}>
           <form onSubmit={handleLogin} className="space-y-4">
             <Input
               id="username"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="h-12 w-full bg-white/5 border border-white/20 text-white placeholder:text-gray-300 focus:border-white/40 focus:ring-1 focus:ring-white/20 backdrop-blur-md rounded-xl transition-all duration-300"
+              className="h-12 w-full bg-white/8 border border-white/25 text-white placeholder:text-gray-300 focus:border-white/50 focus:ring-1 focus:ring-white/30 backdrop-blur-sm rounded-xl transition-all duration-300"
               placeholder="Username"
               required
               data-testid="input-username"
@@ -162,7 +162,7 @@ const AdminLogin = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="h-12 w-full bg-white/5 border border-white/20 text-white placeholder:text-gray-300 focus:border-white/40 focus:ring-1 focus:ring-white/20 backdrop-blur-md rounded-xl transition-all duration-300"
+              className="h-12 w-full bg-white/8 border border-white/25 text-white placeholder:text-gray-300 focus:border-white/50 focus:ring-1 focus:ring-white/30 backdrop-blur-sm rounded-xl transition-all duration-300"
               placeholder="Password"
               required
               data-testid="input-password"
@@ -171,7 +171,7 @@ const AdminLogin = () => {
             <Button
               type="submit"
               disabled={loading || !locationPermissionGranted}
-              className="w-full h-12 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-medium transition-all duration-300 rounded-xl backdrop-blur-md transform hover:scale-105"
+              className="w-full h-12 bg-white/12 hover:bg-white/18 border border-white/25 text-white font-medium transition-all duration-300 rounded-xl backdrop-blur-sm transform hover:scale-105"
               data-testid="button-login"
             >
               {loading ? (
