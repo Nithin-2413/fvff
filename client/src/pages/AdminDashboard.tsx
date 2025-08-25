@@ -442,19 +442,31 @@ const AdminDashboard = () => {
           <div className="flex items-center space-x-3">
             <Button 
               onClick={() => window.open('/', '_blank')} 
-              className="premium-glass-button rounded-full"
+              className="premium-glass-button"
               size="sm"
             >
-              <Globe className="w-4 h-4 mr-2" />
-              Written Hug
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <div className="btn-content">
+                <Globe className="w-4 h-4" />
+                Written Hug
+              </div>
             </Button>
             <Button 
               onClick={handleLogout}
-              className="premium-glass-button rounded-full"
+              className="premium-glass-button"
               size="sm"
             >
-              <LogOut className="w-4 h-4 mr-2" />
-              Logout
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <div className="btn-content">
+                <LogOut className="w-4 h-4" />
+                Logout
+              </div>
             </Button>
           </div>
         </div>
@@ -564,13 +576,25 @@ const AdminDashboard = () => {
             </div>
 
             <div className="flex items-center gap-3">
-              <Button onClick={generateSmartInsights} className="premium-glass-button rounded-full">
-                <BrainCircuit className="h-4 w-4 mr-2" />
-                AI Insights
+              <Button onClick={generateSmartInsights} className="premium-glass-button">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <div className="btn-content">
+                  <BrainCircuit className="h-4 w-4" />
+                  AI Insights
+                </div>
               </Button>
-              <Button onClick={exportToJSON} className="premium-glass-button rounded-full">
-                <Download className="h-4 w-4 mr-2" />
-                Export
+              <Button onClick={exportToJSON} className="premium-glass-button">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <div className="btn-content">
+                  <Download className="h-4 w-4" />
+                  Export
+                </div>
               </Button>
             </div>
           </div>
@@ -613,10 +637,16 @@ const AdminDashboard = () => {
 
               <Button
                 onClick={() => handleViewConversation(hug.id)}
-                className="w-full premium-glass-button rounded-full group-hover:scale-105 transition-all duration-300"
+                className="w-full premium-glass-button group-hover:scale-105 transition-all duration-300"
               >
-                <Eye className="h-4 w-4 mr-2" />
-                View Conversation
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <div className="btn-content">
+                  <Eye className="h-4 w-4" />
+                  View Conversation
+                </div>
               </Button>
             </div>
           ))}

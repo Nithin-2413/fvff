@@ -342,9 +342,15 @@ const AdminConversation = () => {
           {/* Header */}
           <div className="flex items-center gap-4 mb-8">
             <Link href="/admin/orders">
-              <Button className="premium-glass-button rounded-full" data-testid="link-back-orders">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Orders
+              <Button className="premium-glass-button" data-testid="link-back-orders">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <div className="btn-content">
+                  <ArrowLeft className="h-4 w-4" />
+                  Back to Orders
+                </div>
               </Button>
             </Link>
             <div className="flex items-center gap-3">
@@ -575,10 +581,16 @@ const AdminConversation = () => {
               <Button
                 onClick={sendReply}
                 disabled={!replyMessage.trim() || sending}
-                className="w-full premium-glass-button py-4 rounded-full text-lg font-medium"
+                className="w-full premium-glass-button py-4 text-lg font-medium"
               >
-                <Send className="h-5 w-5 mr-2" />
-                {sending ? 'Sending...' : 'Send Reply'}
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <div className="btn-content">
+                  <Send className="h-5 w-5" />
+                  {sending ? 'Sending...' : 'Send Reply'}
+                </div>
               </Button>
             </div>
           </div>
