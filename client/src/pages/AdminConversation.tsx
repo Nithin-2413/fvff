@@ -372,22 +372,22 @@ const AdminConversation = () => {
                 <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
                   <User className="h-5 w-5 text-rose-400" />
                   <div>
-                    <Label className="text-sm font-medium premium-text-gray-300">Client Name</Label>
-                    <p className="font-semibold premium-text-white" data-testid="text-client-name">{hug.Name}</p>
+                    <Label className="text-sm font-medium premium-text-gray-300 sen-font">Client Name</Label>
+                    <p className="font-semibold premium-text-white sen-font" data-testid="text-client-name">{hug.Name}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
                   <Mail className="h-5 w-5 text-rose-400" />
                   <div>
-                    <Label className="text-sm font-medium premium-text-gray-300">Email</Label>
-                    <p className="premium-text-white">{hug['Email Address']}</p>
+                    <Label className="text-sm font-medium premium-text-gray-300 sen-font">Email</Label>
+                    <p className="premium-text-white sen-font">{hug['Email Address']}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
                   <Phone className="h-5 w-5 text-rose-400" />
                   <div>
-                    <Label className="text-sm font-medium premium-text-gray-300">Phone</Label>
-                    <p className="premium-text-white">{hug['Phone Number']}</p>
+                    <Label className="text-sm font-medium premium-text-gray-300 sen-font">Phone</Label>
+                    <p className="premium-text-white sen-font">{hug['Phone Number']}</p>
                   </div>
                 </div>
               </div>
@@ -396,22 +396,22 @@ const AdminConversation = () => {
                 <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
                   <Heart className="h-5 w-5 text-pink-400" />
                   <div>
-                    <Label className="text-sm font-medium premium-text-gray-300">Recipient</Label>
-                    <p className="font-semibold premium-text-white">{hug['Recipient\'s Name']}</p>
+                    <Label className="text-sm font-medium premium-text-gray-300 sen-font">Recipient</Label>
+                    <p className="font-semibold premium-text-white sen-font">{hug['Recipient\'s Name']}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
                   <Package className="h-5 w-5 text-pink-400" />
                   <div>
-                    <Label className="text-sm font-medium premium-text-gray-300">Message Type</Label>
-                    <p className="premium-text-white">{hug['Type of Message']}</p>
+                    <Label className="text-sm font-medium premium-text-gray-300 sen-font">Message Type</Label>
+                    <p className="premium-text-white sen-font">{hug['Type of Message']}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
                   <Package className="h-5 w-5 text-pink-400" />
                   <div>
-                    <Label className="text-sm font-medium premium-text-gray-300">Delivery Type</Label>
-                    <p className="premium-text-white">{hug['Delivery Type']}</p>
+                    <Label className="text-sm font-medium premium-text-gray-300 sen-font">Delivery Type</Label>
+                    <p className="premium-text-white sen-font">{hug['Delivery Type']}</p>
                   </div>
                 </div>
               </div>
@@ -420,8 +420,8 @@ const AdminConversation = () => {
                 <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
                   <Calendar className="h-5 w-5 text-purple-400" />
                   <div>
-                    <Label className="text-sm font-medium premium-text-gray-300">Date Submitted</Label>
-                    <p className="premium-text-white">{new Date(hug.Date).toLocaleDateString('en-US', {
+                    <Label className="text-sm font-medium premium-text-gray-300 sen-font">Date Submitted</Label>
+                    <p className="premium-text-white sen-font">{new Date(hug.Date).toLocaleDateString('en-US', {
                       year: 'numeric',
                       month: 'long',
                       day: 'numeric'
@@ -429,7 +429,7 @@ const AdminConversation = () => {
                   </div>
                 </div>
                 <div className="p-4 bg-white/5 rounded-lg border border-white/10">
-                  <Label className="text-sm font-medium premium-text-gray-300">Status</Label>
+                  <Label className="text-sm font-medium premium-text-gray-300 sen-font">Status</Label>
                   <div className="mt-2 space-y-2">
                     <Select value={currentStatus} onValueChange={handleStatusUpdate} disabled={updatingStatus}>
                       <SelectTrigger className="bg-white/10 border-white/20 premium-text-white">
@@ -444,7 +444,7 @@ const AdminConversation = () => {
                       </SelectContent>
                     </Select>
                     {updatingStatus && (
-                      <p className="text-xs text-purple-400">Updating status...</p>
+                      <p className="text-xs text-purple-400 sen-font">Updating status...</p>
                     )}
                   </div>
                 </div>
@@ -453,17 +453,17 @@ const AdminConversation = () => {
 
             <div className="space-y-4">
               <div className="p-4 bg-gradient-to-r from-rose-500/10 to-pink-500/10 rounded-lg border border-rose-500/20">
-                <Label className="text-sm font-medium premium-text-gray-300 mb-2 block">Feelings</Label>
-                <p className="premium-text-white leading-relaxed">{hug.Feelings}</p>
+                <Label className="text-sm font-medium premium-text-gray-300 mb-2 block sen-font">Feelings</Label>
+                <p className="premium-text-white leading-relaxed sen-font">{hug.Feelings}</p>
               </div>
               <div className="p-4 bg-gradient-to-r from-pink-500/10 to-purple-500/10 rounded-lg border border-pink-500/20">
-                <Label className="text-sm font-medium premium-text-gray-300 mb-2 block">Story</Label>
-                <p className="premium-text-white leading-relaxed">{hug.Story}</p>
+                <Label className="text-sm font-medium premium-text-gray-300 mb-2 block sen-font">Story</Label>
+                <p className="premium-text-white leading-relaxed sen-font">{hug.Story}</p>
               </div>
               {hug['Specific Details'] && (
                 <div className="p-4 bg-gradient-to-r from-purple-500/10 to-indigo-500/10 rounded-lg border border-purple-500/20">
-                  <Label className="text-sm font-medium premium-text-gray-300 mb-2 block">Specific Details</Label>
-                  <p className="premium-text-white leading-relaxed">{hug['Specific Details']}</p>
+                  <Label className="text-sm font-medium premium-text-gray-300 mb-2 block sen-font">Specific Details</Label>
+                  <p className="premium-text-white leading-relaxed sen-font">{hug['Specific Details']}</p>
                 </div>
               )}
             </div>
@@ -480,8 +480,8 @@ const AdminConversation = () => {
               {replies.length === 0 ? (
                 <div className="text-center py-12">
                   <Heart className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <p className="premium-text-gray-300 text-lg">No replies yet</p>
-                  <p className="premium-text-gray-400 text-sm">Start the conversation with your client!</p>
+                  <p className="premium-text-gray-300 text-lg sen-font">No replies yet</p>
+                  <p className="premium-text-gray-400 text-sm sen-font">Start the conversation with your client!</p>
                 </div>
               ) : (
                 replies.map((reply) => (
@@ -566,7 +566,7 @@ const AdminConversation = () => {
 
             <div className="space-y-6">
               <div>
-                <Label className="premium-text-gray-300 font-medium">Reply Message</Label>
+                <Label className="premium-text-gray-300 font-medium sen-font">Reply Message</Label>
                 <Textarea
                   value={replyMessage}
                   onChange={(e) => setReplyMessage(e.target.value)}

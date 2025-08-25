@@ -479,9 +479,9 @@ const AdminDashboard = () => {
           <div className="premium-glass-card p-6">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <p className="text-sm font-medium premium-text-gray-300 mb-1">Total Orders</p>
+                <p className="text-sm font-medium premium-text-gray-300 mb-1 sen-font">Total Orders</p>
                 <p className="text-3xl font-bold premium-text-white">{stats.totalCount}</p>
-                <p className="text-xs premium-text-gray-400 mt-1">💝 All love letters</p>
+                <p className="text-xs premium-text-gray-400 mt-1 sen-font">💝 All love letters</p>
               </div>
               <div className="h-14 w-14 bg-gradient-to-r from-pink-400 to-violet-500 rounded-xl flex items-center justify-center shadow-lg">
                 <Heart className="h-7 w-7 premium-text-white" />
@@ -492,9 +492,9 @@ const AdminDashboard = () => {
           <div className="premium-glass-card p-6">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <p className="text-sm font-medium premium-text-gray-300 mb-1">New Messages</p>
+                <p className="text-sm font-medium premium-text-gray-300 mb-1 sen-font">New Messages</p>
                 <p className="text-3xl font-bold premium-text-white">{stats.newCount}</p>
-                <p className="text-xs premium-text-gray-400 mt-1">⏰ Awaiting response</p>
+                <p className="text-xs premium-text-gray-400 mt-1 sen-font">⏰ Awaiting response</p>
               </div>
               <div className="h-14 w-14 bg-gradient-to-r from-orange-400 to-pink-400 rounded-xl flex items-center justify-center shadow-lg">
                 <Clock className="h-7 w-7 premium-text-white" />
@@ -505,9 +505,9 @@ const AdminDashboard = () => {
           <div className="premium-glass-card p-6">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <p className="text-sm font-medium premium-text-gray-300 mb-1">Completed</p>
+                <p className="text-sm font-medium premium-text-gray-300 mb-1 sen-font">Completed</p>
                 <p className="text-3xl font-bold premium-text-white">{stats.completedCount}</p>
-                <p className="text-xs premium-text-gray-400 mt-1">✅ Successfully delivered</p>
+                <p className="text-xs premium-text-gray-400 mt-1 sen-font">✅ Successfully delivered</p>
               </div>
               <div className="h-14 w-14 bg-gradient-to-r from-pink-500 to-violet-500 rounded-xl flex items-center justify-center shadow-lg">
                 <CheckCircle className="h-7 w-7 premium-text-white" />
@@ -518,9 +518,9 @@ const AdminDashboard = () => {
           <div className="premium-glass-card p-6">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <p className="text-sm font-medium premium-text-gray-300 mb-1">Response Rate</p>
+                <p className="text-sm font-medium premium-text-gray-300 mb-1 sen-font">Response Rate</p>
                 <p className="text-3xl font-bold premium-text-white">{stats.responseRate}%</p>
-                <p className="text-xs premium-text-gray-400 mt-1">📈 Success metric</p>
+                <p className="text-xs premium-text-gray-400 mt-1 sen-font">📈 Success metric</p>
               </div>
               <div className="h-14 w-14 bg-gradient-to-r from-violet-400 to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
                 <TrendingUp className="h-7 w-7 premium-text-white" />
@@ -598,8 +598,8 @@ const AdminDashboard = () => {
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
                   <h3 className="font-semibold premium-text-white text-lg">{hug.Name}</h3>
-                  <p className="premium-text-gray-300 text-sm">To: {hug['Recipient\'s Name']}</p>
-                  <p className="premium-text-gray-400 text-xs mt-1">{hug['Email Address']}</p>
+                  <p className="premium-text-gray-300 text-sm sen-font">To: {hug['Recipient\'s Name']}</p>
+                  <p className="premium-text-gray-400 text-xs mt-1 sen-font">{hug['Email Address']}</p>
                 </div>
                 <Badge 
                   variant="outline"
@@ -610,18 +610,18 @@ const AdminDashboard = () => {
               </div>
 
               <div className="space-y-2 mb-4">
-                <div className="flex items-center premium-text-gray-300 text-sm">
+                <div className="flex items-center premium-text-gray-300 text-sm sen-font">
                   <MessageSquare className="h-4 w-4 mr-2 premium-text-gray-400" />
                   {hug['Type of Message']}
                 </div>
-                <div className="flex items-center premium-text-gray-300 text-sm">
+                <div className="flex items-center premium-text-gray-300 text-sm sen-font">
                   <Calendar className="h-4 w-4 mr-2 premium-text-gray-400" />
                   {new Date(hug.Date).toLocaleDateString()}
                 </div>
               </div>
 
               <div className="bg-white/5 rounded-lg p-3 mb-4">
-                <p className="premium-text-gray-300 text-sm line-clamp-3">
+                <p className="premium-text-gray-300 text-sm line-clamp-3 sen-font">
                   {hug.Feelings}
                 </p>
               </div>
@@ -644,7 +644,7 @@ const AdminDashboard = () => {
           <div className="premium-glass-card p-12 text-center">
             <Heart className="h-16 w-16 premium-text-gray-400 mx-auto mb-4" />
             <h3 className="text-xl font-semibold premium-text-white mb-2">No messages found</h3>
-            <p className="premium-text-gray-400">Try adjusting your search filters</p>
+            <p className="premium-text-gray-400 sen-font">Try adjusting your search filters</p>
           </div>
         )}
       </div>
