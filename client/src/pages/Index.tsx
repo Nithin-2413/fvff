@@ -278,6 +278,52 @@ const Index = () => {
         </div>
       </section>
 
+      {/* We Didn't Mean to Start a Business Section */}
+      <section className="py-32 px-6 bg-gradient-to-b from-background to-muted/10 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto relative z-10 text-center">
+          <div className="mb-16">
+            <h2 className="text-5xl md:text-6xl font-bold mb-8">
+              <span className="bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+                We Didn't Mean to Start a Business…
+              </span>
+            </h2>
+            <h3 className="text-3xl md:text-4xl font-semibold text-muted-foreground">
+              But...
+            </h3>
+          </div>
+
+          <div className="space-y-8 text-lg leading-relaxed max-w-3xl mx-auto">
+            <p className="text-xl font-medium text-foreground times-new-roman-italic">
+              It began with a late-night "HELP!" — a friend with so much to say, but no way to say it.
+            </p>
+            
+            <p className="text-muted-foreground">
+              They tried. They stumbled. They gave up. Then they called Onaamika.
+            </p>
+            
+            <p className="text-muted-foreground">
+              She listened. She felt. She wrote.
+            </p>
+            
+            <p className="text-muted-foreground">
+              And when the message reached its heart, it didn't just get read — it connected, it healed, it made someone truly smile.
+            </p>
+
+            <p className="text-lg font-bold text-muted-foreground times-new-roman-italic">
+              That night, we learned something simple but powerful:<br />
+              We all feel deeply, but not all of us can put those feelings into words.<br />
+              And sometimes, what's left unsaid is lost forever.
+            </p>
+
+            <div className="bg-gradient-to-r from-pink-50/50 to-purple-50/50 p-8 rounded-3xl border border-pink-200/30 my-12">
+              <p className="text-xl font-bold text-muted-foreground times-new-roman-italic mb-4">Because let's be honest —</p>
+              <p className="text-muted-foreground times-new-roman-italic">We live in a world where people are constantly feeling deeply…</p>
+              <p className="font-bold text-muted-foreground times-new-roman-italic">…but rarely saying it meaningfully.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CEO Section */}
       <CEOSection />
 
