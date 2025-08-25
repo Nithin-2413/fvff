@@ -2,7 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { supabaseAdmin } from "./lib/supabase";
-import { sendSubmissionEmail, sendReplyEmail } from "./lib/brevo";
+import { sendSubmissionEmail, sendReplyEmail, sendPaymentEmail } from "./lib/brevo";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
 
@@ -62,6 +62,13 @@ const adminLoginSchema = z.object({
   }),
   latitude: z.number().min(-90).max(90, "Invalid latitude coordinates"),
   longitude: z.number().min(-180).max(180, "Invalid longitude coordinates")
+});
+
+const sendPaymentSchema = z.object({
+  hugid: z.string().uuid(),
+  amount: z.number().positive(),
+  payment_message: z.string().optional(),
+  admin_name: z.string(),
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -266,6 +273,60 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(400).json({ 
         success: false, 
         message: error instanceof Error ? error.message : 'Failed to send reply' 
+      });
+    }
+  });
+
+  // Send payment request
+  app.post("/api/sendPayment", async (req, res) => {
+    try {
+      const validatedData = sendPaymentSchema.parse(req.body);
+
+      // Get client details
+      const { data: hug, error: hugError } = await supabaseAdmin
+        .from('written hug')
+        .select('Name, "Email Address"')
+        .eq('id', validatedData.hugid)
+        .single();
+
+      if (hugError) throw hugError;
+      if (!hug) throw new Error('Hug not found');
+
+      // Send payment email using Brevo
+      const emailSent = await sendPaymentEmail({
+        client_name: hug.Name as string,
+        client_email: hug['Email Address'] as string,
+        amount: validatedData.amount,
+        admin_name: validatedData.admin_name,
+        payment_message: validatedData.payment_message,
+      });
+
+      // Insert payment request into replies table for tracking
+      const { data: reply, error: replyError } = await supabaseAdmin
+        .from('hug replies')
+        .insert([{
+          hugid: validatedData.hugid,
+          sender_type: 'admin',
+          sender_name: validatedData.admin_name,
+          message: `💳 Payment request sent: ₹${validatedData.amount}${validatedData.payment_message ? `\n\nMessage: ${validatedData.payment_message}` : ''}`
+        }])
+        .select()
+        .single();
+
+      if (replyError) throw replyError;
+
+      // Update status to "Payment Requested"
+      await supabaseAdmin
+        .from('written hug')
+        .update({ Status: 'Payment Requested' })
+        .eq('id', validatedData.hugid);
+
+      res.json({ success: true, reply, emailSent });
+    } catch (error) {
+      console.error('Send payment error:', error);
+      res.status(400).json({ 
+        success: false, 
+        message: error instanceof Error ? error.message : 'Failed to send payment request' 
       });
     }
   });

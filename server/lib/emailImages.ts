@@ -35,6 +35,12 @@ export function getEmailImages() {
     replyHeaderImage: createOptimizedCloudinaryUrl(
       'https://res.cloudinary.com/dwmybitme/image/upload/v1755175889/Pink_and_White_Floral_Wedding_Banner_tosxqh.png',
       700
+    ),
+    
+    // Payment header image (pink and blue natural spring banner)
+    paymentHeaderImage: createOptimizedCloudinaryUrl(
+      'https://res.cloudinary.com/dwmybitme/image/upload/v1756125317/Pink_And_Blue_Natural_Hello_Spring_Season_Greeting_Landscape_Banner_ots9en.png',
+      700
     )
   };
 }
@@ -54,7 +60,7 @@ function createCommonFooter(footerImageUrl: string): string {
 }
 
 // Create email templates matching the provided designs
-export function createEmailTemplate(type: 'admin' | 'user' | 'reply', images: ReturnType<typeof getEmailImages>) {
+export function createEmailTemplate(type: 'admin' | 'user' | 'reply' | 'payment', images: ReturnType<typeof getEmailImages>) {
   
   // Admin email template (for new submissions)
   if (type === 'admin') {
@@ -159,6 +165,67 @@ export function createEmailTemplate(type: 'admin' | 'user' | 'reply', images: Re
           ${createCommonFooter(images.footerImage)}
 
         </body>
+      </html>
+    `;
+  }
+
+  // Payment email template
+  if (type === 'payment') {
+    return `
+      <!doctype html>
+      <html lang="en">
+      <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>The Written Hug — Payment Request</title>
+        
+        <!-- Optional: most email clients ignore external fonts, but this won't trigger spam filters. -->
+        <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+      </head>
+
+      <body style="margin:0;padding:0;background:#f8f7f6;font-family: 'Comic Sans MS', ComicSans, cursive, Arial, sans-serif; color:#333333;">
+
+        <!-- Hidden preview / preheader -->
+        <div style="display:none!important;visibility:hidden;opacity:0;height:0;width:0;overflow:hidden;mso-hide:all;">
+          Payment Request from The Written Hug
+        </div>
+
+        <!-- Header Image -->
+        <div style="width:100%;max-width:700px;margin:0 auto;padding:24px 12px 0;text-align:center;box-sizing:border-box;">
+          <img src="${images.paymentHeaderImage}" alt="Payment Request" style="width:100%;height:auto;display:block;border-radius:10px 10px 0 0;" />
+        </div>
+
+        <div role="article" aria-label="The Written Hug payment request" style="padding:0 12px 24px;">
+          <div style="max-width:700px;margin:0 auto;background:#ffffff;border-radius:0 0 10px 10px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,0.06);">
+
+            <!-- Header -->
+            <div style="padding:22px 20px;text-align:center;background:linear-gradient(90deg,#4a90e2,#7bb3f2,#4a90e2);color:#ffffff;">
+              <h1 style="margin:0;font-size:28px;font-family:'Great Vibes', 'Comic Sans MS', cursive;line-height:1.2;letter-spacing:0.5px;">
+                Send it with Kabootar
+              </h1>
+              <p style="margin:6px 0 0;font-size:14px;opacity:0.95;font-family:'Comic Sans MS', cursive, Arial, sans-serif;">
+                Complete your heartfelt message with secure payment
+              </p>
+            </div>
+
+            <!-- Body -->
+            <div style="padding:20px 24px;background:#ffffff;">
+              {CONTENT}
+            </div>
+
+            <!-- Footer -->
+            <div style="padding:14px 24px 22px;background:#ffffff;border-top:1px solid #e8f4fd;text-align:center;font-size:12px;color:#777;">
+              <div style="margin-bottom:8px;">
+                <span style="font-weight:600;font-size:16px;color:#4a90e2;font-family:'Great Vibes', 'Comic Sans MS', cursive;line-height:1.2;letter-spacing:0.5px;">Secure payments with The Written Hug</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        ${createCommonFooter(images.footerImage)}
+
+      </body>
       </html>
     `;
   }

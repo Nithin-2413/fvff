@@ -4,8 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, Send, User, Mail, Phone, MessageSquare, Clock, MapPin, Heart, Star, Globe, Sparkles, Package, Calendar } from 'lucide-react';
+import { ArrowLeft, Send, User, Mail, Phone, MessageSquare, Clock, MapPin, Heart, Star, Globe, Sparkles, Package, Calendar, CreditCard, Banknote } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import { Link } from 'wouter';
 import { useLocation, useParams } from 'wouter';
@@ -52,6 +53,11 @@ const AdminConversation = () => {
   const audioRef = useBackgroundMusic(0.32);
   const [currentStatus, setCurrentStatus] = useState(hug?.Status || 'New');
   const [updatingStatus, setUpdatingStatus] = useState(false);
+  
+  // Payment state
+  const [paymentAmount, setPaymentAmount] = useState('');
+  const [paymentMessage, setPaymentMessage] = useState('');
+  const [sendingPayment, setSendingPayment] = useState(false);
 
   // Authentication check
   useEffect(() => {
@@ -219,6 +225,74 @@ const AdminConversation = () => {
       });
     } finally {
       setSending(false);
+    }
+  };
+
+  // Send payment request
+  const sendPayment = async () => {
+    if (!paymentAmount.trim() || !id) return;
+
+    const amount = parseFloat(paymentAmount);
+    if (isNaN(amount) || amount <= 0) {
+      toast({
+        title: "Invalid Amount",
+        description: "Please enter a valid amount greater than 0",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setSendingPayment(true);
+    try {
+      const response = await fetch('/api/sendPayment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          hugid: id,
+          amount: amount,
+          payment_message: paymentMessage,
+          admin_name: adminName,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Add the new payment request to the UI immediately
+        const newReply: Reply = {
+          id: result.reply.id,
+          created_at: result.reply.created_at,
+          sender_type: 'admin',
+          sender_name: adminName,
+          message: result.reply.message,
+          email_sent: true,
+          is_read: true,
+        };
+        setReplies([...replies, newReply]);
+        setPaymentAmount('');
+        setPaymentMessage('');
+
+        toast({
+          title: "Payment Request Sent",
+          description: `Payment request for ₹${amount} has been sent to the client via email`,
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: result.message || "Failed to send payment request",
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Network Error",
+        description: "Failed to send payment request",
+        variant: "destructive"
+      });
+    } finally {
+      setSendingPayment(false);
     }
   };
 
@@ -584,6 +658,63 @@ const AdminConversation = () => {
                 <div className="btn-content">
                   <Send className="h-5 w-5" />
                   {sending ? 'Sending...' : 'Send Reply'}
+                </div>
+              </Button>
+            </div>
+          </div>
+
+          {/* Payment Request Form */}
+          <div className="premium-glass-card p-6 mt-6">
+            <div className="flex items-center gap-2 mb-6">
+              <CreditCard className="h-5 w-5 text-blue-400" />
+              <h2 className="text-xl font-bold premium-text-white">Send Payment Request</h2>
+            </div>
+
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label className="premium-text-gray-300 font-medium sen-font">Amount (₹)</Label>
+                  <Input
+                    type="number"
+                    value={paymentAmount}
+                    onChange={(e) => setPaymentAmount(e.target.value)}
+                    placeholder="Enter amount in rupees"
+                    min="1"
+                    step="0.01"
+                    className="mt-2 bg-white/10 border-white/20 premium-text-white placeholder-gray-400 backdrop-blur-md hover:bg-white/12 focus:bg-white/12 focus:border-white/30 focus:backdrop-blur-lg transition-all duration-300"
+                  />
+                </div>
+                <div className="flex items-end">
+                  <div className="bg-blue-500/20 border border-blue-400/30 rounded-lg px-4 py-2 backdrop-blur-md">
+                    <div className="flex items-center gap-2">
+                      <Banknote className="h-4 w-4 text-blue-400" />
+                      <span className="premium-text-white text-sm">UPI Payment</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <Label className="premium-text-gray-300 font-medium sen-font">Payment Message (Optional)</Label>
+                <Textarea
+                  value={paymentMessage}
+                  onChange={(e) => setPaymentMessage(e.target.value)}
+                  placeholder="Add a custom message for the payment request..."
+                  rows={3}
+                  className="mt-2 bg-white/10 border-white/20 premium-text-white placeholder-gray-400 resize-none backdrop-blur-md hover:bg-white/12 focus:bg-white/12 focus:border-white/30 focus:backdrop-blur-lg transition-all duration-300"
+                />
+              </div>
+              
+              <Button
+                onClick={sendPayment}
+                disabled={!paymentAmount.trim() || sendingPayment}
+                className="w-full premium-glass-button py-4 text-lg font-medium"
+                style={{ background: 'linear-gradient(135deg, #4a90e2, #7bb3f2)' }}
+              >
+                <i></i>
+                <div className="btn-content">
+                  <CreditCard className="h-5 w-5" />
+                  {sendingPayment ? 'Sending Payment Request...' : 'Send Payment Request'}
                 </div>
               </Button>
             </div>

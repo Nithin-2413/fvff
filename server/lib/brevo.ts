@@ -32,6 +32,14 @@ export interface EmailReplyParams {
   admin_panel_link?: string;
 }
 
+export interface EmailPaymentParams {
+  client_name: string;
+  client_email: string;
+  amount: number;
+  admin_name: string;
+  payment_message?: string;
+}
+
 export async function sendSubmissionEmail(params: EmailSubmissionParams): Promise<boolean> {
   try {
     console.log('Starting sendSubmissionEmail with params:', JSON.stringify(params, null, 2));
@@ -261,6 +269,118 @@ export async function sendReplyEmail(clientEmail: string, params: EmailReplyPara
     return true;
   } catch (error) {
     console.error('Brevo reply email error:', error);
+    if (error instanceof Error && 'response' in error) {
+      const axiosError = error as any;
+      console.error('Response status:', axiosError.response?.status);
+      console.error('Response data:', axiosError.response?.data);
+    }
+    return false;
+  }
+}
+
+export async function sendPaymentEmail(params: EmailPaymentParams): Promise<boolean> {
+  try {
+    // Get email images
+    const images = getEmailImages();
+    
+    // Create UPI payment link
+    const upiLink = `upi://pay?pa=thewrittenhug@upi&pn=The%20Written%20Hug&cu=INR&am=${params.amount}&tn=Send%20it%20with%20Kabootar`;
+    
+    // Create payment content with beautiful styling
+    const paymentContent = `
+      <p style="margin:0 0 14px;font-size:15px;">
+        Hi ${params.client_name},
+      </p>
+
+      <div style="background:#e8f4fd;border-radius:12px;padding:20px;border:2px solid #4a90e2;text-align:center;margin:16px 0;">
+        <h3 style="margin:0 0 10px;font-size:18px;color:#4a90e2;font-family:'Great Vibes', cursive;">
+          Your Written Hug Payment Request
+        </h3>
+        <div style="background:#ffffff;border-radius:8px;padding:16px;margin:12px 0;border:1px solid #b8d7f2;">
+          <p style="margin:0;font-size:24px;font-weight:bold;color:#333;">
+            ₹${params.amount}
+          </p>
+          <p style="margin:4px 0 0;font-size:14px;color:#666;">
+            Amount Due
+          </p>
+        </div>
+      </div>
+
+      ${params.payment_message ? `
+      <div style="background:#fff5f7;border-radius:8px;padding:16px 18px;border:1px solid #f9ccd3;margin:16px 0;">
+        <p style="margin:0;font-size:15px;line-height:1.6;text-align:justify;color:#2f2f2f;">
+          ${params.payment_message.replace(/\n/g, '<br>')}
+        </p>
+      </div>
+      ` : ''}
+
+      <div style="text-align:center;margin:24px 0;">
+        <a href="${upiLink}" style="display:inline-block;background:linear-gradient(135deg,#4a90e2,#7bb3f2);color:#ffffff;text-decoration:none;padding:16px 32px;border-radius:25px;font-size:16px;font-weight:bold;box-shadow:0 4px 15px rgba(74,144,226,0.3);transition:all 0.3s ease;">
+          💳 Pay Now with UPI
+        </a>
+      </div>
+
+      <div style="background:#f0f8ff;border-radius:8px;padding:16px;margin:16px 0;border-left:4px solid #4a90e2;">
+        <p style="margin:0 0 8px;font-size:14px;font-weight:bold;color:#4a90e2;">
+          🔒 Secure Payment Instructions:
+        </p>
+        <ul style="margin:0;padding-left:16px;font-size:13px;color:#555;line-height:1.5;">
+          <li>Click the "Pay Now with UPI" button above</li>
+          <li>Your UPI app will open automatically</li>
+          <li>Verify the amount: ₹${params.amount}</li>
+          <li>Complete the payment securely</li>
+          <li>We'll confirm receipt and proceed with your order</li>
+        </ul>
+      </div>
+
+      <p style="margin:16px 0 0;font-size:15px;">
+        Once payment is received, we'll begin crafting your heartfelt message immediately!
+      </p>
+
+      <p style="margin:12px 0 0;font-size:13px;color:#666;">
+        Having trouble with payment? Simply reply to this email and we'll assist you personally.
+      </p>
+    `;
+
+    // Get template with images
+    const paymentTemplate = createEmailTemplate('payment', images);
+    const paymentHtmlContent = paymentTemplate.replace('{CONTENT}', paymentContent);
+
+    // Send payment email
+    const paymentEmailData = {
+      sender: {
+        email: 'thewrittenhug@gmail.com',
+        name: 'The Written Hug Team'
+      },
+      to: [
+        {
+          email: params.client_email,
+          name: params.client_name
+        }
+      ],
+      subject: `Payment Request ₹${params.amount} - The Written Hug`,
+      htmlContent: paymentHtmlContent,
+      replyTo: {
+        email: 'thewrittenhug@gmail.com',
+        name: 'The Written Hug Team'
+      }
+    };
+
+    console.log('Payment email data:', JSON.stringify(paymentEmailData, null, 2));
+    
+    const paymentResult = await axios.post(BREVO_API_URL, paymentEmailData, {
+      headers: {
+        'api-key': BREVO_API_KEY,
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    console.log('Payment email result:', paymentResult.status);
+    console.log('Payment email response:', JSON.stringify(paymentResult.data, null, 2));
+    
+    return true;
+  } catch (error) {
+    console.error('Brevo payment email error:', error);
     if (error instanceof Error && 'response' in error) {
       const axiosError = error as any;
       console.error('Response status:', axiosError.response?.status);
