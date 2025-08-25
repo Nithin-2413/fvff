@@ -1,13 +1,12 @@
 import axios from 'axios';
 import { getEmailImages, createEmailTemplate } from './emailImages';
 
-if (!process.env.BREVO_API_KEY) {
-  throw new Error("BREVO_API_KEY environment variable must be set");
-}
+// Check if Brevo API key is configured
+const BREVO_API_KEY = process.env.BREVO_API_KEY || '';
+const isBrevoConfigured = !!BREVO_API_KEY;
 
 // Brevo API configuration
 const BREVO_API_URL = 'https://api.brevo.com/v3/smtp/email';
-const BREVO_API_KEY = process.env.BREVO_API_KEY!;
 
 export interface EmailSubmissionParams {
   name: string;
@@ -41,6 +40,11 @@ export interface EmailPaymentParams {
 }
 
 export async function sendSubmissionEmail(params: EmailSubmissionParams): Promise<boolean> {
+  if (!isBrevoConfigured) {
+    console.log('Brevo API key not configured, email sending disabled');
+    return true; // Return success to allow development without email
+  }
+  
   try {
     console.log('Starting sendSubmissionEmail with params:', JSON.stringify(params, null, 2));
     
@@ -205,6 +209,11 @@ export async function sendSubmissionEmail(params: EmailSubmissionParams): Promis
 }
 
 export async function sendReplyEmail(clientEmail: string, params: EmailReplyParams): Promise<boolean> {
+  if (!isBrevoConfigured) {
+    console.log('Brevo API key not configured, email sending disabled');
+    return true; // Return success to allow development without email
+  }
+  
   try {
     // Get email images
     const images = getEmailImages();
@@ -279,6 +288,11 @@ export async function sendReplyEmail(clientEmail: string, params: EmailReplyPara
 }
 
 export async function sendPaymentEmail(params: EmailPaymentParams): Promise<boolean> {
+  if (!isBrevoConfigured) {
+    console.log('Brevo API key not configured, email sending disabled');
+    return true; // Return success to allow development without email
+  }
+  
   try {
     // Get email images
     const images = getEmailImages();
