@@ -11,7 +11,7 @@ import logoImage from '@assets/Untitled design (2)_1755165830517.png';
 import { useLocation } from 'wouter';
 import { useBackgroundMusic } from '@/hooks/useBackgroundMusic';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import '../styles/starfield.scss';
+import '../styles/premium-admin.scss';
 
 interface Hug {
   id: string;
@@ -412,19 +412,19 @@ const AdminDashboard = () => {
       </audio>
 
       {/* Premium Glassmorphism Header */}
-      <div className="glass-card relative z-20 m-6 p-6 border-0">
+      <div className="premium-glass-card relative z-20 m-6 p-6 border-0">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
           <div className="flex items-center space-x-3">
             <img src={logoImage} loading="lazy" alt="Logo" className="h-8 w-8 rounded-full" />
             <div>
-              <h1 className="text-2xl font-bold text-white">Admin Dashboard</h1>
-              <p className="text-gray-300 font-medium">The Written Hug Management</p>
+              <h1 className="text-2xl font-bold premium-text-white">Admin Dashboard</h1>
+              <p className="premium-text-gray-300 font-medium">The Written Hug Management</p>
             </div>
           </div>
           <div className="flex items-center space-x-3">
             <Button 
               onClick={() => window.open('/', '_blank')} 
-              className="glass-button rounded-full"
+              className="premium-glass-button rounded-full"
               size="sm"
             >
               <Globe className="w-4 h-4 mr-2" />
@@ -432,7 +432,7 @@ const AdminDashboard = () => {
             </Button>
             <Button 
               onClick={handleLogout}
-              className="glass-button rounded-full"
+              className="premium-glass-button rounded-full"
               size="sm"
             >
               <LogOut className="w-4 h-4 mr-2" />
@@ -445,81 +445,81 @@ const AdminDashboard = () => {
       <div className="max-w-7xl mx-auto px-6 relative z-20">
         {/* Welcome Section */}
         <div className="mb-8 text-center">
-          <h2 className="text-4xl font-bold text-white mb-2">Welcome to Your Dashboard</h2>
-          <p className="text-xl text-gray-300">Manage your heartfelt messages with love and care ✨</p>
+          <h2 className="text-4xl font-bold premium-text-white mb-2">Welcome to Your Dashboard</h2>
+          <p className="text-xl premium-text-gray-300">Manage your heartfelt messages with love and care ✨</p>
         </div>
 
         {/* Premium Stats Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="glass-card p-6">
+          <div className="premium-premium-glass-card p-6">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <p className="text-sm font-medium text-gray-300 mb-1">Total Orders</p>
-                <p className="text-3xl font-bold text-white">{stats.totalCount}</p>
-                <p className="text-xs text-gray-400 mt-1">💝 All love letters</p>
+                <p className="text-sm font-medium premium-text-gray-300 mb-1">Total Orders</p>
+                <p className="text-3xl font-bold premium-text-white">{stats.totalCount}</p>
+                <p className="text-xs premium-text-gray-400 mt-1">💝 All love letters</p>
               </div>
               <div className="h-14 w-14 bg-gradient-to-r from-rose-400 to-pink-400 rounded-xl flex items-center justify-center shadow-lg">
-                <Heart className="h-7 w-7 text-white" />
+                <Heart className="h-7 w-7 premium-text-white" />
               </div>
             </div>
           </div>
 
-          <div className="glass-card p-6">
+          <div className="premium-premium-glass-card p-6">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <p className="text-sm font-medium text-gray-300 mb-1">New Messages</p>
-                <p className="text-3xl font-bold text-white">{stats.newCount}</p>
-                <p className="text-xs text-gray-400 mt-1">⏰ Awaiting response</p>
+                <p className="text-sm font-medium premium-text-gray-300 mb-1">New Messages</p>
+                <p className="text-3xl font-bold premium-text-white">{stats.newCount}</p>
+                <p className="text-xs premium-text-gray-400 mt-1">⏰ Awaiting response</p>
               </div>
               <div className="h-14 w-14 bg-gradient-to-r from-orange-400 to-amber-400 rounded-xl flex items-center justify-center shadow-lg">
-                <Clock className="h-7 w-7 text-white" />
+                <Clock className="h-7 w-7 premium-text-white" />
               </div>
             </div>
           </div>
 
-          <div className="glass-card p-6">
+          <div className="premium-premium-glass-card p-6">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <p className="text-sm font-medium text-gray-300 mb-1">Completed</p>
-                <p className="text-3xl font-bold text-white">{stats.completedCount}</p>
-                <p className="text-xs text-gray-400 mt-1">✅ Successfully delivered</p>
+                <p className="text-sm font-medium premium-text-gray-300 mb-1">Completed</p>
+                <p className="text-3xl font-bold premium-text-white">{stats.completedCount}</p>
+                <p className="text-xs premium-text-gray-400 mt-1">✅ Successfully delivered</p>
               </div>
               <div className="h-14 w-14 bg-gradient-to-r from-green-400 to-emerald-400 rounded-xl flex items-center justify-center shadow-lg">
-                <CheckCircle className="h-7 w-7 text-white" />
+                <CheckCircle className="h-7 w-7 premium-text-white" />
               </div>
             </div>
           </div>
 
-          <div className="glass-card p-6">
+          <div className="premium-premium-glass-card p-6">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <p className="text-sm font-medium text-gray-300 mb-1">Response Rate</p>
-                <p className="text-3xl font-bold text-white">{stats.responseRate}%</p>
-                <p className="text-xs text-gray-400 mt-1">📈 Success metric</p>
+                <p className="text-sm font-medium premium-text-gray-300 mb-1">Response Rate</p>
+                <p className="text-3xl font-bold premium-text-white">{stats.responseRate}%</p>
+                <p className="text-xs premium-text-gray-400 mt-1">📈 Success metric</p>
               </div>
               <div className="h-14 w-14 bg-gradient-to-r from-purple-400 to-indigo-400 rounded-xl flex items-center justify-center shadow-lg">
-                <TrendingUp className="h-7 w-7 text-white" />
+                <TrendingUp className="h-7 w-7 premium-text-white" />
               </div>
             </div>
           </div>
         </div>
 
         {/* Premium Controls */}
-        <div className="glass-card p-6 mb-8">
+        <div className="premium-glass-card p-6 mb-8">
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 premium-text-gray-400 h-4 w-4" />
                 <Input
                   placeholder="Search messages..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 bg-white/10 border-white/20 text-white placeholder-gray-400 min-w-[250px]"
+                  className="pl-10 bg-white/10 border-white/20 premium-text-white placeholder-gray-400 min-w-[250px]"
                 />
               </div>
               
               <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger className="w-[180px] bg-white/10 border-white/20 text-white">
+                <SelectTrigger className="w-[180px] bg-white/10 border-white/20 premium-text-white">
                   <SelectValue placeholder="All Statuses" />
                 </SelectTrigger>
                 <SelectContent>
@@ -533,7 +533,7 @@ const AdminDashboard = () => {
               </Select>
 
               <Select value={timeFilter} onValueChange={(value: 'all' | 'today' | 'week' | 'month') => setTimeFilter(value)}>
-                <SelectTrigger className="w-[150px] bg-white/10 border-white/20 text-white">
+                <SelectTrigger className="w-[150px] bg-white/10 border-white/20 premium-text-white">
                   <SelectValue placeholder="All Time" />
                 </SelectTrigger>
                 <SelectContent>
@@ -546,11 +546,11 @@ const AdminDashboard = () => {
             </div>
 
             <div className="flex items-center gap-3">
-              <Button onClick={generateSmartInsights} className="glass-button rounded-full">
+              <Button onClick={generateSmartInsights} className="premium-glass-button rounded-full">
                 <BrainCircuit className="h-4 w-4 mr-2" />
                 AI Insights
               </Button>
-              <Button onClick={exportToJSON} className="glass-button rounded-full">
+              <Button onClick={exportToJSON} className="premium-glass-button rounded-full">
                 <Download className="h-4 w-4 mr-2" />
                 Export
               </Button>
@@ -561,12 +561,12 @@ const AdminDashboard = () => {
         {/* Premium Messages Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {filteredHugs.map((hug) => (
-            <div key={hug.id} className="glass-card p-6 group">
+            <div key={hug.id} className="premium-glass-card p-6 group">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
-                  <h3 className="font-semibold text-white text-lg">{hug.Name}</h3>
-                  <p className="text-gray-300 text-sm">To: {hug['Recipient\'s Name']}</p>
-                  <p className="text-gray-400 text-xs mt-1">{hug['Email Address']}</p>
+                  <h3 className="font-semibold premium-text-white text-lg">{hug.Name}</h3>
+                  <p className="premium-text-gray-300 text-sm">To: {hug['Recipient\'s Name']}</p>
+                  <p className="premium-text-gray-400 text-xs mt-1">{hug['Email Address']}</p>
                 </div>
                 <Badge 
                   variant={getStatusVariant(hug.Status)}
@@ -577,25 +577,25 @@ const AdminDashboard = () => {
               </div>
 
               <div className="space-y-2 mb-4">
-                <div className="flex items-center text-gray-300 text-sm">
-                  <MessageSquare className="h-4 w-4 mr-2 text-gray-400" />
+                <div className="flex items-center premium-text-gray-300 text-sm">
+                  <MessageSquare className="h-4 w-4 mr-2 premium-text-gray-400" />
                   {hug['Type of Message']}
                 </div>
-                <div className="flex items-center text-gray-300 text-sm">
-                  <Calendar className="h-4 w-4 mr-2 text-gray-400" />
+                <div className="flex items-center premium-text-gray-300 text-sm">
+                  <Calendar className="h-4 w-4 mr-2 premium-text-gray-400" />
                   {new Date(hug.Date).toLocaleDateString()}
                 </div>
               </div>
 
               <div className="bg-white/5 rounded-lg p-3 mb-4">
-                <p className="text-gray-300 text-sm line-clamp-3">
+                <p className="premium-text-gray-300 text-sm line-clamp-3">
                   {hug.Feelings}
                 </p>
               </div>
 
               <Button
                 onClick={() => handleViewConversation(hug.id)}
-                className="w-full glass-button rounded-full group-hover:scale-105 transition-all duration-300"
+                className="w-full premium-glass-button rounded-full group-hover:scale-105 transition-all duration-300"
               >
                 <Eye className="h-4 w-4 mr-2" />
                 View Conversation
@@ -605,10 +605,10 @@ const AdminDashboard = () => {
         </div>
 
         {filteredHugs.length === 0 && (
-          <div className="glass-card p-12 text-center">
-            <Heart className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-white mb-2">No messages found</h3>
-            <p className="text-gray-400">Try adjusting your search filters</p>
+          <div className="premium-glass-card p-12 text-center">
+            <Heart className="h-16 w-16 premium-text-gray-400 mx-auto mb-4" />
+            <h3 className="text-xl font-semibold premium-text-white mb-2">No messages found</h3>
+            <p className="premium-text-gray-400">Try adjusting your search filters</p>
           </div>
         )}
       </div>

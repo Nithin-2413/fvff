@@ -10,7 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Link } from 'wouter';
 import { useLocation, useParams } from 'wouter';
 import { useBackgroundMusic } from '@/hooks/useBackgroundMusic';
-import '../styles/starfield.scss';
+import '../styles/premium-admin.scss';
 
 interface Hug {
   id: string;
@@ -254,21 +254,30 @@ const AdminConversation = () => {
   if (loading) {
     return (
       <div className="min-h-screen relative overflow-hidden flex items-center justify-center">
-        {/* Premium Starfield Background */}
-        <div className="starfield-container">
-          <div id="stars"></div>
-          <div id="stars2"></div>
-          <div id="stars3"></div>
+        {/* Premium Cosmic Background */}
+        <div className="premium-admin-bg">
+          <div className="premium-stars">
+            <div id="premium-stars"></div>
+            <div id="premium-stars2"></div>
+            <div id="premium-stars3"></div>
+          </div>
+          <div className="floating-particles">
+            <div className="particle particle-1"></div>
+            <div className="particle particle-2"></div>
+            <div className="particle particle-3"></div>
+            <div className="particle particle-4"></div>
+            <div className="particle particle-5"></div>
+          </div>
         </div>
         
-        {/* Premium Loading Animation */}
-        <div className="premium-loader relative z-10">
-          <div className="loader-ring"></div>
-          <div className="loader-text">Loading Conversation</div>
-          <div className="loader-dots">
-            <div className="dot"></div>
-            <div className="dot"></div>
-            <div className="dot"></div>
+        {/* Premium Cosmic Loading Animation */}
+        <div className="premium-cosmic-loader relative z-10">
+          <div className="cosmic-ring"></div>
+          <div className="cosmic-text">Loading Conversation</div>
+          <div className="cosmic-dots">
+            <div className="cosmic-dot"></div>
+            <div className="cosmic-dot"></div>
+            <div className="cosmic-dot"></div>
           </div>
         </div>
       </div>
@@ -278,17 +287,26 @@ const AdminConversation = () => {
   if (!hug) {
     return (
       <div className="min-h-screen relative overflow-hidden flex items-center justify-center">
-        {/* Premium Starfield Background */}
-        <div className="starfield-container">
-          <div id="stars"></div>
-          <div id="stars2"></div>
-          <div id="stars3"></div>
+        {/* Premium Cosmic Background */}
+        <div className="premium-admin-bg">
+          <div className="premium-stars">
+            <div id="premium-stars"></div>
+            <div id="premium-stars2"></div>
+            <div id="premium-stars3"></div>
+          </div>
+          <div className="floating-particles">
+            <div className="particle particle-1"></div>
+            <div className="particle particle-2"></div>
+            <div className="particle particle-3"></div>
+            <div className="particle particle-4"></div>
+            <div className="particle particle-5"></div>
+          </div>
         </div>
         
         <div className="relative z-20 text-center">
-          <h2 className="text-2xl font-bold text-white mb-4">Conversation not found</h2>
+          <h2 className="text-2xl font-bold premium-text-white mb-4">Conversation not found</h2>
           <Link href="/admin/orders">
-            <Button className="glass-button rounded-full">
+            <Button className="premium-glass-button rounded-full">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Dashboard
             </Button>
@@ -300,11 +318,20 @@ const AdminConversation = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
-      {/* Premium Starfield Background */}
-      <div className="starfield-container">
-        <div id="stars"></div>
-        <div id="stars2"></div>
-        <div id="stars3"></div>
+      {/* Premium Cosmic Background */}
+      <div className="premium-admin-bg">
+        <div className="premium-stars">
+          <div id="premium-stars"></div>
+          <div id="premium-stars2"></div>
+          <div id="premium-stars3"></div>
+        </div>
+        <div className="floating-particles">
+          <div className="particle particle-1"></div>
+          <div className="particle particle-2"></div>
+          <div className="particle particle-3"></div>
+          <div className="particle particle-4"></div>
+          <div className="particle particle-5"></div>
+        </div>
       </div>
 
       {/* Background Music */}
@@ -315,7 +342,7 @@ const AdminConversation = () => {
           {/* Header */}
           <div className="flex items-center gap-4 mb-8">
             <Link href="/admin/orders">
-              <Button className="glass-button rounded-full" data-testid="link-back-orders">
+              <Button className="premium-glass-button rounded-full" data-testid="link-back-orders">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Orders
               </Button>
@@ -324,17 +351,17 @@ const AdminConversation = () => {
               <div className="w-10 h-10 bg-gradient-to-br from-rose-400 to-pink-600 rounded-full flex items-center justify-center shadow-lg">
                 <Heart className="h-5 w-5 text-white" />
               </div>
-              <h1 className="text-3xl font-bold text-white">
+              <h1 className="text-3xl font-bold premium-text-white">
                 Conversation with {hug.Name}
               </h1>
             </div>
           </div>
 
           {/* Premium Order Details Card */}
-          <div className="glass-card p-6 mb-8">
+          <div className="premium-glass-card p-6 mb-8">
             <div className="flex items-center gap-2 mb-6">
               <Heart className="h-5 w-5 text-rose-400" />
-              <h2 className="text-xl font-bold text-white">Order Details</h2>
+              <h2 className="text-xl font-bold premium-text-white">Order Details</h2>
             </div>
             
             <div className="grid md:grid-cols-3 gap-6 mb-6">
@@ -342,22 +369,22 @@ const AdminConversation = () => {
                 <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
                   <User className="h-5 w-5 text-rose-400" />
                   <div>
-                    <Label className="text-sm font-medium text-gray-300">Client Name</Label>
-                    <p className="font-semibold text-white" data-testid="text-client-name">{hug.Name}</p>
+                    <Label className="text-sm font-medium premium-text-gray-300">Client Name</Label>
+                    <p className="font-semibold premium-text-white" data-testid="text-client-name">{hug.Name}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
                   <Mail className="h-5 w-5 text-rose-400" />
                   <div>
-                    <Label className="text-sm font-medium text-gray-300">Email</Label>
-                    <p className="text-white">{hug['Email Address']}</p>
+                    <Label className="text-sm font-medium premium-text-gray-300">Email</Label>
+                    <p className="premium-text-white">{hug['Email Address']}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
                   <Phone className="h-5 w-5 text-rose-400" />
                   <div>
-                    <Label className="text-sm font-medium text-gray-300">Phone</Label>
-                    <p className="text-white">{hug['Phone Number']}</p>
+                    <Label className="text-sm font-medium premium-text-gray-300">Phone</Label>
+                    <p className="premium-text-white">{hug['Phone Number']}</p>
                   </div>
                 </div>
               </div>
@@ -366,22 +393,22 @@ const AdminConversation = () => {
                 <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
                   <Heart className="h-5 w-5 text-pink-400" />
                   <div>
-                    <Label className="text-sm font-medium text-gray-300">Recipient</Label>
-                    <p className="font-semibold text-white">{hug['Recipient\'s Name']}</p>
+                    <Label className="text-sm font-medium premium-text-gray-300">Recipient</Label>
+                    <p className="font-semibold premium-text-white">{hug['Recipient\'s Name']}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
                   <Package className="h-5 w-5 text-pink-400" />
                   <div>
-                    <Label className="text-sm font-medium text-gray-300">Message Type</Label>
-                    <p className="text-white">{hug['Type of Message']}</p>
+                    <Label className="text-sm font-medium premium-text-gray-300">Message Type</Label>
+                    <p className="premium-text-white">{hug['Type of Message']}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
                   <Package className="h-5 w-5 text-pink-400" />
                   <div>
-                    <Label className="text-sm font-medium text-gray-300">Delivery Type</Label>
-                    <p className="text-white">{hug['Delivery Type']}</p>
+                    <Label className="text-sm font-medium premium-text-gray-300">Delivery Type</Label>
+                    <p className="premium-text-white">{hug['Delivery Type']}</p>
                   </div>
                 </div>
               </div>
@@ -390,8 +417,8 @@ const AdminConversation = () => {
                 <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
                   <Calendar className="h-5 w-5 text-purple-400" />
                   <div>
-                    <Label className="text-sm font-medium text-gray-300">Date Submitted</Label>
-                    <p className="text-white">{new Date(hug.Date).toLocaleDateString('en-US', {
+                    <Label className="text-sm font-medium premium-text-gray-300">Date Submitted</Label>
+                    <p className="premium-text-white">{new Date(hug.Date).toLocaleDateString('en-US', {
                       year: 'numeric',
                       month: 'long',
                       day: 'numeric'
@@ -399,10 +426,10 @@ const AdminConversation = () => {
                   </div>
                 </div>
                 <div className="p-4 bg-white/5 rounded-lg border border-white/10">
-                  <Label className="text-sm font-medium text-gray-300">Status</Label>
+                  <Label className="text-sm font-medium premium-text-gray-300">Status</Label>
                   <div className="mt-2 space-y-2">
                     <Select value={currentStatus} onValueChange={handleStatusUpdate} disabled={updatingStatus}>
-                      <SelectTrigger className="bg-white/10 border-white/20 text-white">
+                      <SelectTrigger className="bg-white/10 border-white/20 premium-text-white">
                         <SelectValue placeholder="Select status" />
                       </SelectTrigger>
                       <SelectContent>
@@ -423,35 +450,35 @@ const AdminConversation = () => {
 
             <div className="space-y-4">
               <div className="p-4 bg-gradient-to-r from-rose-500/10 to-pink-500/10 rounded-lg border border-rose-500/20">
-                <Label className="text-sm font-medium text-gray-300 mb-2 block">Feelings</Label>
-                <p className="text-white leading-relaxed">{hug.Feelings}</p>
+                <Label className="text-sm font-medium premium-text-gray-300 mb-2 block">Feelings</Label>
+                <p className="premium-text-white leading-relaxed">{hug.Feelings}</p>
               </div>
               <div className="p-4 bg-gradient-to-r from-pink-500/10 to-purple-500/10 rounded-lg border border-pink-500/20">
-                <Label className="text-sm font-medium text-gray-300 mb-2 block">Story</Label>
-                <p className="text-white leading-relaxed">{hug.Story}</p>
+                <Label className="text-sm font-medium premium-text-gray-300 mb-2 block">Story</Label>
+                <p className="premium-text-white leading-relaxed">{hug.Story}</p>
               </div>
               {hug['Specific Details'] && (
                 <div className="p-4 bg-gradient-to-r from-purple-500/10 to-indigo-500/10 rounded-lg border border-purple-500/20">
-                  <Label className="text-sm font-medium text-gray-300 mb-2 block">Specific Details</Label>
-                  <p className="text-white leading-relaxed">{hug['Specific Details']}</p>
+                  <Label className="text-sm font-medium premium-text-gray-300 mb-2 block">Specific Details</Label>
+                  <p className="premium-text-white leading-relaxed">{hug['Specific Details']}</p>
                 </div>
               )}
             </div>
           </div>
 
           {/* Premium Conversation Thread */}
-          <div className="glass-card p-6 mb-6">
+          <div className="premium-glass-card p-6 mb-6">
             <div className="flex items-center gap-2 mb-6">
               <MessageSquare className="h-5 w-5 text-rose-400" />
-              <h2 className="text-xl font-bold text-white">Conversation History</h2>
+              <h2 className="text-xl font-bold premium-text-white">Conversation History</h2>
             </div>
             
             <div className="space-y-4 max-h-96 overflow-y-auto">
               {replies.length === 0 ? (
                 <div className="text-center py-12">
                   <Heart className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-300 text-lg">No replies yet</p>
-                  <p className="text-gray-400 text-sm">Start the conversation with your client!</p>
+                  <p className="premium-text-gray-300 text-lg">No replies yet</p>
+                  <p className="premium-text-gray-400 text-sm">Start the conversation with your client!</p>
                 </div>
               ) : (
                 replies.map((reply) => (
@@ -462,10 +489,10 @@ const AdminConversation = () => {
                     <div
                       className={`max-w-xs lg:max-w-md px-4 py-3 rounded-lg relative ${
                         reply.sender_type === 'admin'
-                          ? 'bg-gradient-to-r from-rose-500/80 to-pink-600/80 text-white backdrop-blur-sm'
+                          ? 'bg-gradient-to-r from-rose-500/80 to-pink-600/80 premium-text-white backdrop-blur-sm'
                           : reply.is_read === false
-                          ? 'bg-gradient-to-r from-blue-500/20 to-blue-600/20 text-white border-2 border-blue-400/50 cursor-pointer hover:from-blue-500/30 hover:to-blue-600/30 backdrop-blur-sm'
-                          : 'bg-white/10 text-white border border-white/20 backdrop-blur-sm'
+                          ? 'bg-gradient-to-r from-blue-500/20 to-blue-600/20 premium-text-white border-2 border-blue-400/50 cursor-pointer hover:from-blue-500/30 hover:to-blue-600/30 backdrop-blur-sm'
+                          : 'bg-white/10 premium-text-white border border-white/20 backdrop-blur-sm'
                       }`}
                       onClick={() => {
                         if (reply.sender_type === 'client' && reply.is_read === false) {
@@ -476,7 +503,7 @@ const AdminConversation = () => {
                       {/* Unread indicator */}
                       {reply.sender_type === 'client' && reply.is_read === false && (
                         <div className="absolute -top-2 -right-2 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xs font-bold">!</span>
+                          <span className="premium-text-white text-xs font-bold">!</span>
                         </div>
                       )}
 
@@ -515,7 +542,7 @@ const AdminConversation = () => {
                         </span>
 
                         {reply.sender_type === 'client' && (
-                          <span className={`text-xs ${reply.is_read ? 'text-green-300' : 'text-red-300 font-medium'}`}>
+                          <span className={`text-xs ${reply.is_read ? 'premium-text-gray-300' : 'text-red-300 font-medium'}`}>
                             {reply.is_read ? '✓ Read' : '● Unread'}
                           </span>
                         )}
@@ -528,27 +555,27 @@ const AdminConversation = () => {
           </div>
 
           {/* Premium Reply Form */}
-          <div className="glass-card p-6">
+          <div className="premium-glass-card p-6">
             <div className="flex items-center gap-2 mb-6">
               <Send className="h-5 w-5 text-rose-400" />
-              <h2 className="text-xl font-bold text-white">Send Reply as CEO-The Written Hug</h2>
+              <h2 className="text-xl font-bold premium-text-white">Send Reply as CEO-The Written Hug</h2>
             </div>
             
             <div className="space-y-6">
               <div>
-                <Label className="text-gray-300 font-medium">Reply Message</Label>
+                <Label className="premium-text-gray-300 font-medium">Reply Message</Label>
                 <Textarea
                   value={replyMessage}
                   onChange={(e) => setReplyMessage(e.target.value)}
                   placeholder="Type your heartfelt reply here..."
                   rows={6}
-                  className="mt-2 bg-white/10 border-white/20 text-white placeholder-gray-400 resize-none"
+                  className="mt-2 bg-white/10 border-white/20 premium-text-white placeholder-gray-400 resize-none"
                 />
               </div>
               <Button
                 onClick={sendReply}
                 disabled={!replyMessage.trim() || sending}
-                className="w-full glass-button py-4 rounded-full text-lg font-medium"
+                className="w-full premium-glass-button py-4 rounded-full text-lg font-medium"
               >
                 <Send className="h-5 w-5 mr-2" />
                 {sending ? 'Sending...' : 'Send Reply'}
