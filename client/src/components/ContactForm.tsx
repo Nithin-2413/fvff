@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Heart, Send, MapPin, Smartphone, CheckCircle, XCircle, Clock } from 'lucide-react';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 interface LocationData {
   latitude: number;
@@ -53,6 +54,7 @@ const ContactForm = () => {
   const [deviceInfo, setDeviceInfo] = useState<DeviceInfo | null>(null);
   const [locationStatus, setLocationStatus] = useState<'requesting' | 'granted' | 'denied'>('requesting');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccessAnimation, setShowSuccessAnimation] = useState(false);
 
   // Get comprehensive device information
   const getDeviceInfo = (): DeviceInfo => {
@@ -276,6 +278,10 @@ const ContactForm = () => {
           description: "Thank you for sharing your story. We'll reach out within 24 hours."
         });
 
+        // Show success animation
+        setShowSuccessAnimation(true);
+        setTimeout(() => setShowSuccessAnimation(false), 4000);
+
         // Reset form
         setFormData({
           name: '',
@@ -314,8 +320,29 @@ const ContactForm = () => {
   ];
 
   return (
-    <Card className="max-w-4xl mx-auto shadow-2xl border-0 bg-gradient-to-br from-background to-muted/30 rounded-3xl overflow-hidden backdrop-blur-sm">
-      <CardHeader className="text-center pb-8">
+    <>
+      {/* Success Animation Overlay */}
+      {showSuccessAnimation && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+          <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 text-center max-w-md mx-4">
+            <DotLottieReact
+              src="https://lottie.host/168de6e3-bf10-454c-b471-c5fd33394854/Ah12IkMruW.lottie"
+              loop
+              autoplay
+              style={{ width: '300px', height: '300px' }}
+              className="mx-auto"
+            />
+            <h3 className="text-2xl font-bold text-white mt-4 mb-2">Your Story is On Its Way! 💌</h3>
+            <p className="text-gray-300 leading-relaxed">
+              Thank you for sharing your heart with us. We're crafting something beautiful just for you!
+            </p>
+          </div>
+        </div>
+      )}
+
+      <Card className="max-w-4xl mx-auto shadow-2xl border-0 bg-gradient-to-br from-background to-muted/30 rounded-3xl overflow-hidden backdrop-blur-sm">
+        <CardHeader className="text-center pb-8"></Card>
+    </>
         <CardTitle className="text-3xl font-bold flex items-center justify-center gap-3">
           <Heart className="h-8 w-8 text-primary" />
           Share Your Heart
@@ -446,6 +473,7 @@ const ContactForm = () => {
         </form>
       </CardContent>
     </Card>
+    </>
   );
 };
 
