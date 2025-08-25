@@ -602,7 +602,7 @@ const AdminDashboard = () => {
                 </div>
                 <Badge 
                   variant={getStatusVariant(hug.Status)}
-                  className="text-xs"
+                  className="text-xs text-white"
                 >
                   {hug.Status || 'New'}
                 </Badge>

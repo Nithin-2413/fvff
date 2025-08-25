@@ -57,7 +57,7 @@ const AdminConversation = () => {
   useEffect(() => {
     const isAuthenticated = sessionStorage.getItem('adminAuthenticated');
     const loginTime = sessionStorage.getItem('adminLoginTime');
-    
+
     if (!isAuthenticated || !loginTime) {
       toast({
         title: "Access Denied",
@@ -67,12 +67,12 @@ const AdminConversation = () => {
       setLocation('/admin/login');
       return;
     }
-    
+
     // Session timeout after 2 hours
     const loginDate = new Date(loginTime);
     const now = new Date();
     const hoursDiff = (now.getTime() - loginDate.getTime()) / (1000 * 60 * 60);
-    
+
     if (hoursDiff > 2) {
       sessionStorage.removeItem('adminAuthenticated');
       sessionStorage.removeItem('adminLoginTime');
@@ -85,7 +85,7 @@ const AdminConversation = () => {
       setLocation('/admin/login');
       return;
     }
-    
+
     setAuthenticated(true);
   }, [setLocation, toast]);
 
@@ -269,7 +269,7 @@ const AdminConversation = () => {
             <div className="particle particle-5"></div>
           </div>
         </div>
-        
+
         {/* Premium Cosmic Loading Animation */}
         <div className="premium-cosmic-loader relative z-10">
           <div className="cosmic-ring"></div>
@@ -302,7 +302,7 @@ const AdminConversation = () => {
             <div className="particle particle-5"></div>
           </div>
         </div>
-        
+
         <div className="relative z-20 text-center">
           <h2 className="text-2xl font-bold premium-text-white mb-4">Conversation not found</h2>
           <Link href="/admin/orders">
@@ -366,7 +366,7 @@ const AdminConversation = () => {
               <Heart className="h-5 w-5 text-rose-400" />
               <h2 className="text-xl font-bold premium-text-white">Order Details</h2>
             </div>
-            
+
             <div className="grid md:grid-cols-3 gap-6 mb-6">
               <div className="space-y-4">
                 <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
@@ -391,7 +391,7 @@ const AdminConversation = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="space-y-4">
                 <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
                   <Heart className="h-5 w-5 text-pink-400" />
@@ -415,7 +415,7 @@ const AdminConversation = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="space-y-4">
                 <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
                   <Calendar className="h-5 w-5 text-purple-400" />
@@ -475,7 +475,7 @@ const AdminConversation = () => {
               <MessageSquare className="h-5 w-5 text-rose-400" />
               <h2 className="text-xl font-bold premium-text-white">Conversation History</h2>
             </div>
-            
+
             <div className="space-y-4 max-h-96 overflow-y-auto">
               {replies.length === 0 ? (
                 <div className="text-center py-12">
@@ -563,7 +563,7 @@ const AdminConversation = () => {
               <Send className="h-5 w-5 text-rose-400" />
               <h2 className="text-xl font-bold premium-text-white">Send Reply as CEO-The Written Hug</h2>
             </div>
-            
+
             <div className="space-y-6">
               <div>
                 <Label className="premium-text-gray-300 font-medium">Reply Message</Label>
