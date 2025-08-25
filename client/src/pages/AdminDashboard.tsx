@@ -427,6 +427,49 @@ const AdminDashboard = () => {
               </div>
             </div>
             <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
+              {/* Premium Notifications */}
+              <div className="relative">
+                <Button 
+                  onClick={() => setShowNotifications(!showNotifications)}
+                  variant="outline" 
+                  size="sm"
+                  className="relative rounded-full admin-pulse-glow hover:scale-105 transition-all duration-300"
+                >
+                  <Bell className="w-4 h-4" />
+                  {notifications.length > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center animate-pulse">
+                      {notifications.length}
+                    </span>
+                  )}
+                </Button>
+                
+                {showNotifications && (
+                  <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 backdrop-blur-sm admin-slide-in">
+                    <div className="p-4 border-b border-gray-100">
+                      <h3 className="font-semibold text-gray-900 flex items-center">
+                        <Sparkles className="w-4 h-4 mr-2 text-yellow-500" />
+                        Notifications
+                      </h3>
+                    </div>
+                    <div className="max-h-64 overflow-y-auto">
+                      {notifications.map((notification) => (
+                        <div key={notification.id} className="p-3 border-b border-gray-50 hover:bg-gray-50 transition-colors duration-200">
+                          <div className="flex items-start space-x-3">
+                            {notification.type === 'success' && <CheckCircle className="w-4 h-4 text-green-500 mt-0.5" />}
+                            {notification.type === 'info' && <Info className="w-4 h-4 text-blue-500 mt-0.5" />}
+                            {notification.type === 'warning' && <AlertCircle className="w-4 h-4 text-yellow-500 mt-0.5" />}
+                            <div className="flex-1 min-w-0">
+                              <p className="text-sm text-gray-900">{notification.message}</p>
+                              <p className="text-xs text-gray-500 mt-1">{notification.time}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+              
               <Button 
                 onClick={() => window.open('/', '_blank')} 
                 variant="outline" 
@@ -449,6 +492,99 @@ const AdminDashboard = () => {
         <div className="mb-8 text-center admin-slide-in">
           <h2 className="text-3xl font-bold great-vibes-font bg-gradient-to-r from-rose-600 via-pink-600 to-purple-600 bg-clip-text text-transparent mb-2 admin-float">Welcome to Your Dashboard</h2>
           <p className="text-gray-600 text-lg">Manage your heartfelt messages with love and care ✨</p>
+        </div>
+
+        {/* Premium Quick Actions Bar */}
+        <div className="mb-6 p-4 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl border border-indigo-200/50 backdrop-blur-sm">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center space-x-4">
+              <Button 
+                onClick={generateSmartInsights}
+                className="sparkle-button bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:scale-105 transition-all duration-300 shadow-lg"
+              >
+                <BrainCircuit className="w-4 h-4 mr-2" />
+                🧠 AI Insights
+              </Button>
+              <Button 
+                onClick={exportToJSON}
+                variant="outline"
+                className="border-2 border-emerald-300 hover:bg-emerald-50 hover:scale-105 transition-all duration-300"
+              >
+                <Download className="w-4 h-4 mr-2" />
+                📊 Export Data
+              </Button>
+              <Button 
+                onClick={() => setShowQuickActions(!showQuickActions)}
+                variant="outline"
+                className="border-2 border-amber-300 hover:bg-amber-50 hover:scale-105 transition-all duration-300"
+              >
+                <Zap className="w-4 h-4 mr-2" />
+                ⚡ Quick Actions
+              </Button>
+            </div>
+            <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-2 px-3 py-1 bg-white/60 rounded-full border border-green-200">
+                {isOnline ? <Wifi className="w-4 h-4 text-green-500" /> : <WifiOff className="w-4 h-4 text-red-500" />}
+                <span className="text-sm font-medium text-gray-700">
+                  {isOnline ? '🟢 Online' : '🔴 Offline'}
+                </span>
+              </div>
+              <div className="flex items-center space-x-2 px-3 py-1 bg-white/60 rounded-full border border-blue-200">
+                <Activity className="w-4 h-4 text-blue-500" />
+                <span className="text-sm font-medium text-gray-700">
+                  👥 {realTimeData.activeUsers} Active
+                </span>
+              </div>
+            </div>
+          </div>
+          
+          {/* Quick Actions Panel */}
+          {showQuickActions && (
+            <div className="mt-4 p-4 bg-white/80 rounded-xl border border-gray-200 backdrop-blur-sm admin-slide-in">
+              <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                <Crown className="w-5 h-5 mr-2 text-yellow-500" />
+                Premium Quick Actions
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <Button 
+                  onClick={() => handleBulkOperation('Archive')}
+                  variant="outline"
+                  size="sm"
+                  className="hover:scale-105 transition-all duration-200"
+                >
+                  <Archive className="w-4 h-4 mr-1" />
+                  Bulk Archive
+                </Button>
+                <Button 
+                  onClick={() => handleBulkOperation('Mark Read')}
+                  variant="outline"
+                  size="sm"
+                  className="hover:scale-105 transition-all duration-200"
+                >
+                  <CheckCircle className="w-4 h-4 mr-1" />
+                  Mark Read
+                </Button>
+                <Button 
+                  onClick={() => setIsRefreshing(true)}
+                  variant="outline"
+                  size="sm"
+                  className="hover:scale-105 transition-all duration-200"
+                >
+                  <RefreshCw className={`w-4 h-4 mr-1 ${isRefreshing ? 'animate-spin' : ''}`} />
+                  Refresh
+                </Button>
+                <Button 
+                  onClick={() => toast({ title: "🎯 Analytics Updated", description: "Real-time data refreshed successfully!" })}
+                  variant="outline"
+                  size="sm"
+                  className="hover:scale-105 transition-all duration-200"
+                >
+                  <BarChart3 className="w-4 h-4 mr-1" />
+                  Analytics
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Stats Cards */}
@@ -512,6 +648,57 @@ const AdminDashboard = () => {
                 </div>
                 <div className="h-14 w-14 bg-gradient-to-r from-purple-400 to-pink-400 rounded-xl flex items-center justify-center shadow-lg">
                   <Users className="h-7 w-7 text-white" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Premium Analytics Row */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <Card className="relative overflow-hidden border-0 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-yellow-50 to-orange-50 admin-slide-in">
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 to-orange-400/10 animate-pulse"></div>
+            <CardContent className="p-6 relative z-10">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-yellow-700 mb-1">Response Rate</p>
+                  <p className="text-3xl font-bold bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">{stats.responseRate}%</p>
+                  <p className="text-xs text-yellow-500 mt-1">📈 +12% this week</p>
+                </div>
+                <div className="h-14 w-14 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-xl flex items-center justify-center shadow-lg">
+                  <TrendingUp className="h-7 w-7 text-white" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="relative overflow-hidden border-0 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-pink-50 to-rose-50 admin-slide-in">
+            <div className="absolute inset-0 bg-gradient-to-r from-pink-400/10 to-rose-400/10 animate-pulse"></div>
+            <CardContent className="p-6 relative z-10">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-pink-700 mb-1">Avg Response Time</p>
+                  <p className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">{stats.avgResponseTime}</p>
+                  <p className="text-xs text-pink-500 mt-1">⚡ 25% faster</p>
+                </div>
+                <div className="h-14 w-14 bg-gradient-to-r from-pink-400 to-rose-400 rounded-xl flex items-center justify-center shadow-lg">
+                  <Clock className="h-7 w-7 text-white" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="relative overflow-hidden border-0 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-indigo-50 to-blue-50 admin-slide-in">
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-400/10 to-blue-400/10 animate-pulse"></div>
+            <CardContent className="p-6 relative z-10">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-indigo-700 mb-1">Today's Messages</p>
+                  <p className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">{stats.todayMessages}</p>
+                  <p className="text-xs text-indigo-500 mt-1">🎯 +{realTimeData.newMessages} new</p>
+                </div>
+                <div className="h-14 w-14 bg-gradient-to-r from-indigo-400 to-blue-400 rounded-xl flex items-center justify-center shadow-lg animate-pulse">
+                  <Rocket className="h-7 w-7 text-white" />
                 </div>
               </div>
             </CardContent>
@@ -594,6 +781,31 @@ const AdminDashboard = () => {
                 {/* Orders Table */}
                 <div className="overflow-x-auto">
                   <div className="min-w-full">
+                    {/* Bulk Actions Bar */}
+                    {selectedItems.length > 0 && (
+                      <div className="mb-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200 backdrop-blur-sm admin-slide-in">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium text-blue-700">
+                            ✅ {selectedItems.length} items selected
+                          </span>
+                          <div className="flex space-x-2">
+                            <Button size="sm" onClick={() => handleBulkOperation('Archive')} variant="outline">
+                              <Archive className="w-4 h-4 mr-1" />
+                              Archive
+                            </Button>
+                            <Button size="sm" onClick={() => handleBulkOperation('Mark Read')} variant="outline">
+                              <CheckCircle className="w-4 h-4 mr-1" />
+                              Mark Read
+                            </Button>
+                            <Button size="sm" onClick={() => setSelectedItems([])} variant="outline">
+                              <X className="w-4 h-4 mr-1" />
+                              Clear
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
                     {filteredHugs.length === 0 ? (
                       <div className="text-center py-16">
                         <div className="bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl p-8 mx-auto max-w-md">
@@ -605,8 +817,29 @@ const AdminDashboard = () => {
                     ) : (
                       <div className="space-y-3">
                         {filteredHugs.map((hug) => (
-                          <div key={hug.id} className="bg-gradient-to-r from-white to-rose-50/30 border border-rose-200/50 rounded-xl p-5 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-[1.02] backdrop-blur-sm admin-slide-in">
-                            <div className="grid grid-cols-1 lg:grid-cols-6 gap-4 items-center">
+                          <div 
+                            key={hug.id} 
+                            draggable
+                            onDragStart={() => handleDragStart(hug.id)}
+                            onDragEnd={handleDragEnd}
+                            className={`bg-gradient-to-r from-white to-rose-50/30 border border-rose-200/50 rounded-xl p-5 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-[1.02] backdrop-blur-sm admin-slide-in cursor-move ${draggedItem === hug.id ? 'opacity-50 scale-95' : ''}`}
+                          >
+                            <div className="grid grid-cols-1 lg:grid-cols-7 gap-4 items-center">
+                              <div className="lg:col-span-1">
+                                <input
+                                  type="checkbox"
+                                  checked={selectedItems.includes(hug.id)}
+                                  onChange={(e) => {
+                                    if (e.target.checked) {
+                                      setSelectedItems([...selectedItems, hug.id]);
+                                    } else {
+                                      setSelectedItems(selectedItems.filter(id => id !== hug.id));
+                                    }
+                                  }}
+                                  className="rounded border-gray-300 text-rose-600 focus:ring-rose-500"
+                                />
+                              </div>
+                              
                               <div className="lg:col-span-2">
                                 <div className="flex items-center space-x-3">
                                   <User className="h-5 w-5 text-gray-400" />
@@ -636,7 +869,18 @@ const AdminDashboard = () => {
                                 </Badge>
                               </div>
                               
-                              <div className="flex justify-end">
+                              <div className="flex justify-end space-x-2">
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => {
+                                    navigator.clipboard.writeText(hug.id);
+                                    toast({ title: "📋 Copied!", description: "Message ID copied to clipboard" });
+                                  }}
+                                  className="px-2"
+                                >
+                                  <Copy className="h-4 w-4" />
+                                </Button>
                                 <Button
                                   size="sm"
                                   onClick={() => handleViewConversation(hug.id)}
