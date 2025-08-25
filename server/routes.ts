@@ -4,6 +4,7 @@ import { storage } from "./storage";
 import { supabaseAdmin } from "./lib/supabase";
 import { sendSubmissionEmail, sendReplyEmail } from "./lib/brevo";
 import { z } from "zod";
+import bcrypt from "bcryptjs";
 
 const submitHugSchema = z.object({
   name: z.string(),
@@ -448,11 +449,42 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
-      // Secure authentication using environment variables
-      const adminUsername = process.env.ADMIN_USERNAME || 'admin';
-      const adminPassword = process.env.ADMIN_PASSWORD || 'changeThisPassword!';
+      // Secure database-based authentication
+      const { data: adminUser, error: authError } = await supabaseAdmin
+        .from('admin_users')
+        .select('id, username, password_hash, is_active')
+        .eq('username', validatedData.username)
+        .eq('is_active', true)
+        .single();
       
-      if (validatedData.username === adminUsername && validatedData.password === adminPassword) {
+      if (authError || !adminUser) {
+        // Failed login attempt - increment counter
+        attempts.attempts += 1;
+        attempts.lastAttempt = now;
+        
+        if (attempts.attempts >= 5) {
+          attempts.blockedUntil = now + (15 * 60 * 1000);
+          loginAttempts.set(clientIP, attempts);
+          console.warn(`SECURITY ALERT: IP ${clientIP} blocked after 5 failed admin login attempts`);
+          return res.status(429).json({ 
+            success: false, 
+            message: "Too many failed attempts. IP blocked for 15 minutes." 
+          });
+        }
+        
+        loginAttempts.set(clientIP, attempts);
+        return res.status(401).json({ success: false, message: "Invalid credentials" });
+      }
+      
+      // Verify password hash
+      const passwordValid = await bcrypt.compare(validatedData.password, adminUser.password_hash);
+      
+      if (passwordValid) {
+        // Update last login time
+        await supabaseAdmin
+          .from('admin_users')
+          .update({ last_login: new Date().toISOString() })
+          .eq('id', adminUser.id);
         // Log the admin login with location data - MANDATORY
         try {
           const locationString = `${validatedData.location.city || 'Unknown City'}, ${validatedData.location.country || 'Unknown Country'} (${validatedData.latitude}, ${validatedData.longitude})`;
