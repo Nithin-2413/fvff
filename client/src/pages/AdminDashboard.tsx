@@ -476,118 +476,69 @@ const AdminDashboard = () => {
 
         {/* Premium Stats Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="premium-glass-card p-7 group hover:scale-105 transition-all duration-300 cursor-pointer">
+          <div className="premium-glass-card p-6 group hover:scale-105 transition-all duration-300 cursor-pointer">
             <div className="card-effects"></div>
-            <div className="flex flex-col space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="relative">
-                  <div className="w-16 h-16 bg-gradient-to-br from-rose-400 via-pink-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-shadow duration-300">
-                    <div className="absolute inset-1 bg-white/20 rounded-xl backdrop-blur-sm"></div>
-                    <Heart className="h-8 w-8 premium-text-white relative z-10 group-hover:scale-110 transition-transform duration-300" />
-                  </div>
-                  <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
-                    <Sparkles className="h-3 w-3 text-white" />
-                  </div>
-                </div>
-                <div className="flex items-center space-x-1 bg-gradient-to-r from-green-400/20 to-emerald-400/20 px-3 py-1 rounded-full">
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                  <span className="text-xs font-medium premium-text-gray-300">Active</span>
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                <div className="w-14 h-14 bg-gradient-to-br from-rose-400 via-pink-500 to-purple-600 rounded-full flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-shadow duration-300">
+                  <Heart className="h-7 w-7 premium-text-white group-hover:scale-110 transition-transform duration-300" />
                 </div>
               </div>
-              <div className="space-y-1">
+              <div className="flex-1">
                 <p className="text-sm font-medium premium-text-gray-300 sen-font">Total Orders</p>
-                <p className="text-4xl font-bold premium-text-white group-hover:text-pink-300 transition-colors duration-300">{stats.totalCount}</p>
-                <p className="text-xs premium-text-gray-400 sen-font flex items-center space-x-1">
-                  <Diamond className="h-3 w-3" />
-                  <span>Premium love letters</span>
-                </p>
+                <p className="text-3xl font-bold premium-text-white group-hover:text-pink-300 transition-colors duration-300">{stats.totalCount}</p>
+                <p className="text-xs premium-text-gray-400 sen-font">Premium love letters</p>
               </div>
             </div>
           </div>
 
-          <div className="premium-glass-card p-7 group hover:scale-105 transition-all duration-300 cursor-pointer">
+          <div className="premium-glass-card p-6 group hover:scale-105 transition-all duration-300 cursor-pointer">
             <div className="card-effects"></div>
-            <div className="flex flex-col space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="relative">
-                  <div className="w-16 h-16 bg-gradient-to-br from-amber-400 via-orange-500 to-red-500 rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-shadow duration-300">
-                    <div className="absolute inset-1 bg-white/20 rounded-xl backdrop-blur-sm"></div>
-                    <Bell className="h-8 w-8 premium-text-white relative z-10 group-hover:scale-110 transition-transform duration-300" />
-                  </div>
-                  <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-r from-red-400 to-pink-500 rounded-full flex items-center justify-center">
-                    <span className="text-xs font-bold text-white">{stats.newCount}</span>
-                  </div>
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                <div className="w-14 h-14 bg-gradient-to-br from-amber-400 via-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-shadow duration-300">
+                  <Bell className="h-7 w-7 premium-text-white group-hover:scale-110 transition-transform duration-300" />
                 </div>
-                <div className="flex items-center space-x-1 bg-gradient-to-r from-orange-400/20 to-red-400/20 px-3 py-1 rounded-full">
-                  <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
-                  <span className="text-xs font-medium premium-text-gray-300">Urgent</span>
+                <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-red-400 to-pink-500 rounded-full flex items-center justify-center">
+                  <span className="text-xs font-bold text-white">{stats.newCount}</span>
                 </div>
               </div>
-              <div className="space-y-1">
+              <div className="flex-1">
                 <p className="text-sm font-medium premium-text-gray-300 sen-font">New Messages</p>
-                <p className="text-4xl font-bold premium-text-white group-hover:text-orange-300 transition-colors duration-300">{stats.newCount}</p>
-                <p className="text-xs premium-text-gray-400 sen-font flex items-center space-x-1">
-                  <Zap className="h-3 w-3" />
-                  <span>Awaiting response</span>
-                </p>
+                <p className="text-3xl font-bold premium-text-white group-hover:text-orange-300 transition-colors duration-300">{stats.newCount}</p>
+                <p className="text-xs premium-text-gray-400 sen-font">Awaiting response</p>
               </div>
             </div>
           </div>
 
-          <div className="premium-glass-card p-7 group hover:scale-105 transition-all duration-300 cursor-pointer">
+          <div className="premium-glass-card p-6 group hover:scale-105 transition-all duration-300 cursor-pointer">
             <div className="card-effects"></div>
-            <div className="flex flex-col space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="relative">
-                  <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-shadow duration-300">
-                    <div className="absolute inset-1 bg-white/20 rounded-xl backdrop-blur-sm"></div>
-                    <Award className="h-8 w-8 premium-text-white relative z-10 group-hover:scale-110 transition-transform duration-300" />
-                  </div>
-                  <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full flex items-center justify-center">
-                    <CheckCircle className="h-4 w-4 text-white" />
-                  </div>
-                </div>
-                <div className="flex items-center space-x-1 bg-gradient-to-r from-green-400/20 to-emerald-400/20 px-3 py-1 rounded-full">
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                  <span className="text-xs font-medium premium-text-gray-300">Success</span>
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                <div className="w-14 h-14 bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-600 rounded-full flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-shadow duration-300">
+                  <Award className="h-7 w-7 premium-text-white group-hover:scale-110 transition-transform duration-300" />
                 </div>
               </div>
-              <div className="space-y-1">
+              <div className="flex-1">
                 <p className="text-sm font-medium premium-text-gray-300 sen-font">Completed</p>
-                <p className="text-4xl font-bold premium-text-white group-hover:text-emerald-300 transition-colors duration-300">{stats.completedCount}</p>
-                <p className="text-xs premium-text-gray-400 sen-font flex items-center space-x-1">
-                  <Crown className="h-3 w-3" />
-                  <span>Successfully delivered</span>
-                </p>
+                <p className="text-3xl font-bold premium-text-white group-hover:text-emerald-300 transition-colors duration-300">{stats.completedCount}</p>
+                <p className="text-xs premium-text-gray-400 sen-font">Successfully delivered</p>
               </div>
             </div>
           </div>
 
-          <div className="premium-glass-card p-7 group hover:scale-105 transition-all duration-300 cursor-pointer">
+          <div className="premium-glass-card p-6 group hover:scale-105 transition-all duration-300 cursor-pointer">
             <div className="card-effects"></div>
-            <div className="flex flex-col space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="relative">
-                  <div className="w-16 h-16 bg-gradient-to-br from-violet-400 via-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-shadow duration-300">
-                    <div className="absolute inset-1 bg-white/20 rounded-xl backdrop-blur-sm"></div>
-                    <Activity className="h-8 w-8 premium-text-white relative z-10 group-hover:scale-110 transition-transform duration-300" />
-                  </div>
-                  <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
-                    <TrendingUp className="h-4 w-4 text-white" />
-                  </div>
-                </div>
-                <div className="flex items-center space-x-1 bg-gradient-to-r from-purple-400/20 to-indigo-400/20 px-3 py-1 rounded-full">
-                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
-                  <span className="text-xs font-medium premium-text-gray-300">Growth</span>
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                <div className="w-14 h-14 bg-gradient-to-br from-violet-400 via-purple-500 to-indigo-600 rounded-full flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-shadow duration-300">
+                  <Activity className="h-7 w-7 premium-text-white group-hover:scale-110 transition-transform duration-300" />
                 </div>
               </div>
-              <div className="space-y-1">
+              <div className="flex-1">
                 <p className="text-sm font-medium premium-text-gray-300 sen-font">Response Rate</p>
-                <p className="text-4xl font-bold premium-text-white group-hover:text-purple-300 transition-colors duration-300">{stats.responseRate}%</p>
-                <p className="text-xs premium-text-gray-400 sen-font flex items-center space-x-1">
-                  <Target className="h-3 w-3" />
-                  <span>Success metric</span>
-                </p>
+                <p className="text-3xl font-bold premium-text-white group-hover:text-purple-300 transition-colors duration-300">{stats.responseRate}%</p>
+                <p className="text-xs premium-text-gray-400 sen-font">Success metric</p>
               </div>
             </div>
           </div>
