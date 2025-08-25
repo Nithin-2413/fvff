@@ -411,37 +411,38 @@ const AdminConversation = () => {
       {/* Background Music */}
       <audio ref={audioRef} preload="auto" loop></audio>
 
-      <div className="relative z-20 p-6">
+      <div className="relative z-20 p-3 md:p-6">
         <div className="max-w-5xl mx-auto">
           {/* Header */}
-          <div className="flex items-center gap-4 mb-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6 md:mb-8">
             <Link href="/admin/orders">
-              <Button className="premium-glass-button" data-testid="link-back-orders">
+              <Button className="premium-glass-button w-full sm:w-auto" data-testid="link-back-orders">
                 <i></i>
                 <div className="btn-content">
                   <ArrowLeft className="h-4 w-4" />
-                  Back to Orders
+                  <span className="hidden sm:inline">Back to Orders</span>
+                  <span className="sm:hidden">Back</span>
                 </div>
               </Button>
             </Link>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-rose-400 to-pink-600 rounded-full flex items-center justify-center shadow-lg">
-                <Heart className="h-5 w-5 text-white" />
+            <div className="flex items-center gap-3 w-full sm:w-auto">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-rose-400 to-pink-600 rounded-full flex items-center justify-center shadow-lg flex-shrink-0">
+                <Heart className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
               </div>
-              <h1 className="text-3xl font-bold premium-text-white">
+              <h1 className="text-lg sm:text-2xl lg:text-3xl font-bold premium-text-white truncate" title={`Conversation with ${hug.Name}`}>
                 Conversation with {hug.Name}
               </h1>
             </div>
           </div>
 
           {/* Premium Order Details Card */}
-          <div className="premium-glass-card p-6 mb-8">
+          <div className="premium-glass-card p-4 md:p-6 mb-6 md:mb-8">
             <div className="flex items-center gap-2 mb-6">
               <Heart className="h-5 w-5 text-rose-400" />
               <h2 className="text-xl font-bold premium-text-white">Order Details</h2>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6 mb-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 mb-6">
               <div className="space-y-4">
                 <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
                   <User className="h-5 w-5 text-rose-400" />
@@ -544,7 +545,7 @@ const AdminConversation = () => {
           </div>
 
           {/* Premium Conversation Thread */}
-          <div className="premium-glass-card p-6 mb-6">
+          <div className="premium-glass-card p-4 md:p-6 mb-6">
             <div className="flex items-center gap-2 mb-6">
               <MessageSquare className="h-5 w-5 text-rose-400" />
               <h2 className="text-xl font-bold premium-text-white">Conversation History</h2>
@@ -564,7 +565,7 @@ const AdminConversation = () => {
                     className={`flex ${reply.sender_type === 'admin' ? 'justify-end' : 'justify-start'}`}
                   >
                     <div
-                      className={`max-w-xs lg:max-w-md px-4 py-3 rounded-lg relative ${
+                      className={`max-w-[280px] sm:max-w-xs lg:max-w-md px-3 sm:px-4 py-3 rounded-lg relative ${
                         reply.sender_type === 'admin'
                           ? 'bg-gradient-to-r from-rose-500/80 to-pink-600/80 premium-text-white backdrop-blur-sm'
                           : reply.is_read === false
@@ -632,10 +633,10 @@ const AdminConversation = () => {
           </div>
 
           {/* Premium Reply Form */}
-          <div className="premium-glass-card p-6">
+          <div className="premium-glass-card p-4 md:p-6">
             <div className="flex items-center gap-2 mb-6">
               <Send className="h-5 w-5 text-rose-400" />
-              <h2 className="text-xl font-bold premium-text-white">Send Reply as CEO-The Written Hug</h2>
+              <h2 className="text-lg md:text-xl font-bold premium-text-white">Send Reply as CEO</h2>
             </div>
 
             <div className="space-y-6">
@@ -652,7 +653,7 @@ const AdminConversation = () => {
               <Button
                 onClick={sendReply}
                 disabled={!replyMessage.trim() || sending}
-                className="w-full premium-glass-button py-4 text-lg font-medium"
+                className="w-full premium-glass-button py-3 md:py-4 text-base md:text-lg font-medium"
               >
                 <i></i>
                 <div className="btn-content">
@@ -664,10 +665,10 @@ const AdminConversation = () => {
           </div>
 
           {/* Payment Request Form */}
-          <div className="premium-glass-card p-6 mt-6">
+          <div className="premium-glass-card p-4 md:p-6 mt-6">
             <div className="flex items-center gap-2 mb-6">
               <CreditCard className="h-5 w-5 text-blue-400" />
-              <h2 className="text-xl font-bold premium-text-white">Send Payment Request</h2>
+              <h2 className="text-lg md:text-xl font-bold premium-text-white">Payment Request</h2>
             </div>
 
             <div className="space-y-6">
@@ -685,8 +686,8 @@ const AdminConversation = () => {
                   />
                 </div>
                 <div className="flex items-end">
-                  <div className="bg-blue-500/20 border border-blue-400/30 rounded-lg px-4 py-2 backdrop-blur-md">
-                    <div className="flex items-center gap-2">
+                  <div className="bg-blue-500/20 border border-blue-400/30 rounded-lg px-3 md:px-4 py-2 backdrop-blur-md w-full md:w-auto">
+                    <div className="flex items-center gap-2 justify-center md:justify-start">
                       <Banknote className="h-4 w-4 text-blue-400" />
                       <span className="premium-text-white text-sm">UPI Payment</span>
                     </div>
@@ -708,7 +709,7 @@ const AdminConversation = () => {
               <Button
                 onClick={sendPayment}
                 disabled={!paymentAmount.trim() || sendingPayment}
-                className="w-full premium-glass-button py-4 text-lg font-medium"
+                className="w-full premium-glass-button py-3 md:py-4 text-base md:text-lg font-medium"
                 style={{ background: 'linear-gradient(135deg, #4a90e2, #7bb3f2)' }}
               >
                 <i></i>

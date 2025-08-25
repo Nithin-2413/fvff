@@ -431,30 +431,31 @@ const AdminDashboard = () => {
       </audio>
 
       {/* Premium Glassmorphism Header */}
-      <div className="premium-glass-card relative z-20 m-6 p-6 border-0">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+      <div className="premium-glass-card relative z-20 m-3 md:m-6 p-4 md:p-6 border-0">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 lg:gap-4">
           <div className="flex items-center space-x-3">
             <img src={logoImage} loading="lazy" alt="Logo" className="h-8 w-8 rounded-full" />
             <div>
-              <h1 className="text-2xl font-bold premium-text-white" style={{ fontFamily: 'Sen, sans-serif' }}>Admin Dashboard</h1>
-              <p className="premium-text-gray-300 font-medium" style={{ fontFamily: 'Sen, sans-serif' }}>The Written Hug Management</p>
+              <h1 className="text-xl md:text-2xl font-bold premium-text-white" style={{ fontFamily: 'Sen, sans-serif' }}>Admin Dashboard</h1>
+              <p className="premium-text-gray-300 font-medium text-sm md:text-base" style={{ fontFamily: 'Sen, sans-serif' }}>The Written Hug Management</p>
             </div>
           </div>
-          <div className="flex items-center space-x-3">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 w-full sm:w-auto">
             <Button 
               onClick={() => window.open('/', '_blank')} 
-              className="premium-glass-button"
+              className="premium-glass-button w-full sm:w-auto"
               size="sm"
             >
               <i></i>
               <div className="btn-content">
                 <Globe className="w-4 h-4" />
-                Written Hug
+                <span className="hidden sm:inline">Written Hug</span>
+                <span className="sm:hidden">Site</span>
               </div>
             </Button>
             <Button 
               onClick={handleLogout}
-              className="premium-glass-button"
+              className="premium-glass-button w-full sm:w-auto"
               size="sm"
             >
               <i></i>
@@ -467,11 +468,11 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-20">
+      <div className="max-w-7xl mx-auto px-3 md:px-6 relative z-20">
         {/* Welcome Section */}
         <div className="mb-8 text-center">
-          <h2 className="text-4xl font-bold premium-text-white mb-2" style={{ fontFamily: 'Sen, sans-serif' }}>Welcome to Your Dashboard</h2>
-          <p className="text-xl premium-text-gray-300" style={{ fontFamily: 'Sen, sans-serif' }}>Manage your heartfelt messages with love and care ✨</p>
+          <h2 className="text-3xl md:text-4xl font-bold premium-text-white mb-2" style={{ fontFamily: 'Fairplay Display, serif' }}>Welcome to Your Dashboard</h2>
+          <p className="text-lg md:text-xl premium-text-gray-300 px-4" style={{ fontFamily: 'Sen, sans-serif' }}>Manage your heartfelt messages with love and care ✨</p>
         </div>
 
         {/* Premium Stats Cards */}
