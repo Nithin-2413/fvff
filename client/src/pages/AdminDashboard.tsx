@@ -252,12 +252,12 @@ const AdminDashboard = () => {
 
   const getStatusColor = (status: string) => {
     switch (status?.toLowerCase()) {
-      case 'new': return 'bg-blue-500 hover:bg-blue-600';
-      case 'replied': return 'bg-green-500 hover:bg-green-600';
-      case 'client replied': return 'bg-orange-500 hover:bg-orange-600';
-      case 'in progress': return 'bg-yellow-500 hover:bg-yellow-600';
-      case 'completed': return 'bg-purple-500 hover:bg-purple-600';
-      default: return 'bg-gray-500 hover:bg-gray-600';
+      case 'new': return 'border-blue-500 text-blue-400 hover:border-blue-400 hover:text-blue-300';
+      case 'replied': return 'border-green-500 text-green-400 hover:border-green-400 hover:text-green-300';
+      case 'client replied': return 'border-orange-500 text-orange-400 hover:border-orange-400 hover:text-orange-300';
+      case 'in progress': return 'border-yellow-500 text-yellow-400 hover:border-yellow-400 hover:text-yellow-300';
+      case 'completed': return 'border-purple-500 text-purple-400 hover:border-purple-400 hover:text-purple-300';
+      default: return 'border-gray-500 text-gray-400 hover:border-gray-400 hover:text-gray-300';
     }
   };
 
@@ -601,8 +601,8 @@ const AdminDashboard = () => {
                   <p className="premium-text-gray-400 text-xs mt-1">{hug['Email Address']}</p>
                 </div>
                 <Badge 
-                  variant={getStatusVariant(hug.Status)}
-                  className={`text-xs font-medium ${getStatusColor(hug.Status)} !text-white border-none`}
+                  variant="outline"
+                  className={`text-xs font-medium ${getStatusColor(hug.Status)} bg-transparent border-2 transition-all duration-200`}
                 >
                   {hug.Status || 'New'}
                 </Badge>
