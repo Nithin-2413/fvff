@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { useLocation } from 'wouter';
-import { LogIn, MapPin, Sparkles } from 'lucide-react';
+import { LogIn, MapPin } from 'lucide-react';
 import logoImage from '@assets/Untitled design (2)_1755165830517.png';
 import ExactThreeBackground from '@/components/ExactThreeBackground';
 
@@ -23,7 +23,6 @@ const AdminLogin = () => {
   const [locationData, setLocationData] = useState<LocationData | null>(null);
   const [locationPermissionGranted, setLocationPermissionGranted] = useState(false);
   const [locationStatus, setLocationStatus] = useState<'loading' | 'granted' | 'denied' | 'unsupported'>('loading');
-  const [allowBypass, setAllowBypass] = useState(false);
   const [, setLocation] = useLocation();
   const { toast } = useToast();
 
@@ -75,26 +74,18 @@ const AdminLogin = () => {
           console.error('Location access denied:', error);
           setLocationStatus('denied');
           
-          // After 10 seconds, allow bypass for testing
-          setTimeout(() => {
-            setAllowBypass(true);
-          }, 10000);
-          
           toast({
             title: "Location Access Required",
-            description: "Please click 'Allow' when your browser asks for location permission, or wait 10 seconds for bypass option.",
+            description: "Please click 'Allow' when your browser asks for location permission to access admin login.",
             variant: "destructive",
           });
         }
       } else {
         setLocationStatus('unsupported');
-        setTimeout(() => {
-          setAllowBypass(true);
-        }, 5000);
         
         toast({
           title: "Location Not Supported",
-          description: "Your browser doesn't support location services. Bypass option available soon.",
+          description: "Your browser doesn't support location services. Admin login requires location access.",
           variant: "destructive",
         });
       }
@@ -102,24 +93,6 @@ const AdminLogin = () => {
 
     requestLocation();
   }, [toast]);
-
-  const handleBypassLogin = () => {
-    // Use default location for bypass
-    const defaultLocation: LocationData = {
-      latitude: 0.0,
-      longitude: 0.0,
-      city: "Unknown City",
-      country: "Unknown Country"
-    };
-    setLocationData(defaultLocation);
-    setLocationPermissionGranted(true);
-    setLocationStatus('granted');
-    
-    toast({
-      title: "Location Bypass Enabled",
-      description: "You can now login with default location.",
-    });
-  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -246,20 +219,7 @@ const AdminLogin = () => {
           
           {/* Hidden location tracking - no UI indication */}
           
-          {/* Bypass Button */}
-          {allowBypass && !locationPermissionGranted && (
-            <div className="text-center mt-3">
-              <Button
-                type="button"
-                onClick={handleBypassLogin}
-                className="h-6 px-2 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/30 text-amber-200 font-medium transition-all duration-300 rounded-lg backdrop-blur-sm text-xs"
-                data-testid="button-bypass"
-              >
-                <Sparkles className="w-3 h-3 mr-1" />
-                Use Bypass Login
-              </Button>
-            </div>
-          )}
+          
         </div>
       </div>
     </div>
