@@ -7,7 +7,8 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { Eye, Search, Filter, Calendar, User, Mail, Phone, MessageSquare, BarChart3, Users, TrendingUp, Clock, Globe, Heart, Download, Star, Zap, Activity, Target, Award, Sparkles, RefreshCw, ChevronDown, MoreHorizontal, Archive, Bell, Settings, Menu, X, Plus, Edit, Trash, Copy, ExternalLink, FileText, Bookmark, Share2, AlertCircle, CheckCircle, XCircle, Info, Wifi, WifiOff, BrainCircuit, Rocket, Crown, Diamond, Flame, Lightbulb, MonitorSpeaker, PieChart, LineChart, BarChart4, LogOut } from 'lucide-react';
-import logoImage from '@assets/Untitled design (2)_1755165830517.png';
+// Using direct Cloudinary URL for logo
+const logoImage = 'https://res.cloudinary.com/dwmybitme/image/upload/v1755357106/image_1_o0l7go.png';
 import { useLocation } from 'wouter';
 import { useBackgroundMusic } from '@/hooks/useBackgroundMusic';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -435,8 +436,8 @@ const AdminDashboard = () => {
           <div className="flex items-center space-x-3">
             <img src={logoImage} loading="lazy" alt="Logo" className="h-8 w-8 rounded-full" />
             <div>
-              <h1 className="text-2xl font-bold premium-text-white">Admin Dashboard</h1>
-              <p className="premium-text-gray-300 font-medium">The Written Hug Management</p>
+              <h1 className="text-2xl font-bold premium-text-white" style={{ fontFamily: 'Sen, sans-serif' }}>Admin Dashboard</h1>
+              <p className="premium-text-gray-300 font-medium" style={{ fontFamily: 'Sen, sans-serif' }}>The Written Hug Management</p>
             </div>
           </div>
           <div className="flex items-center space-x-3">
@@ -469,8 +470,8 @@ const AdminDashboard = () => {
       <div className="max-w-7xl mx-auto px-6 relative z-20">
         {/* Welcome Section */}
         <div className="mb-8 text-center">
-          <h2 className="text-4xl font-bold premium-text-white mb-2">Welcome to Your Dashboard</h2>
-          <p className="text-xl premium-text-gray-300">Manage your heartfelt messages with love and care ✨</p>
+          <h2 className="text-4xl font-bold premium-text-white mb-2" style={{ fontFamily: 'Sen, sans-serif' }}>Welcome to Your Dashboard</h2>
+          <p className="text-xl premium-text-gray-300" style={{ fontFamily: 'Sen, sans-serif' }}>Manage your heartfelt messages with love and care ✨</p>
         </div>
 
         {/* Premium Stats Cards */}

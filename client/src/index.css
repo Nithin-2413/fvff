@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sen:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Great+Vibes&display=swap');
 @import url('https://fonts.cdnfonts.com/css/canduful');
 @import './styles/starfield.scss';
@@ -12,7 +14,7 @@
     position: relative;
     overflow: visible;
   }
-  
+
   .sparkle-button .star-1 {
     position: absolute;
     top: 10%;
@@ -23,7 +25,7 @@
     opacity: 0;
     transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
-  
+
   .sparkle-button .star-2 {
     position: absolute;
     top: 50%;
@@ -34,7 +36,7 @@
     opacity: 0;
     transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
-  
+
   .sparkle-button .star-3 {
     position: absolute;
     top: 90%;
@@ -45,7 +47,7 @@
     opacity: 0;
     transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
-  
+
   .sparkle-button .star-4 {
     position: absolute;
     top: 50%;
@@ -56,7 +58,7 @@
     opacity: 0;
     transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
-  
+
   .sparkle-button .star-5 {
     position: absolute;
     top: 25%;
@@ -67,7 +69,7 @@
     opacity: 0;
     transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
-  
+
   .sparkle-button .star-6 {
     position: absolute;
     top: 75%;
@@ -78,7 +80,7 @@
     opacity: 0;
     transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
-  
+
   .sparkle-button .star-7 {
     position: absolute;
     top: 25%;
@@ -89,7 +91,7 @@
     opacity: 0;
     transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
-  
+
   .sparkle-button .star-8 {
     position: absolute;
     top: 75%;
@@ -100,7 +102,7 @@
     opacity: 0;
     transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
-  
+
   .sparkle-button:hover .star-1 {
     top: -30%;
     left: 50%;
@@ -109,7 +111,7 @@
     filter: drop-shadow(0 0 6px rgba(255, 223, 0, 0.5));
     animation: fadeOut 2s ease-out 1s forwards;
   }
-  
+
   .sparkle-button:hover .star-2 {
     top: 50%;
     left: 130%;
@@ -118,7 +120,7 @@
     filter: drop-shadow(0 0 4px rgba(255, 182, 193, 0.4));
     animation: fadeOut 2.5s ease-out 0.8s forwards;
   }
-  
+
   .sparkle-button:hover .star-3 {
     top: 130%;
     left: 50%;
@@ -127,7 +129,7 @@
     filter: drop-shadow(0 0 5px rgba(255, 223, 0, 0.4));
     animation: fadeOut 2.2s ease-out 1.2s forwards;
   }
-  
+
   .sparkle-button:hover .star-4 {
     top: 50%;
     left: -30%;
@@ -135,7 +137,7 @@
     filter: drop-shadow(0 0 4px rgba(255, 182, 193, 0.3));
     animation: fadeOut 2.8s ease-out 0.5s forwards;
   }
-  
+
   .sparkle-button:hover .star-5 {
     top: -20%;
     left: 110%;
@@ -144,7 +146,7 @@
     filter: drop-shadow(0 0 5px rgba(255, 223, 0, 0.4));
     animation: fadeOut 2.3s ease-out 1.5s forwards;
   }
-  
+
   .sparkle-button:hover .star-6 {
     top: 110%;
     left: -20%;
@@ -153,7 +155,7 @@
     filter: drop-shadow(0 0 4px rgba(255, 182, 193, 0.3));
     animation: fadeOut 2.6s ease-out 0.9s forwards;
   }
-  
+
   .sparkle-button:hover .star-7 {
     top: -20%;
     left: -20%;
@@ -162,7 +164,7 @@
     filter: drop-shadow(0 0 5px rgba(255, 223, 0, 0.4));
     animation: fadeOut 2.4s ease-out 1.3s forwards;
   }
-  
+
   .sparkle-button:hover .star-8 {
     top: 110%;
     left: 110%;
@@ -171,7 +173,7 @@
     filter: drop-shadow(0 0 4px rgba(255, 182, 193, 0.3));
     animation: fadeOut 2.7s ease-out 0.7s forwards;
   }
-  
+
   @keyframes fadeOut {
     to {
       opacity: 0;
@@ -270,7 +272,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Sen', sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -280,11 +282,11 @@
   .canduful-font {
     font-family: 'Canduful', cursive, 'Playfair Display', serif;
   }
-  
+
   .great-vibes-font {
     font-family: 'Great Vibes', cursive;
   }
-  
+
   .playfair-display {
     font-family: 'Playfair Display', serif;
     font-weight: 600;
@@ -432,12 +434,12 @@
     margin: 1rem auto;
     border-radius: 24px;
   }
-  
+
   .card-content {
     padding: 2rem;
     background: rgba(0, 0, 0, 0.08);
   }
-  
+
   .interactive-card:hover {
     transform: translateY(-6px) scale(1.02);
   }
@@ -449,12 +451,12 @@
     margin: 0.75rem;
     border-radius: 20px;
   }
-  
+
   .card-content {
     padding: 1.75rem;
     background: rgba(0, 0, 0, 0.06);
   }
-  
+
   .interactive-card:hover {
     transform: translateY(-4px) scale(1.01);
   }
@@ -465,7 +467,7 @@
     margin: 0.5rem;
     border-radius: 18px;
   }
-  
+
   .card-content {
     padding: 1.5rem;
     background: rgba(0, 0, 0, 0.05);
@@ -477,7 +479,7 @@
     margin: 0.25rem;
     border-radius: 16px;
   }
-  
+
   .card-content {
     padding: 1.25rem;
     background: rgba(0, 0, 0, 0.04);
@@ -966,12 +968,12 @@ html {
     width: 250px;
     height: 250px;
   }
-  
+
   .carousel-3d {
     width: 160px;
     height: 200px;
   }
-  
+
   .carousel-3d-container:hover .carousel-item {
     transform: rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg)) translateZ(320px) scale(1.1) !important;
   }
@@ -982,12 +984,12 @@ html {
     width: 200px;
     height: 200px;
   }
-  
+
   .carousel-3d {
     width: 120px;
     height: 150px;
   }
-  
+
   .carousel-3d-container:hover .carousel-item {
     transform: rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg)) translateZ(200px) scale(1.1) !important;
   }
@@ -1465,6 +1467,14 @@ select:focus {
   transform: translateY(-12px) scale(1.03);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
   border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Logo in Admin Dashboard */
+.admin-logo {
+  width: 150px; /* Adjust size as needed */
+  height: auto;
+  display: block; /* Ensure it's a block element */
+  margin: 0 auto; /* Center the logo */
 }
 
 /* Drag and drop styles */
