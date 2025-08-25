@@ -53,7 +53,7 @@ const AdminConversation = () => {
   const audioRef = useBackgroundMusic(0.32);
   const [currentStatus, setCurrentStatus] = useState(hug?.Status || 'New');
   const [updatingStatus, setUpdatingStatus] = useState(false);
-  
+
   // Payment state
   const [paymentAmount, setPaymentAmount] = useState('');
   const [paymentMessage, setPaymentMessage] = useState('');
@@ -693,7 +693,7 @@ const AdminConversation = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div>
                 <Label className="premium-text-gray-300 font-medium sen-font">Payment Message (Optional)</Label>
                 <Textarea
@@ -704,7 +704,7 @@ const AdminConversation = () => {
                   className="mt-2 bg-white/10 border-white/20 premium-text-white placeholder-gray-400 resize-none backdrop-blur-md hover:bg-white/12 focus:bg-white/12 focus:border-white/30 focus:backdrop-blur-lg transition-all duration-300"
                 />
               </div>
-              
+
               <Button
                 onClick={sendPayment}
                 disabled={!paymentAmount.trim() || sendingPayment}
