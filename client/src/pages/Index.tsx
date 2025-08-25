@@ -378,8 +378,11 @@ const Index = () => {
                 flowing ink
               </span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-6">
               Choose from our range of personalized writing services, each crafted to perfection
+            </p>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto times-new-roman-italic">
+              It took your limited time to create something memorable for them—what a blessing, they must be truly lucky.
             </p>
           </div>
 
