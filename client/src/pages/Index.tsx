@@ -320,6 +320,41 @@ const Index = () => {
               <p className="text-muted-foreground times-new-roman-italic">We live in a world where people are constantly feeling deeply…</p>
               <p className="font-bold text-muted-foreground times-new-roman-italic">…but rarely saying it meaningfully.</p>
             </div>
+
+            <div className="text-center py-12 overflow-visible">
+              <h3 className="text-4xl md:text-5xl font-bold mb-8 playfair-display leading-relaxed px-4">
+                <span className="bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent block mb-2">
+                  We're the translators
+                </span>
+                <span className="bg-gradient-to-r from-purple-500 to-indigo-500 bg-clip-text text-transparent block">
+                  of the heart.
+                </span>
+              </h3>
+            </div>
+
+            <p className="text-muted-foreground times-new-roman-italic">
+              Most of us are either too busy, too shy, or just not fluent in "emotional poetry."<br />
+              And that's okay. That's where we come in.
+            </p>
+
+            <p className="text-muted-foreground times-new-roman-italic">
+              At The Written Hug, we turn raw, unspoken feelings into beautiful, soul-stirring letters.<br />
+              Love, gratitude, apology, celebration — whatever's on your heart, we craft it into words that move people.
+            </p>
+
+            <p className="text-muted-foreground times-new-roman-italic">
+              And we don't just write — we create.<br />
+              Each message is carefully written, lovingly designed, and delivered with a personal touch that feels like a handwritten hug.
+            </p>
+
+            <div className="bg-gradient-to-r from-yellow-50/50 to-orange-50/50 p-8 rounded-3xl border border-yellow-200/30">
+              <p className="text-xl font-bold text-muted-foreground times-new-roman-italic mb-2">Why?</p>
+              <p className="text-muted-foreground times-new-roman-italic">Because in a world full of auto-replies and emoji shortcuts, authentic emotion stands out.</p>
+            </div>
+
+            <p className="text-xl text-center font-bold text-muted-foreground times-new-roman-italic">
+              So if you're someone who feels a lot but freezes at the keyboard, don't worry — we've made it our art to say what you can't.
+            </p>
           </div>
         </div>
       </section>
