@@ -445,10 +445,7 @@ const AdminDashboard = () => {
               className="premium-glass-button"
               size="sm"
             >
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
+              <i></i>
               <div className="btn-content">
                 <Globe className="w-4 h-4" />
                 Written Hug
@@ -459,10 +456,7 @@ const AdminDashboard = () => {
               className="premium-glass-button"
               size="sm"
             >
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
+              <i></i>
               <div className="btn-content">
                 <LogOut className="w-4 h-4" />
                 Logout
@@ -481,7 +475,7 @@ const AdminDashboard = () => {
 
         {/* Premium Stats Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="premium-premium-glass-card p-6">
+          <div className="premium-glass-card p-6">
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <p className="text-sm font-medium premium-text-gray-300 mb-1">Total Orders</p>
@@ -494,7 +488,7 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          <div className="premium-premium-glass-card p-6">
+          <div className="premium-glass-card p-6">
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <p className="text-sm font-medium premium-text-gray-300 mb-1">New Messages</p>
@@ -507,7 +501,7 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          <div className="premium-premium-glass-card p-6">
+          <div className="premium-glass-card p-6">
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <p className="text-sm font-medium premium-text-gray-300 mb-1">Completed</p>
@@ -520,7 +514,7 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          <div className="premium-premium-glass-card p-6">
+          <div className="premium-glass-card p-6">
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <p className="text-sm font-medium premium-text-gray-300 mb-1">Response Rate</p>
@@ -536,6 +530,7 @@ const AdminDashboard = () => {
 
         {/* Premium Controls */}
         <div className="premium-glass-card p-6 mb-8">
+          <div className="card-effects"></div>
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 flex-1">
               <div className="relative">
@@ -577,20 +572,14 @@ const AdminDashboard = () => {
 
             <div className="flex items-center gap-3">
               <Button onClick={generateSmartInsights} className="premium-glass-button">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
+                <i></i>
                 <div className="btn-content">
                   <BrainCircuit className="h-4 w-4" />
                   AI Insights
                 </div>
               </Button>
               <Button onClick={exportToJSON} className="premium-glass-button">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
+                <i></i>
                 <div className="btn-content">
                   <Download className="h-4 w-4" />
                   Export
@@ -604,6 +593,7 @@ const AdminDashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {filteredHugs.map((hug) => (
             <div key={hug.id} className="premium-glass-card p-6 group">
+              <div className="card-effects"></div>
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
                   <h3 className="font-semibold premium-text-white text-lg">{hug.Name}</h3>
@@ -639,10 +629,7 @@ const AdminDashboard = () => {
                 onClick={() => handleViewConversation(hug.id)}
                 className="w-full premium-glass-button group-hover:scale-105 transition-all duration-300"
               >
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
+                <i></i>
                 <div className="btn-content">
                   <Eye className="h-4 w-4" />
                   View Conversation

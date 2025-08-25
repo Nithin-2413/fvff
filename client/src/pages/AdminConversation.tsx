@@ -343,10 +343,7 @@ const AdminConversation = () => {
           <div className="flex items-center gap-4 mb-8">
             <Link href="/admin/orders">
               <Button className="premium-glass-button" data-testid="link-back-orders">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
+                <i></i>
                 <div className="btn-content">
                   <ArrowLeft className="h-4 w-4" />
                   Back to Orders
@@ -583,10 +580,7 @@ const AdminConversation = () => {
                 disabled={!replyMessage.trim() || sending}
                 className="w-full premium-glass-button py-4 text-lg font-medium"
               >
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
+                <i></i>
                 <div className="btn-content">
                   <Send className="h-5 w-5" />
                   {sending ? 'Sending...' : 'Send Reply'}
