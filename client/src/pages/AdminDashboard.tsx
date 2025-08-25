@@ -44,7 +44,6 @@ const AdminDashboard = () => {
   const [draggedItem, setDraggedItem] = useState<string | null>(null);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [realTimeData, setRealTimeData] = useState({ newMessages: 0, activeUsers: 3 });
-  const [showQuickActions, setShowQuickActions] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const { toast } = useToast();
   const [, setLocation] = useLocation();
@@ -309,6 +308,39 @@ const AdminDashboard = () => {
   }, [hugs, searchTerm, statusFilter, typeFilter, timeFilter, sortBy]);
 
   const handleViewConversation = (hugId: string) => {
+    // Ensure we maintain authentication state when navigating
+    const isAuthenticated = sessionStorage.getItem('adminAuthenticated');
+    const loginTime = sessionStorage.getItem('adminLoginTime');
+    
+    if (!isAuthenticated || !loginTime) {
+      toast({
+        title: "Session Expired",
+        description: "Please login again to access conversations.",
+        variant: "destructive"
+      });
+      setLocation('/admin/login');
+      return;
+    }
+    
+    // Check if session is still valid (2 hours)
+    const loginDate = new Date(loginTime);
+    const now = new Date();
+    const hoursDiff = (now.getTime() - loginDate.getTime()) / (1000 * 60 * 60);
+    
+    if (hoursDiff > 2) {
+      sessionStorage.removeItem('adminAuthenticated');
+      sessionStorage.removeItem('adminLoginTime');
+      sessionStorage.removeItem('adminUsername');
+      toast({
+        title: "Session Expired",
+        description: "Please login again.",
+        variant: "destructive"
+      });
+      setLocation('/admin/login');
+      return;
+    }
+    
+    // Navigate to conversation
     setLocation(`/admin/conversation/${hugId}`);
   };
 
@@ -494,98 +526,7 @@ const AdminDashboard = () => {
           <p className="text-gray-600 text-lg">Manage your heartfelt messages with love and care ✨</p>
         </div>
 
-        {/* Premium Quick Actions Bar */}
-        <div className="mb-6 p-4 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl border border-indigo-200/50 backdrop-blur-sm">
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center space-x-4">
-              <Button 
-                onClick={generateSmartInsights}
-                className="sparkle-button bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:scale-105 transition-all duration-300 shadow-lg"
-              >
-                <BrainCircuit className="w-4 h-4 mr-2" />
-                🧠 AI Insights
-              </Button>
-              <Button 
-                onClick={exportToJSON}
-                variant="outline"
-                className="border-2 border-emerald-300 hover:bg-emerald-50 hover:scale-105 transition-all duration-300"
-              >
-                <Download className="w-4 h-4 mr-2" />
-                📊 Export Data
-              </Button>
-              <Button 
-                onClick={() => setShowQuickActions(!showQuickActions)}
-                variant="outline"
-                className="border-2 border-amber-300 hover:bg-amber-50 hover:scale-105 transition-all duration-300"
-              >
-                <Zap className="w-4 h-4 mr-2" />
-                ⚡ Quick Actions
-              </Button>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="flex items-center space-x-2 px-3 py-1 bg-white/60 rounded-full border border-green-200">
-                {isOnline ? <Wifi className="w-4 h-4 text-green-500" /> : <WifiOff className="w-4 h-4 text-red-500" />}
-                <span className="text-sm font-medium text-gray-700">
-                  {isOnline ? '🟢 Online' : '🔴 Offline'}
-                </span>
-              </div>
-              <div className="flex items-center space-x-2 px-3 py-1 bg-white/60 rounded-full border border-blue-200">
-                <Activity className="w-4 h-4 text-blue-500" />
-                <span className="text-sm font-medium text-gray-700">
-                  👥 {realTimeData.activeUsers} Active
-                </span>
-              </div>
-            </div>
-          </div>
-          
-          {/* Quick Actions Panel */}
-          {showQuickActions && (
-            <div className="mt-4 p-4 bg-white/80 rounded-xl border border-gray-200 backdrop-blur-sm admin-slide-in">
-              <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
-                <Crown className="w-5 h-5 mr-2 text-yellow-500" />
-                Premium Quick Actions
-              </h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                <Button 
-                  onClick={() => handleBulkOperation('Archive')}
-                  variant="outline"
-                  size="sm"
-                  className="hover:scale-105 transition-all duration-200"
-                >
-                  <Archive className="w-4 h-4 mr-1" />
-                  Bulk Archive
-                </Button>
-                <Button 
-                  onClick={() => handleBulkOperation('Mark Read')}
-                  variant="outline"
-                  size="sm"
-                  className="hover:scale-105 transition-all duration-200"
-                >
-                  <CheckCircle className="w-4 h-4 mr-1" />
-                  Mark Read
-                </Button>
-                <Button 
-                  onClick={() => setIsRefreshing(true)}
-                  variant="outline"
-                  size="sm"
-                  className="hover:scale-105 transition-all duration-200"
-                >
-                  <RefreshCw className={`w-4 h-4 mr-1 ${isRefreshing ? 'animate-spin' : ''}`} />
-                  Refresh
-                </Button>
-                <Button 
-                  onClick={() => toast({ title: "🎯 Analytics Updated", description: "Real-time data refreshed successfully!" })}
-                  variant="outline"
-                  size="sm"
-                  className="hover:scale-105 transition-all duration-200"
-                >
-                  <BarChart3 className="w-4 h-4 mr-1" />
-                  Analytics
-                </Button>
-              </div>
-            </div>
-          )}
-        </div>
+        
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
