@@ -1321,3 +1321,156 @@ select:focus {
                 0 0 70px rgba(59, 130, 246, 0.2);
   }
 }
+
+/* PREMIUM ADMIN DASHBOARD ANIMATIONS & EFFECTS */
+@keyframes gradient-shift-admin {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes float-premium-admin {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  25% { transform: translateY(-20px) rotate(5deg); }
+  50% { transform: translateY(-10px) rotate(-3deg); }
+  75% { transform: translateY(-15px) rotate(3deg); }
+}
+
+@keyframes slide-in-premium-admin {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px) scale(0.95); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
+}
+
+@keyframes admin-pulse-glow-new {
+  0%, 100% { 
+    box-shadow: 0 0 10px rgba(236, 72, 153, 0.3);
+    border-color: rgba(236, 72, 153, 0.3);
+  }
+  50% { 
+    box-shadow: 0 0 25px rgba(236, 72, 153, 0.6), 0 0 35px rgba(236, 72, 153, 0.4);
+    border-color: rgba(236, 72, 153, 0.6);
+  }
+}
+
+.animate-gradient-shift-admin {
+  background-size: 200% 200%;
+  animation: gradient-shift-admin 6s ease infinite;
+}
+
+.animate-float-premium-admin {
+  animation: float-premium-admin 6s ease-in-out infinite;
+}
+
+.admin-slide-in-new {
+  animation: slide-in-premium-admin 0.6s ease-out forwards;
+}
+
+.admin-pulse-glow-new {
+  animation: admin-pulse-glow-new 3s ease-in-out infinite;
+}
+
+/* Premium glass morphism effects for admin */
+.glass-card-premium-admin {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-premium-admin:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Advanced hover effects for admin */
+.hover-lift-premium-admin {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift-premium-admin:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Premium notification styles */
+.notification-premium-admin {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  animation: slide-in-premium-admin 0.5s ease-out;
+}
+
+/* Real-time status indicators */
+.status-indicator-premium-admin {
+  position: relative;
+}
+
+.status-indicator-premium-admin:after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(45deg, #10b981, #34d399);
+  border-radius: 50%;
+  border: 2px solid white;
+  animation: pulse 2s infinite;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+}
+
+/* Advanced card styles for admin */
+.card-premium-admin-new {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-premium-admin-new:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.6s;
+}
+
+.card-premium-admin-new:hover:before {
+  left: 100%;
+}
+
+.card-premium-admin-new:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Drag and drop styles */
+.dragging-admin {
+  opacity: 0.5;
+  transform: rotate(5deg);
+  z-index: 1000;
+}
+
+.drop-zone-admin {
+  border: 2px dashed rgba(59, 130, 246, 0.5);
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
