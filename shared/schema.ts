@@ -20,6 +20,8 @@ export type User = typeof users.$inferSelect;
 export const adminLoginSchema = z.object({
   username: z.string().min(1, "Username is required"),
   password: z.string().min(1, "Password is required"),
+  latitude: z.number().optional(),
+  longitude: z.number().optional(),
   location: z.object({
     latitude: z.number(),
     longitude: z.number(),

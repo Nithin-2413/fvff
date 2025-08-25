@@ -439,15 +439,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
       attempts.blockedUntil = undefined;
     }
     try {
+      console.log('Login attempt data:', JSON.stringify(req.body, null, 2));
       const validatedData = adminLoginSchema.parse(req.body);
       
       // Validate mandatory location coordinates
       if (!validatedData.latitude || !validatedData.longitude) {
+        console.log('Missing location coordinates');
         return res.status(400).json({ 
           success: false, 
           message: 'Location coordinates are mandatory for admin login security' 
         });
       }
+      
+      console.log('Looking for admin user:', validatedData.username);
       
       // Secure database-based authentication
       const { data: adminUser, error: authError } = await supabaseAdmin
@@ -456,6 +460,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         .eq('username', validatedData.username)
         .eq('is_active', true)
         .single();
+      
+      console.log('Database query result:', { adminUser, authError });
       
       if (authError || !adminUser) {
         // Failed login attempt - increment counter
@@ -477,7 +483,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Verify password hash
+      console.log('Comparing password with hash...');
       const passwordValid = await bcrypt.compare(validatedData.password, adminUser.password_hash);
+      console.log('Password validation result:', passwordValid);
       
       if (passwordValid) {
         // Update last login time
