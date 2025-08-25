@@ -543,6 +543,37 @@ $shadows-big: multiple-box-shadow(150);
   }
 }
 
+// Premium Textarea Glassmorphism
+textarea.bg-white\/10 {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(15px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(15px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 12px !important;
+  color: white !important;
+  transition: all 0.3s ease !important;
+  
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+  }
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: blur(18px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(200%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  }
+  
+  &:focus, &:focus-visible {
+    background: rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: blur(20px) saturate(220%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(220%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1) !important;
+  }
+}
+
 // Responsive adjustments
 // Premium Admin Login Styling - ELEGANT & CLEAN
 .compact-glassmorphism-card {

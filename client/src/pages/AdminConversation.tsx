@@ -572,7 +572,7 @@ const AdminConversation = () => {
                   onChange={(e) => setReplyMessage(e.target.value)}
                   placeholder="Type your heartfelt reply here..."
                   rows={6}
-                  className="mt-2 bg-white/10 border-white/20 premium-text-white placeholder-gray-400 resize-none"
+                  className="mt-2 bg-white/10 border-white/20 premium-text-white placeholder-gray-400 resize-none backdrop-blur-md hover:bg-white/12 focus:bg-white/12 focus:border-white/30 focus:backdrop-blur-lg transition-all duration-300"
                 />
               </div>
               <Button
