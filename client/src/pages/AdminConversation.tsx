@@ -481,7 +481,7 @@ const AdminConversation = () => {
               </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-2 md:space-y-3 lg:space-y-4">
               <div className="p-4 bg-gradient-to-r from-rose-500/10 to-pink-500/10 rounded-lg border border-rose-500/20">
                 <Label className="text-sm font-medium premium-text-gray-300 mb-2 block sen-font">Feelings</Label>
                 <p className="premium-text-white leading-relaxed sen-font">{hug.Feelings}</p>
@@ -506,7 +506,7 @@ const AdminConversation = () => {
               <h2 className="text-xl font-bold premium-text-white">Conversation History</h2>
             </div>
 
-            <div className="space-y-4 max-h-96 overflow-y-auto">
+            <div className="space-y-2 md:space-y-3 lg:space-y-4 max-h-96 overflow-y-auto">
               {replies.length === 0 ? (
                 <div className="text-center py-12">
                   <Heart className="h-12 w-12 text-gray-400 mx-auto mb-4" />
@@ -540,7 +540,7 @@ const AdminConversation = () => {
                         </div>
                       )}
 
-                      <div className="text-sm font-medium mb-2 flex items-center gap-2">
+                      <div className="text-sm font-medium mb-1 md:mb-2 flex items-center gap-2">
                         <span>{reply.sender_name}</span>
                         <span className="px-2 py-1 rounded-full text-xs bg-white/20">
                           {reply.sender_type}
@@ -562,9 +562,9 @@ const AdminConversation = () => {
                         )}
                       </div>
 
-                      <div className="text-sm leading-relaxed">{reply.message}</div>
+                      <div className="text-xs md:text-sm leading-relaxed">{reply.message}</div>
 
-                      <div className="text-xs mt-2 flex items-center justify-between opacity-80">
+                      <div className="text-xs mt-1 md:mt-2 flex items-center justify-between opacity-80">
                         <span>
                           {new Date(reply.created_at).toLocaleString('en-US', {
                             month: 'short',

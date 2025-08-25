@@ -421,13 +421,13 @@ const AdminDashboard = () => {
       <div className="max-w-7xl mx-auto px-2 md:px-4 lg:px-6 relative z-20">
         {/* Welcome Section */}
         <div className="mb-4 md:mb-6 lg:mb-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold premium-text-white mb-2" style={{ fontFamily: 'Fairplay Display, serif' }}>Welcome to Your Dashboard</h2>
+          <h2 className="text-3xl md:text-4xl font-bold premium-text-white mb-2" style={{ fontFamily: 'Great Vibes, cursive' }}>Welcome to Your Dashboard</h2>
           <p className="text-lg md:text-xl premium-text-gray-300 px-4" style={{ fontFamily: 'Sen, sans-serif' }}>Manage your heartfelt messages with love and care ✨</p>
         </div>
 
         {/* Premium Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-6 mb-4 md:mb-6 lg:mb-8">
-          <div className="premium-glass-card p-6 group hover:scale-105 transition-all duration-300 cursor-pointer">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 lg:gap-6 mb-3 md:mb-4 lg:mb-8">
+          <div className="premium-glass-card p-3 md:p-4 lg:p-6 group hover:scale-105 transition-all duration-300 cursor-pointer">
             <div className="card-effects"></div>
             <div className="flex items-center space-x-4">
               <div className="relative">
@@ -443,7 +443,7 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          <div className="premium-glass-card p-6 group hover:scale-105 transition-all duration-300 cursor-pointer">
+          <div className="premium-glass-card p-3 md:p-4 lg:p-6 group hover:scale-105 transition-all duration-300 cursor-pointer">
             <div className="card-effects"></div>
             <div className="flex items-center space-x-4">
               <div className="relative">
@@ -462,7 +462,7 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          <div className="premium-glass-card p-6 group hover:scale-105 transition-all duration-300 cursor-pointer">
+          <div className="premium-glass-card p-3 md:p-4 lg:p-6 group hover:scale-105 transition-all duration-300 cursor-pointer">
             <div className="card-effects"></div>
             <div className="flex items-center space-x-4">
               <div className="relative">
@@ -478,7 +478,7 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          <div className="premium-glass-card p-6 group hover:scale-105 transition-all duration-300 cursor-pointer">
+          <div className="premium-glass-card p-3 md:p-4 lg:p-6 group hover:scale-105 transition-all duration-300 cursor-pointer">
             <div className="card-effects"></div>
             <div className="flex items-center space-x-4">
               <div className="relative">
@@ -550,7 +550,7 @@ const AdminDashboard = () => {
         </div>
 
         {/* Premium Messages Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 lg:gap-6 mb-4 md:mb-6 lg:mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3 lg:gap-6 mb-3 md:mb-4 lg:mb-8">
           {filteredHugs.map((hug) => (
             <div key={hug.id} className="premium-glass-card p-3 md:p-4 lg:p-6 group">
               <div className="card-effects"></div>
