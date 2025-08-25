@@ -374,21 +374,30 @@ const AdminDashboard = () => {
   if (loading) {
     return (
       <div className="min-h-screen relative overflow-hidden flex items-center justify-center">
-        {/* Premium Starfield Background */}
-        <div className="starfield-container">
-          <div id="stars"></div>
-          <div id="stars2"></div>
-          <div id="stars3"></div>
+        {/* Premium Cosmic Background */}
+        <div className="premium-admin-bg">
+          <div className="premium-stars">
+            <div id="premium-stars"></div>
+            <div id="premium-stars2"></div>
+            <div id="premium-stars3"></div>
+          </div>
+          <div className="floating-particles">
+            <div className="particle particle-1"></div>
+            <div className="particle particle-2"></div>
+            <div className="particle particle-3"></div>
+            <div className="particle particle-4"></div>
+            <div className="particle particle-5"></div>
+          </div>
         </div>
         
-        {/* Premium Loading Animation */}
-        <div className="premium-loader relative z-10">
-          <div className="loader-ring"></div>
-          <div className="loader-text">Loading Dashboard</div>
-          <div className="loader-dots">
-            <div className="dot"></div>
-            <div className="dot"></div>
-            <div className="dot"></div>
+        {/* Premium Cosmic Loading Animation */}
+        <div className="premium-cosmic-loader relative z-10">
+          <div className="cosmic-ring"></div>
+          <div className="cosmic-text">Loading Dashboard</div>
+          <div className="cosmic-dots">
+            <div className="cosmic-dot"></div>
+            <div className="cosmic-dot"></div>
+            <div className="cosmic-dot"></div>
           </div>
         </div>
       </div>
@@ -397,11 +406,20 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
-      {/* Premium Starfield Background */}
-      <div className="starfield-container">
-        <div id="stars"></div>
-        <div id="stars2"></div>
-        <div id="stars3"></div>
+      {/* Premium Cosmic Background */}
+      <div className="premium-admin-bg">
+        <div className="premium-stars">
+          <div id="premium-stars"></div>
+          <div id="premium-stars2"></div>
+          <div id="premium-stars3"></div>
+        </div>
+        <div className="floating-particles">
+          <div className="particle particle-1"></div>
+          <div className="particle particle-2"></div>
+          <div className="particle particle-3"></div>
+          <div className="particle particle-4"></div>
+          <div className="particle particle-5"></div>
+        </div>
       </div>
 
       {/* Background Music */}
@@ -458,7 +476,7 @@ const AdminDashboard = () => {
                 <p className="text-3xl font-bold premium-text-white">{stats.totalCount}</p>
                 <p className="text-xs premium-text-gray-400 mt-1">💝 All love letters</p>
               </div>
-              <div className="h-14 w-14 bg-gradient-to-r from-rose-400 to-pink-400 rounded-xl flex items-center justify-center shadow-lg">
+              <div className="h-14 w-14 bg-gradient-to-r from-pink-400 to-violet-500 rounded-xl flex items-center justify-center shadow-lg">
                 <Heart className="h-7 w-7 premium-text-white" />
               </div>
             </div>
@@ -471,7 +489,7 @@ const AdminDashboard = () => {
                 <p className="text-3xl font-bold premium-text-white">{stats.newCount}</p>
                 <p className="text-xs premium-text-gray-400 mt-1">⏰ Awaiting response</p>
               </div>
-              <div className="h-14 w-14 bg-gradient-to-r from-orange-400 to-amber-400 rounded-xl flex items-center justify-center shadow-lg">
+              <div className="h-14 w-14 bg-gradient-to-r from-orange-400 to-pink-400 rounded-xl flex items-center justify-center shadow-lg">
                 <Clock className="h-7 w-7 premium-text-white" />
               </div>
             </div>
@@ -484,7 +502,7 @@ const AdminDashboard = () => {
                 <p className="text-3xl font-bold premium-text-white">{stats.completedCount}</p>
                 <p className="text-xs premium-text-gray-400 mt-1">✅ Successfully delivered</p>
               </div>
-              <div className="h-14 w-14 bg-gradient-to-r from-green-400 to-emerald-400 rounded-xl flex items-center justify-center shadow-lg">
+              <div className="h-14 w-14 bg-gradient-to-r from-pink-500 to-violet-500 rounded-xl flex items-center justify-center shadow-lg">
                 <CheckCircle className="h-7 w-7 premium-text-white" />
               </div>
             </div>
@@ -497,7 +515,7 @@ const AdminDashboard = () => {
                 <p className="text-3xl font-bold premium-text-white">{stats.responseRate}%</p>
                 <p className="text-xs premium-text-gray-400 mt-1">📈 Success metric</p>
               </div>
-              <div className="h-14 w-14 bg-gradient-to-r from-purple-400 to-indigo-400 rounded-xl flex items-center justify-center shadow-lg">
+              <div className="h-14 w-14 bg-gradient-to-r from-violet-400 to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
                 <TrendingUp className="h-7 w-7 premium-text-white" />
               </div>
             </div>
