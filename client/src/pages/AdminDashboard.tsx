@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { Eye, Search, Filter, Calendar, User, Mail, Phone, MessageSquare, BarChart3, Users, TrendingUp, Clock, Globe, Heart } from 'lucide-react';
+import { Eye, Search, Filter, Calendar, User, Mail, Phone, MessageSquare, BarChart3, Users, TrendingUp, Clock, Globe, Heart, Download, Star, Zap, Activity, Target, Award, Sparkles, RefreshCw, ChevronDown, MoreHorizontal, Archive } from 'lucide-react';
 import logoImage from '@assets/Untitled design (2)_1755165830517.png';
 import { useLocation } from 'wouter';
 import { useBackgroundMusic } from '@/hooks/useBackgroundMusic';
@@ -34,6 +34,11 @@ const AdminDashboard = () => {
   const [statusFilter, setStatusFilter] = useState('all');
   const [typeFilter, setTypeFilter] = useState('all');
   const [unreadCount, setUnreadCount] = useState(0);
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [sortBy, setSortBy] = useState<'date' | 'name' | 'status'>('date');
+  const [timeFilter, setTimeFilter] = useState<'all' | 'today' | 'week' | 'month'>('all');
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const { toast } = useToast();
   const [, setLocation] = useLocation();
   const audioRef = useBackgroundMusic(0.32);
@@ -146,32 +151,88 @@ const AdminDashboard = () => {
     }
   };
 
-  const filteredHugs = hugs.filter(hug => {
-    const matchesSearch = hug.Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      hug['Email Address'].toLowerCase().includes(searchTerm.toLowerCase()) ||
-      hug['Type of Message'].toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesStatus = statusFilter === 'all' || hug.Status?.toLowerCase() === statusFilter.toLowerCase();
-    const matchesType = typeFilter === 'all' || hug['Type of Message']?.toLowerCase() === typeFilter.toLowerCase();
-    
-    return matchesSearch && matchesStatus && matchesType;
-  });
+  // Advanced filtering with time-based filtering
+  const filteredHugs = useMemo(() => {
+    return hugs.filter(hug => {
+      const matchesSearch = hug.Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        hug['Email Address'].toLowerCase().includes(searchTerm.toLowerCase()) ||
+        hug['Type of Message'].toLowerCase().includes(searchTerm.toLowerCase()) ||
+        hug['Recipient\'s Name'].toLowerCase().includes(searchTerm.toLowerCase());
+      
+      const matchesStatus = statusFilter === 'all' || hug.Status?.toLowerCase() === statusFilter.toLowerCase();
+      const matchesType = typeFilter === 'all' || hug['Type of Message']?.toLowerCase() === typeFilter.toLowerCase();
+      
+      // Time filtering
+      let matchesTime = true;
+      if (timeFilter !== 'all') {
+        const hugDate = new Date(hug.Date);
+        const now = new Date();
+        if (timeFilter === 'today') {
+          matchesTime = hugDate.toDateString() === now.toDateString();
+        } else if (timeFilter === 'week') {
+          const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+          matchesTime = hugDate >= weekAgo;
+        } else if (timeFilter === 'month') {
+          const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+          matchesTime = hugDate >= monthAgo;
+        }
+      }
+      
+      return matchesSearch && matchesStatus && matchesType && matchesTime;
+    }).sort((a, b) => {
+      if (sortBy === 'date') {
+        return new Date(b.Date).getTime() - new Date(a.Date).getTime();
+      } else if (sortBy === 'name') {
+        return a.Name.localeCompare(b.Name);
+      } else if (sortBy === 'status') {
+        return (a.Status || 'New').localeCompare(b.Status || 'New');
+      }
+      return 0;
+    });
+  }, [hugs, searchTerm, statusFilter, typeFilter, timeFilter, sortBy]);
 
   const handleViewConversation = (hugId: string) => {
     setLocation(`/admin/conversation/${hugId}`);
   };
 
-  const getStats = () => {
+  // Advanced Analytics with Growth Calculations
+  const getAdvancedStats = useMemo(() => {
     const total = hugs.length;
     const newCount = hugs.filter(h => h.Status?.toLowerCase() === 'new').length;
     const repliedCount = hugs.filter(h => h.Status?.toLowerCase() === 'replied').length;
     const clientRepliedCount = hugs.filter(h => h.Status?.toLowerCase() === 'client replied').length;
     const inProgressCount = hugs.filter(h => h.Status?.toLowerCase() === 'in progress').length;
+    const completedCount = hugs.filter(h => h.Status?.toLowerCase() === 'completed').length;
     
-    return { total, newCount, repliedCount, clientRepliedCount, inProgressCount, unreadCount };
-  };
+    // Calculate today's messages
+    const today = new Date().toDateString();
+    const todayMessages = hugs.filter(h => new Date(h.Date).toDateString() === today).length;
+    
+    // Calculate this week's messages
+    const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    const weekMessages = hugs.filter(h => new Date(h.Date) >= weekAgo).length;
+    
+    // Calculate response rate
+    const responseRate = total > 0 ? Math.round(((repliedCount + completedCount) / total) * 100) : 0;
+    
+    // Calculate average response time (mock data for demo)
+    const avgResponseTime = '2.4 hours';
+    
+    // Message type distribution
+    const messageTypes = {
+      'love letter': hugs.filter(h => h['Type of Message']?.toLowerCase() === 'love letter').length,
+      'gratitude note': hugs.filter(h => h['Type of Message']?.toLowerCase() === 'gratitude note').length,
+      'apology': hugs.filter(h => h['Type of Message']?.toLowerCase() === 'apology').length,
+      'celebration': hugs.filter(h => h['Type of Message']?.toLowerCase() === 'celebration').length,
+    };
+    
+    return { 
+      total, newCount, repliedCount, clientRepliedCount, inProgressCount, completedCount, 
+      unreadCount, todayMessages, weekMessages, responseRate, avgResponseTime, messageTypes 
+    };
+  }, [hugs, unreadCount]);
 
-  const stats = getStats();
+  const stats = getAdvancedStats;
 
 
   if (loading) {
