@@ -199,28 +199,6 @@ const AdminDashboard = () => {
     }
   };
 
-  // Advanced Export with Multiple Formats
-  const exportToJSON = () => {
-    const exportData = {
-      exportDate: new Date().toISOString(),
-      totalMessages: filteredHugs.length,
-      analytics: stats,
-      messages: filteredHugs
-    };
-
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportData, null, 2));
-    const link = document.createElement("a");
-    link.setAttribute("href", dataStr);
-    link.setAttribute("download", `the_written_hug_data_${new Date().toISOString().split('T')[0]}.json`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    toast({
-      title: "🚀 Advanced Export Complete",
-      description: "Complete dataset with analytics exported to JSON!",
-    });
-  };
 
   // Bulk Operations
   const handleBulkOperation = (operation: string) => {
@@ -403,7 +381,7 @@ const AdminDashboard = () => {
       </audio>
 
       {/* Premium Glassmorphism Header */}
-      <div className="premium-glass-card relative z-20 m-3 md:m-6 p-4 md:p-6 border-0">
+      <div className="premium-glass-card relative z-20 m-2 md:m-4 lg:m-6 p-3 md:p-4 lg:p-6 border-0">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 lg:gap-4">
           <div className="flex items-center space-x-3">
             <img src={logoImage} loading="lazy" alt="Logo" className="h-8 w-8 rounded-full" />
@@ -440,15 +418,15 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-3 md:px-6 relative z-20">
+      <div className="max-w-7xl mx-auto px-2 md:px-4 lg:px-6 relative z-20">
         {/* Welcome Section */}
-        <div className="mb-8 text-center">
+        <div className="mb-4 md:mb-6 lg:mb-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold premium-text-white mb-2" style={{ fontFamily: 'Fairplay Display, serif' }}>Welcome to Your Dashboard</h2>
           <p className="text-lg md:text-xl premium-text-gray-300 px-4" style={{ fontFamily: 'Sen, sans-serif' }}>Manage your heartfelt messages with love and care ✨</p>
         </div>
 
         {/* Premium Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-6 mb-4 md:mb-6 lg:mb-8">
           <div className="premium-glass-card p-6 group hover:scale-105 transition-all duration-300 cursor-pointer">
             <div className="card-effects"></div>
             <div className="flex items-center space-x-4">
@@ -518,7 +496,7 @@ const AdminDashboard = () => {
         </div>
 
         {/* Premium Controls */}
-        <div className="premium-glass-card p-6 mb-8">
+        <div className="premium-glass-card p-3 md:p-4 lg:p-6 mb-4 md:mb-6 lg:mb-8">
           <div className="card-effects"></div>
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 flex-1">
@@ -567,21 +545,14 @@ const AdminDashboard = () => {
                   AI Insights
                 </div>
               </Button>
-              <Button onClick={exportToJSON} className="premium-glass-button">
-                <i></i>
-                <div className="btn-content">
-                  <Download className="h-4 w-4" />
-                  Export
-                </div>
-              </Button>
             </div>
           </div>
         </div>
 
         {/* Premium Messages Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 lg:gap-6 mb-4 md:mb-6 lg:mb-8">
           {filteredHugs.map((hug) => (
-            <div key={hug.id} className="premium-glass-card p-6 group">
+            <div key={hug.id} className="premium-glass-card p-3 md:p-4 lg:p-6 group">
               <div className="card-effects"></div>
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">

@@ -366,10 +366,10 @@ const AdminConversation = () => {
       {/* Background Music */}
       <audio ref={audioRef} preload="auto" loop></audio>
 
-      <div className="relative z-20 p-3 md:p-6">
+      <div className="relative z-20 p-2 md:p-4 lg:p-6">
         <div className="max-w-5xl mx-auto">
           {/* Header */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6 md:mb-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 md:gap-4 mb-4 md:mb-6 lg:mb-8">
             <Link href="/admin/orders">
               <Button className="premium-glass-button w-full sm:w-auto" data-testid="link-back-orders">
                 <i></i>
@@ -391,29 +391,29 @@ const AdminConversation = () => {
           </div>
 
           {/* Premium Order Details Card */}
-          <div className="premium-glass-card p-4 md:p-6 mb-6 md:mb-8">
-            <div className="flex items-center gap-2 mb-6">
+          <div className="premium-glass-card p-3 md:p-4 lg:p-6 mb-4 md:mb-6 lg:mb-8">
+            <div className="flex items-center gap-2 mb-3 md:mb-4 lg:mb-6">
               <Heart className="h-5 w-5 text-rose-400" />
               <h2 className="text-xl font-bold premium-text-white">Order Details</h2>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 mb-6">
-              <div className="space-y-4">
-                <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-4 lg:gap-6 mb-4 md:mb-6">
+              <div className="space-y-2 md:space-y-3 lg:space-y-4">
+                <div className="flex items-center gap-2 md:gap-3 p-2 md:p-3 lg:p-4 bg-white/5 rounded-lg border border-white/10">
                   <User className="h-5 w-5 text-rose-400" />
                   <div>
                     <Label className="text-sm font-medium premium-text-gray-300 sen-font">Client Name</Label>
                     <p className="font-semibold premium-text-white sen-font" data-testid="text-client-name">{hug.Name}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
+                <div className="flex items-center gap-2 md:gap-3 p-2 md:p-3 lg:p-4 bg-white/5 rounded-lg border border-white/10">
                   <Mail className="h-5 w-5 text-rose-400" />
                   <div>
                     <Label className="text-sm font-medium premium-text-gray-300 sen-font">Email</Label>
                     <p className="premium-text-white sen-font">{hug['Email Address']}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
+                <div className="flex items-center gap-2 md:gap-3 p-2 md:p-3 lg:p-4 bg-white/5 rounded-lg border border-white/10">
                   <Phone className="h-5 w-5 text-rose-400" />
                   <div>
                     <Label className="text-sm font-medium premium-text-gray-300 sen-font">Phone</Label>
@@ -422,22 +422,22 @@ const AdminConversation = () => {
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
+              <div className="space-y-2 md:space-y-3 lg:space-y-4">
+                <div className="flex items-center gap-2 md:gap-3 p-2 md:p-3 lg:p-4 bg-white/5 rounded-lg border border-white/10">
                   <Heart className="h-5 w-5 text-pink-400" />
                   <div>
                     <Label className="text-sm font-medium premium-text-gray-300 sen-font">Recipient</Label>
                     <p className="font-semibold premium-text-white sen-font">{hug['Recipient\'s Name']}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
+                <div className="flex items-center gap-2 md:gap-3 p-2 md:p-3 lg:p-4 bg-white/5 rounded-lg border border-white/10">
                   <Package className="h-5 w-5 text-pink-400" />
                   <div>
                     <Label className="text-sm font-medium premium-text-gray-300 sen-font">Message Type</Label>
                     <p className="premium-text-white sen-font">{hug['Type of Message']}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
+                <div className="flex items-center gap-2 md:gap-3 p-2 md:p-3 lg:p-4 bg-white/5 rounded-lg border border-white/10">
                   <Package className="h-5 w-5 text-pink-400" />
                   <div>
                     <Label className="text-sm font-medium premium-text-gray-300 sen-font">Delivery Type</Label>
@@ -446,8 +446,8 @@ const AdminConversation = () => {
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
+              <div className="space-y-2 md:space-y-3 lg:space-y-4">
+                <div className="flex items-center gap-2 md:gap-3 p-2 md:p-3 lg:p-4 bg-white/5 rounded-lg border border-white/10">
                   <Calendar className="h-5 w-5 text-purple-400" />
                   <div>
                     <Label className="text-sm font-medium premium-text-gray-300 sen-font">Date Submitted</Label>
@@ -500,8 +500,8 @@ const AdminConversation = () => {
           </div>
 
           {/* Premium Conversation Thread */}
-          <div className="premium-glass-card p-4 md:p-6 mb-6">
-            <div className="flex items-center gap-2 mb-6">
+          <div className="premium-glass-card p-3 md:p-4 lg:p-6 mb-4 md:mb-6">
+            <div className="flex items-center gap-2 mb-3 md:mb-4 lg:mb-6">
               <MessageSquare className="h-5 w-5 text-rose-400" />
               <h2 className="text-xl font-bold premium-text-white">Conversation History</h2>
             </div>
@@ -520,7 +520,7 @@ const AdminConversation = () => {
                     className={`flex ${reply.sender_type === 'admin' ? 'justify-end' : 'justify-start'}`}
                   >
                     <div
-                      className={`max-w-[280px] sm:max-w-xs lg:max-w-md px-3 sm:px-4 py-3 rounded-lg relative ${
+                      className={`max-w-[240px] sm:max-w-[280px] md:max-w-xs lg:max-w-md px-2 sm:px-3 md:px-4 py-2 md:py-3 rounded-lg relative ${
                         reply.sender_type === 'admin'
                           ? 'bg-gradient-to-r from-rose-500/80 to-pink-600/80 premium-text-white backdrop-blur-sm'
                           : reply.is_read === false
@@ -588,8 +588,8 @@ const AdminConversation = () => {
           </div>
 
           {/* Premium Reply Form */}
-          <div className="premium-glass-card p-4 md:p-6">
-            <div className="flex items-center gap-2 mb-6">
+          <div className="premium-glass-card p-3 md:p-4 lg:p-6">
+            <div className="flex items-center gap-2 mb-3 md:mb-4 lg:mb-6">
               <Send className="h-5 w-5 text-rose-400" />
               <h2 className="text-lg md:text-xl font-bold premium-text-white">Send Reply as CEO</h2>
             </div>
@@ -620,8 +620,8 @@ const AdminConversation = () => {
           </div>
 
           {/* Payment Request Form */}
-          <div className="premium-glass-card p-4 md:p-6 mt-6">
-            <div className="flex items-center gap-2 mb-6">
+          <div className="premium-glass-card p-3 md:p-4 lg:p-6 mt-4 md:mt-6">
+            <div className="flex items-center gap-2 mb-3 md:mb-4 lg:mb-6">
               <CreditCard className="h-5 w-5 text-blue-400" />
               <h2 className="text-lg md:text-xl font-bold premium-text-white">Payment Request</h2>
             </div>
