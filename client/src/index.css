@@ -1299,6 +1299,16 @@ html {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8), 0 0 4px rgba(255, 255, 255, 0.3);
 }
 
+/* Smooth Button Transitions for Admin */
+button, .premium-glass-button {
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  will-change: transform, box-shadow, background-color, letter-spacing !important;
+}
+
+button:hover, .premium-glass-button:hover {
+  transition-duration: 0.4s !important;
+}
+
 /* Enhanced Focus Styles with Gradient Glow */
 input:focus,
 textarea:focus,
@@ -1311,6 +1321,7 @@ select:focus {
               0 0 40px rgba(139, 92, 246, 0.2),
               0 0 60px rgba(59, 130, 246, 0.1) !important;
   animation: gradientGlow 2s ease-in-out infinite alternate !important;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
 }
 
 /* Dark mode focus styles */
@@ -1447,9 +1458,10 @@ select:focus {
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 24px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
   position: relative;
   overflow: hidden;
+  will-change: transform, box-shadow, backdrop-filter !important;
 }
 
 .card-premium-admin-new:before {
@@ -1469,8 +1481,10 @@ select:focus {
 
 .card-premium-admin-new:hover {
   transform: translateY(-12px) scale(1.03);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(25px) saturate(150%);
+  transition-duration: 0.4s !important;
 }
 
 /* Logo in Admin Dashboard */
