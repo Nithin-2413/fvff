@@ -453,17 +453,17 @@ const AdminDashboard = () => {
             </div>
           </div>
           <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0 w-full sm:w-auto justify-end">
-            {/* Premium Notifications */}
-            <div className="relative">
+            {/* Premium Notifications - Hidden on mobile */}
+            <div className="relative hidden sm:block">
               <Button 
                 onClick={() => setShowNotifications(!showNotifications)}
                 variant="outline" 
                 size="sm"
-                className="relative rounded-full admin-pulse-glow hover:scale-105 transition-all duration-300 h-8 w-8 p-0 sm:h-10 sm:w-10 sm:p-2"
+                className="relative rounded-full admin-pulse-glow hover:scale-105 transition-all duration-300 h-10 w-10 p-2"
               >
-                <Bell className="w-3 h-3 sm:w-4 sm:h-4" />
+                <Bell className="w-4 h-4" />
                 {notifications.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center animate-pulse text-[10px] sm:text-xs">
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center animate-pulse">
                     {notifications.length}
                   </span>
                 )}
