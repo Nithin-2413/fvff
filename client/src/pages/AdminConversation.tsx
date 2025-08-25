@@ -682,13 +682,6 @@ const AdminConversation = () => {
                     min="1"
                     step="0.01"
                     className="mt-2 bg-white/10 border-white/20 premium-text-white placeholder-gray-400 backdrop-blur-md hover:bg-white/12 focus:bg-white/12 focus:border-white/30 focus:backdrop-blur-lg transition-all duration-300"
-                    style={{
-                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                      backdropFilter: 'blur(12px)',
-                      WebkitBackdropFilter: 'blur(12px)',
-                      color: 'white',
-                      border: '1px solid rgba(255, 255, 255, 0.2)'
-                    }}
                   />
                 </div>
                 <div className="flex items-end">
