@@ -40,8 +40,7 @@ const AdminDashboard = () => {
   const [sortBy, setSortBy] = useState<'date' | 'name' | 'status'>('date');
   const [timeFilter, setTimeFilter] = useState<'all' | 'today' | 'week' | 'month'>('all');
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [notifications, setNotifications] = useState<any[]>([]);
-  const [showNotifications, setShowNotifications] = useState(false);
+  
   const [draggedItem, setDraggedItem] = useState<string | null>(null);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [realTimeData, setRealTimeData] = useState({ newMessages: 0, activeUsers: 3 });
@@ -104,12 +103,7 @@ const AdminDashboard = () => {
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
 
-    // Initialize notifications
-    setNotifications([
-      { id: 1, type: 'success', message: 'New message from Mail Test', time: '2 min ago' },
-      { id: 2, type: 'info', message: 'System backup completed', time: '1 hour ago' },
-      { id: 3, type: 'warning', message: '3 messages need response', time: '3 hours ago' }
-    ]);
+    
 
     intervalRef.current = unreadInterval;
 
@@ -453,77 +447,6 @@ const AdminDashboard = () => {
             </div>
           </div>
           <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0 w-full sm:w-auto justify-end">
-            {/* Premium Notifications - Hidden on mobile */}
-            <div className="relative hidden sm:block">
-              <Button 
-                onClick={() => setShowNotifications(!showNotifications)}
-                variant="outline" 
-                size="sm"
-                className="relative rounded-full admin-pulse-glow hover:scale-105 transition-all duration-300 h-10 w-10 p-2"
-              >
-                <Bell className="w-4 h-4" />
-                {notifications.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center animate-pulse">
-                    {notifications.length}
-                  </span>
-                )}
-              </Button>
-
-              {showNotifications && (
-                <div className="absolute right-0 top-full mt-2 w-72 sm:w-80 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 backdrop-blur-sm admin-slide-in max-h-[80vh] overflow-hidden">
-                  <div className="p-3 sm:p-4 border-b border-gray-100">
-                    <div className="flex items-center justify-between">
-                      <h3 className="font-semibold text-gray-900 flex items-center text-sm sm:text-base">
-                        <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-yellow-500" />
-                        Notifications
-                      </h3>
-                      <Button
-                        onClick={() => setShowNotifications(false)}
-                        variant="ghost"
-                        size="sm"
-                        className="h-6 w-6 p-0 hover:bg-gray-100 rounded-full"
-                      >
-                        ×
-                      </Button>
-                    </div>
-                  </div>
-                  <div className="max-h-64 sm:max-h-80 overflow-y-auto">
-                    {notifications.length === 0 ? (
-                      <div className="p-6 text-center">
-                        <Bell className="w-8 h-8 text-gray-300 mx-auto mb-2" />
-                        <p className="text-sm text-gray-500">No notifications yet</p>
-                      </div>
-                    ) : (
-                      notifications.map((notification) => (
-                        <div key={notification.id} className="p-3 border-b border-gray-50 hover:bg-gray-50 transition-colors duration-200 last:border-b-0">
-                          <div className="flex items-start space-x-3">
-                            {notification.type === 'success' && <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />}
-                            {notification.type === 'info' && <Info className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />}
-                            {notification.type === 'warning' && <AlertCircle className="w-4 h-4 text-yellow-500 mt-0.5 flex-shrink-0" />}
-                            <div className="flex-1 min-w-0">
-                              <p className="text-xs sm:text-sm text-gray-900 break-words">{notification.message}</p>
-                              <p className="text-xs text-gray-500 mt-1">{notification.time}</p>
-                            </div>
-                          </div>
-                        </div>
-                      ))
-                    )}
-                  </div>
-                  {notifications.length > 0 && (
-                    <div className="p-3 border-t border-gray-100">
-                      <Button
-                        onClick={() => setNotifications([])}
-                        variant="outline"
-                        size="sm"
-                        className="w-full text-xs"
-                      >
-                        Clear All
-                      </Button>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
 
             <Button 
               onClick={() => window.open('/', '_blank')} 
