@@ -202,12 +202,23 @@ const ContactForm = () => {
           // Try to get city and country silently
           try {
             const geocodingResponse = await fetch(
-              `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&localityLanguage=en`
+              `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&localityLanguage=en`,
+              {
+                method: 'GET',
+                mode: 'cors',
+                cache: 'default'
+              }
             );
-            const geocodingData = await geocodingResponse.json();
-            location.city = geocodingData.city || geocodingData.locality || 'Unknown City';
-            location.country = geocodingData.countryName || 'Unknown Country';
+            if (geocodingResponse.ok) {
+              const geocodingData = await geocodingResponse.json();
+              location.city = geocodingData.city || geocodingData.locality || 'Unknown City';
+              location.country = geocodingData.countryName || 'Unknown Country';
+            } else {
+              location.city = 'Unknown City';
+              location.country = 'Unknown Country';
+            }
           } catch (geocodingError) {
+            console.log('Geocoding service unavailable, continuing silently');
             location.city = 'Unknown City';
             location.country = 'Unknown Country';
           }

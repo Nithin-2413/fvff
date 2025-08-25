@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Link } from 'wouter';
 import { useLocation, useParams } from 'wouter';
 import { useBackgroundMusic } from '@/hooks/useBackgroundMusic';
+import '../styles/starfield.scss';
 
 interface Hug {
   id: string;
@@ -93,8 +94,6 @@ const AdminConversation = () => {
       fetchConversation(id);
     }
   }, [id]);
-
-  
 
   // Update current status when hug data loads
   useEffect(() => {
@@ -254,168 +253,156 @@ const AdminConversation = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background overflow-hidden premium-scroll relative flex items-center justify-center">
-        <div className="cosmic-background"></div>
-        <div className="star-background">
+      <div className="min-h-screen relative overflow-hidden flex items-center justify-center">
+        {/* Premium Starfield Background */}
+        <div className="starfield-container">
           <div id="stars"></div>
           <div id="stars2"></div>
           <div id="stars3"></div>
         </div>
-        <div className="finisher-header absolute inset-0 w-full h-full" style={{ zIndex: 0 }}></div>
-        <div className="relative z-20 text-lg">Loading conversation...</div>
+        
+        {/* Premium Loading Animation */}
+        <div className="premium-loader relative z-10">
+          <div className="loader-ring"></div>
+          <div className="loader-text">Loading Conversation</div>
+          <div className="loader-dots">
+            <div className="dot"></div>
+            <div className="dot"></div>
+            <div className="dot"></div>
+          </div>
+        </div>
       </div>
     );
   }
 
   if (!hug) {
     return (
-      <div className="min-h-screen bg-background overflow-hidden premium-scroll relative flex items-center justify-center">
-        <div className="cosmic-background"></div>
-        <div className="star-background">
+      <div className="min-h-screen relative overflow-hidden flex items-center justify-center">
+        {/* Premium Starfield Background */}
+        <div className="starfield-container">
           <div id="stars"></div>
           <div id="stars2"></div>
           <div id="stars3"></div>
         </div>
-        <div className="finisher-header absolute inset-0 w-full h-full" style={{ zIndex: 0 }}></div>
-        <div className="relative z-20 text-lg">Conversation not found</div>
+        
+        <div className="relative z-20 text-center">
+          <h2 className="text-2xl font-bold text-white mb-4">Conversation not found</h2>
+          <Link href="/admin/orders">
+            <Button className="glass-button rounded-full">
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Dashboard
+            </Button>
+          </Link>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background overflow-hidden premium-scroll relative">
-      {/* Cosmic Premium Background */}
-      <div className="cosmic-background"></div>
-
-      {/* Animated Star Background */}
-      <div className="star-background">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Premium Starfield Background */}
+      <div className="starfield-container">
         <div id="stars"></div>
         <div id="stars2"></div>
         <div id="stars3"></div>
-        <div className="night">
-          {Array.from({ length: 6 }, (_, i) => (
-            <div key={i} className="shooting_star"></div>
-          ))}
-        </div>
       </div>
 
-      {/* Background Music - Controlled by useBackgroundMusic hook */}
+      {/* Background Music */}
       <audio ref={audioRef} preload="auto" loop></audio>
 
-      {/* Animated Background Header */}
-      <div className="finisher-header absolute inset-0 w-full h-full" style={{ zIndex: 0 }}></div>
-
-      {/* Enhanced Floating Elements */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
-        <div className="absolute top-32 left-16 animate-float opacity-15">
-          <Heart className="w-6 h-6 text-pink-300 fill-current" />
-        </div>
-        <div className="absolute top-96 right-20 animate-float delay-1000 opacity-20">
-          <Heart className="w-4 h-4 text-rose-300 fill-current" />
-        </div>
-        <div className="absolute top-[400px] left-1/4 animate-float delay-2000 opacity-25">
-          <Sparkles className="w-5 h-5 text-purple-300" />
-        </div>
-        <div className="absolute top-[600px] right-1/3 animate-float delay-3000 opacity-20">
-          <MapPin className="w-4 h-4 text-indigo-300" />
-        </div>
-        <div className="absolute top-[800px] left-1/3 animate-float delay-4000 opacity-15">
-          <Mail className="w-5 h-5 text-blue-300" />
-        </div>
-      </div>
-
       <div className="relative z-20 p-6">
-      <div className="max-w-5xl mx-auto">
-        <div className="flex items-center gap-4 mb-8">
-          <Link href="/admin/orders">
-            <Button variant="outline" size="sm" className="border-rose-200/50 backdrop-blur-sm hover:bg-rose-50/80 rounded-full" data-testid="link-back-orders">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Orders
-            </Button>
-          </Link>
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-rose-400 to-pink-600 rounded-full flex items-center justify-center shadow-lg">
-              <Heart className="h-5 w-5 text-white" />
+        <div className="max-w-5xl mx-auto">
+          {/* Header */}
+          <div className="flex items-center gap-4 mb-8">
+            <Link href="/admin/orders">
+              <Button className="glass-button rounded-full" data-testid="link-back-orders">
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to Orders
+              </Button>
+            </Link>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-rose-400 to-pink-600 rounded-full flex items-center justify-center shadow-lg">
+                <Heart className="h-5 w-5 text-white" />
+              </div>
+              <h1 className="text-3xl font-bold text-white">
+                Conversation with {hug.Name}
+              </h1>
             </div>
-            <h1 className="text-3xl font-bold great-vibes-font bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-transparent">
-              Conversation with {hug.Name}
-            </h1>
           </div>
-        </div>
 
-        {/* Order Details Card */}
-        <Card className="mb-8 border-rose-200/30 bg-white/95 backdrop-blur-md shadow-xl">
-          <CardHeader className="bg-gradient-to-r from-rose-100/50 to-pink-100/50 border-b border-rose-200/30 backdrop-blur-sm">
-            <CardTitle className="flex items-center gap-2 text-rose-800">
-              <Heart className="h-5 w-5 text-rose-600" />
-              Order Details
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-6">
+          {/* Premium Order Details Card */}
+          <div className="glass-card p-6 mb-8">
+            <div className="flex items-center gap-2 mb-6">
+              <Heart className="h-5 w-5 text-rose-400" />
+              <h2 className="text-xl font-bold text-white">Order Details</h2>
+            </div>
+            
             <div className="grid md:grid-cols-3 gap-6 mb-6">
               <div className="space-y-4">
-                <div className="flex items-center gap-3 p-3 bg-rose-50/80 backdrop-blur-sm rounded-lg border border-rose-200/30">
-                  <User className="h-5 w-5 text-rose-600" />
+                <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
+                  <User className="h-5 w-5 text-rose-400" />
                   <div>
-                    <Label className="text-sm font-medium text-rose-700">Client Name</Label>
-                    <p className="font-semibold text-gray-900" data-testid="text-client-name">{hug.Name}</p>
+                    <Label className="text-sm font-medium text-gray-300">Client Name</Label>
+                    <p className="font-semibold text-white" data-testid="text-client-name">{hug.Name}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-3 bg-rose-50 rounded-lg">
-                  <Mail className="h-5 w-5 text-rose-600" />
+                <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
+                  <Mail className="h-5 w-5 text-rose-400" />
                   <div>
-                    <Label className="text-sm font-medium text-rose-700">Email</Label>
-                    <p className="text-gray-900">{hug['Email Address']}</p>
+                    <Label className="text-sm font-medium text-gray-300">Email</Label>
+                    <p className="text-white">{hug['Email Address']}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-3 bg-rose-50 rounded-lg">
-                  <Phone className="h-5 w-5 text-rose-600" />
+                <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
+                  <Phone className="h-5 w-5 text-rose-400" />
                   <div>
-                    <Label className="text-sm font-medium text-rose-700">Phone</Label>
-                    <p className="text-gray-900">{hug['Phone Number']}</p>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-4">
-                <div className="flex items-center gap-3 p-3 bg-pink-50 rounded-lg">
-                  <Heart className="h-5 w-5 text-pink-600" />
-                  <div>
-                    <Label className="text-sm font-medium text-pink-700">Recipient</Label>
-                    <p className="font-semibold text-gray-900">{hug['Recipient\'s Name']}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 p-3 bg-pink-50 rounded-lg">
-                  <Package className="h-5 w-5 text-pink-600" />
-                  <div>
-                    <Label className="text-sm font-medium text-pink-700">Message Type</Label>
-                    <p className="text-gray-900">{hug['Type of Message']}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 p-3 bg-pink-50 rounded-lg">
-                  <Package className="h-5 w-5 text-pink-600" />
-                  <div>
-                    <Label className="text-sm font-medium text-pink-700">Delivery Type</Label>
-                    <p className="text-gray-900">{hug['Delivery Type']}</p>
+                    <Label className="text-sm font-medium text-gray-300">Phone</Label>
+                    <p className="text-white">{hug['Phone Number']}</p>
                   </div>
                 </div>
               </div>
+              
               <div className="space-y-4">
-                <div className="flex items-center gap-3 p-3 bg-purple-50 rounded-lg">
-                  <Calendar className="h-5 w-5 text-purple-600" />
+                <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
+                  <Heart className="h-5 w-5 text-pink-400" />
                   <div>
-                    <Label className="text-sm font-medium text-purple-700">Date Submitted</Label>
-                    <p className="text-gray-900">{new Date(hug.Date).toLocaleDateString('en-US', {
+                    <Label className="text-sm font-medium text-gray-300">Recipient</Label>
+                    <p className="font-semibold text-white">{hug['Recipient\'s Name']}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
+                  <Package className="h-5 w-5 text-pink-400" />
+                  <div>
+                    <Label className="text-sm font-medium text-gray-300">Message Type</Label>
+                    <p className="text-white">{hug['Type of Message']}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
+                  <Package className="h-5 w-5 text-pink-400" />
+                  <div>
+                    <Label className="text-sm font-medium text-gray-300">Delivery Type</Label>
+                    <p className="text-white">{hug['Delivery Type']}</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
+                  <Calendar className="h-5 w-5 text-purple-400" />
+                  <div>
+                    <Label className="text-sm font-medium text-gray-300">Date Submitted</Label>
+                    <p className="text-white">{new Date(hug.Date).toLocaleDateString('en-US', {
                       year: 'numeric',
                       month: 'long',
                       day: 'numeric'
                     })}</p>
                   </div>
                 </div>
-                <div className="p-3 bg-purple-50 rounded-lg">
-                  <Label className="text-sm font-medium text-purple-700">Status</Label>
+                <div className="p-4 bg-white/5 rounded-lg border border-white/10">
+                  <Label className="text-sm font-medium text-gray-300">Status</Label>
                   <div className="mt-2 space-y-2">
                     <Select value={currentStatus} onValueChange={handleStatusUpdate} disabled={updatingStatus}>
-                      <SelectTrigger className="border-purple-200 focus:border-purple-300 focus:ring-purple-200">
+                      <SelectTrigger className="bg-white/10 border-white/20 text-white">
                         <SelectValue placeholder="Select status" />
                       </SelectTrigger>
                       <SelectContent>
@@ -427,7 +414,7 @@ const AdminConversation = () => {
                       </SelectContent>
                     </Select>
                     {updatingStatus && (
-                      <p className="text-xs text-purple-600">Updating status...</p>
+                      <p className="text-xs text-purple-400">Updating status...</p>
                     )}
                   </div>
                 </div>
@@ -435,36 +422,36 @@ const AdminConversation = () => {
             </div>
 
             <div className="space-y-4">
-              <div className="p-4 bg-gradient-to-r from-rose-50 to-pink-50 rounded-lg border border-rose-200">
-                <Label className="text-sm font-medium text-rose-700 mb-2 block">Feelings</Label>
-                <p className="text-gray-800 leading-relaxed">{hug.Feelings}</p>
+              <div className="p-4 bg-gradient-to-r from-rose-500/10 to-pink-500/10 rounded-lg border border-rose-500/20">
+                <Label className="text-sm font-medium text-gray-300 mb-2 block">Feelings</Label>
+                <p className="text-white leading-relaxed">{hug.Feelings}</p>
               </div>
-              <div className="p-4 bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg border border-pink-200">
-                <Label className="text-sm font-medium text-pink-700 mb-2 block">Story</Label>
-                <p className="text-gray-800 leading-relaxed">{hug.Story}</p>
+              <div className="p-4 bg-gradient-to-r from-pink-500/10 to-purple-500/10 rounded-lg border border-pink-500/20">
+                <Label className="text-sm font-medium text-gray-300 mb-2 block">Story</Label>
+                <p className="text-white leading-relaxed">{hug.Story}</p>
               </div>
               {hug['Specific Details'] && (
-                <div className="p-4 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-lg border border-purple-200">
-                  <Label className="text-sm font-medium text-purple-700 mb-2 block">Specific Details</Label>
-                  <p className="text-gray-800 leading-relaxed">{hug['Specific Details']}</p>
+                <div className="p-4 bg-gradient-to-r from-purple-500/10 to-indigo-500/10 rounded-lg border border-purple-500/20">
+                  <Label className="text-sm font-medium text-gray-300 mb-2 block">Specific Details</Label>
+                  <p className="text-white leading-relaxed">{hug['Specific Details']}</p>
                 </div>
               )}
             </div>
-          </CardContent>
-        </Card>
+          </div>
 
-        {/* Conversation Thread */}
-        <Card className="mb-6 border-rose-200 shadow-lg">
-          <CardHeader className="bg-gradient-to-r from-rose-100 to-pink-100 border-b border-rose-200">
-            <CardTitle className="text-rose-800">Conversation History</CardTitle>
-          </CardHeader>
-          <CardContent className="p-6">
+          {/* Premium Conversation Thread */}
+          <div className="glass-card p-6 mb-6">
+            <div className="flex items-center gap-2 mb-6">
+              <MessageSquare className="h-5 w-5 text-rose-400" />
+              <h2 className="text-xl font-bold text-white">Conversation History</h2>
+            </div>
+            
             <div className="space-y-4 max-h-96 overflow-y-auto">
               {replies.length === 0 ? (
                 <div className="text-center py-12">
-                  <Heart className="h-12 w-12 text-rose-300 mx-auto mb-4" />
-                  <p className="text-rose-500 text-lg">No replies yet</p>
-                  <p className="text-rose-400 text-sm">Start the conversation with your client!</p>
+                  <Heart className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                  <p className="text-gray-300 text-lg">No replies yet</p>
+                  <p className="text-gray-400 text-sm">Start the conversation with your client!</p>
                 </div>
               ) : (
                 replies.map((reply) => (
@@ -473,12 +460,12 @@ const AdminConversation = () => {
                     className={`flex ${reply.sender_type === 'admin' ? 'justify-end' : 'justify-start'}`}
                   >
                     <div
-                      className={`max-w-xs lg:max-w-md px-4 py-3 rounded-lg shadow-sm relative ${
+                      className={`max-w-xs lg:max-w-md px-4 py-3 rounded-lg relative ${
                         reply.sender_type === 'admin'
-                          ? 'bg-gradient-to-r from-rose-500 to-pink-600 text-white'
+                          ? 'bg-gradient-to-r from-rose-500/80 to-pink-600/80 text-white backdrop-blur-sm'
                           : reply.is_read === false
-                          ? 'bg-gradient-to-r from-blue-50 to-blue-100 text-gray-800 border-2 border-blue-300 cursor-pointer hover:from-blue-100 hover:to-blue-150'
-                          : 'bg-gradient-to-r from-gray-100 to-gray-200 text-gray-800 border border-gray-300'
+                          ? 'bg-gradient-to-r from-blue-500/20 to-blue-600/20 text-white border-2 border-blue-400/50 cursor-pointer hover:from-blue-500/30 hover:to-blue-600/30 backdrop-blur-sm'
+                          : 'bg-white/10 text-white border border-white/20 backdrop-blur-sm'
                       }`}
                       onClick={() => {
                         if (reply.sender_type === 'client' && reply.is_read === false) {
@@ -493,28 +480,22 @@ const AdminConversation = () => {
                         </div>
                       )}
 
-                      <div className={`text-sm font-medium mb-2 flex items-center gap-2 ${
-                        reply.sender_type === 'admin' ? 'text-rose-100' : 'text-gray-600'
-                      }`}>
+                      <div className="text-sm font-medium mb-2 flex items-center gap-2">
                         <span>{reply.sender_name}</span>
-                        <span className={`px-2 py-1 rounded-full text-xs ${
-                          reply.sender_type === 'admin'
-                            ? 'bg-white/20 text-white'
-                            : 'bg-gray-300 text-gray-700'
-                        }`}>
+                        <span className="px-2 py-1 rounded-full text-xs bg-white/20">
                           {reply.sender_type}
                         </span>
 
                         {/* Email status indicator */}
                         {reply.sender_type === 'admin' && reply.email_sent && (
-                          <span className="flex items-center gap-1 px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs">
+                          <span className="flex items-center gap-1 px-2 py-1 bg-green-400/20 text-green-300 rounded-full text-xs">
                             <Mail className="w-3 h-3" />
                             Sent
                           </span>
                         )}
 
                         {reply.sender_type === 'client' && (
-                          <span className="flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs">
+                          <span className="flex items-center gap-1 px-2 py-1 bg-blue-400/20 text-blue-300 rounded-full text-xs">
                             <Mail className="w-3 h-3" />
                             Email
                           </span>
@@ -523,9 +504,7 @@ const AdminConversation = () => {
 
                       <div className="text-sm leading-relaxed">{reply.message}</div>
 
-                      <div className={`text-xs mt-2 flex items-center justify-between ${
-                        reply.sender_type === 'admin' ? 'text-rose-100' : 'text-gray-500'
-                      }`}>
+                      <div className="text-xs mt-2 flex items-center justify-between opacity-80">
                         <span>
                           {new Date(reply.created_at).toLocaleString('en-US', {
                             month: 'short',
@@ -536,7 +515,7 @@ const AdminConversation = () => {
                         </span>
 
                         {reply.sender_type === 'client' && (
-                          <span className={`text-xs ${reply.is_read ? 'text-green-600' : 'text-red-600 font-medium'}`}>
+                          <span className={`text-xs ${reply.is_read ? 'text-green-300' : 'text-red-300 font-medium'}`}>
                             {reply.is_read ? '✓ Read' : '● Unread'}
                           </span>
                         )}
@@ -546,47 +525,40 @@ const AdminConversation = () => {
                 ))
               )}
             </div>
-          </CardContent>
-        </Card>
+          </div>
 
-        {/* Reply Form */}
-        <Card className="border-rose-200 shadow-lg">
-          <CardHeader className="bg-gradient-to-r from-rose-100 to-pink-100 border-b border-rose-200">
-            <CardTitle className="text-rose-800 flex items-center gap-2">
-              <Send className="h-5 w-5" />
-              Send Reply as CEO-The Written Hug
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-6 space-y-6">
-            <div>
-              <Label className="text-rose-700 font-medium">Reply Message</Label>
-              <Textarea
-                value={replyMessage}
-                onChange={(e) => setReplyMessage(e.target.value)}
-                placeholder="Type your heartfelt reply here..."
-                rows={6}
-                className="mt-2 border-rose-200 focus:border-rose-400 focus:ring-rose-400 resize-none"
-              />
+          {/* Premium Reply Form */}
+          <div className="glass-card p-6">
+            <div className="flex items-center gap-2 mb-6">
+              <Send className="h-5 w-5 text-rose-400" />
+              <h2 className="text-xl font-bold text-white">Send Reply as CEO-The Written Hug</h2>
             </div>
-            <Button
-              onClick={sendReply}
-              disabled={!replyMessage.trim() || sending}
-              className="w-full bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white font-medium py-3 rounded-full transition-all duration-300 transform hover:scale-105"
-            >
-              <Send className="h-4 w-4 mr-2" />
-              {sending ? 'Sending Kabootar...' : 'Send Kabootar to Client'}
-            </Button>
-            <p className="text-sm text-rose-600 text-center">
-              This will send an email notification to the client and update their order status to "Replied"
-            </p>
-          </CardContent>
-        </Card>
-      </div>
+            
+            <div className="space-y-6">
+              <div>
+                <Label className="text-gray-300 font-medium">Reply Message</Label>
+                <Textarea
+                  value={replyMessage}
+                  onChange={(e) => setReplyMessage(e.target.value)}
+                  placeholder="Type your heartfelt reply here..."
+                  rows={6}
+                  className="mt-2 bg-white/10 border-white/20 text-white placeholder-gray-400 resize-none"
+                />
+              </div>
+              <Button
+                onClick={sendReply}
+                disabled={!replyMessage.trim() || sending}
+                className="w-full glass-button py-4 rounded-full text-lg font-medium"
+              >
+                <Send className="h-5 w-5 mr-2" />
+                {sending ? 'Sending...' : 'Send Reply'}
+              </Button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
-
-
 
 export default AdminConversation;
