@@ -147,7 +147,7 @@ const Index = () => {
       {/* Navigation */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-700 ${scrollY > 50 ? 'glass-premium border-b border-border/50 shadow-lg' : 'bg-transparent'}`}>
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+          <div className="text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent playfair-display">
             The Written Hug
           </div>
           <div className="hidden md:flex space-x-8">
