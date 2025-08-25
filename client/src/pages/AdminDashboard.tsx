@@ -308,39 +308,7 @@ const AdminDashboard = () => {
   }, [hugs, searchTerm, statusFilter, typeFilter, timeFilter, sortBy]);
 
   const handleViewConversation = (hugId: string) => {
-    // Ensure we maintain authentication state when navigating
-    const isAuthenticated = sessionStorage.getItem('adminAuthenticated');
-    const loginTime = sessionStorage.getItem('adminLoginTime');
-    
-    if (!isAuthenticated || !loginTime) {
-      toast({
-        title: "Session Expired",
-        description: "Please login again to access conversations.",
-        variant: "destructive"
-      });
-      setLocation('/admin/login');
-      return;
-    }
-    
-    // Check if session is still valid (2 hours)
-    const loginDate = new Date(loginTime);
-    const now = new Date();
-    const hoursDiff = (now.getTime() - loginDate.getTime()) / (1000 * 60 * 60);
-    
-    if (hoursDiff > 2) {
-      sessionStorage.removeItem('adminAuthenticated');
-      sessionStorage.removeItem('adminLoginTime');
-      sessionStorage.removeItem('adminUsername');
-      toast({
-        title: "Session Expired",
-        description: "Please login again.",
-        variant: "destructive"
-      });
-      setLocation('/admin/login');
-      return;
-    }
-    
-    // Navigate to conversation
+    // Simply navigate to conversation - authentication will be checked there
     setLocation(`/admin/conversation/${hugId}`);
   };
 
