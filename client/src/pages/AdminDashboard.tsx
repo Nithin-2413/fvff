@@ -252,12 +252,12 @@ const AdminDashboard = () => {
 
   const getStatusColor = (status: string) => {
     switch (status?.toLowerCase()) {
-      case 'new': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'replied': return 'bg-green-100 text-green-800 border-green-200';
-      case 'client replied': return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'in progress': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'completed': return 'bg-purple-100 text-purple-800 border-purple-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'new': return 'bg-blue-500 hover:bg-blue-600';
+      case 'replied': return 'bg-green-500 hover:bg-green-600';
+      case 'client replied': return 'bg-orange-500 hover:bg-orange-600';
+      case 'in progress': return 'bg-yellow-500 hover:bg-yellow-600';
+      case 'completed': return 'bg-purple-500 hover:bg-purple-600';
+      default: return 'bg-gray-500 hover:bg-gray-600';
     }
   };
 
@@ -602,7 +602,7 @@ const AdminDashboard = () => {
                 </div>
                 <Badge 
                   variant={getStatusVariant(hug.Status)}
-                  className="text-xs text-white"
+                  className={`text-xs font-medium ${getStatusColor(hug.Status)} !text-white border-none`}
                 >
                   {hug.Status || 'New'}
                 </Badge>
