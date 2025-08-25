@@ -94,15 +94,7 @@ const AdminConversation = () => {
     }
   }, [id]);
 
-  // Check authentication
-  useEffect(() => {
-    const isLoggedIn = localStorage.getItem('adminLoggedIn');
-    if (isLoggedIn === 'true') {
-      setAuthenticated(true);
-    } else {
-      setLocation('/admin/login');
-    }
-  }, [setLocation]);
+  
 
   // Update current status when hug data loads
   useEffect(() => {
