@@ -12,6 +12,7 @@ import { Link } from 'wouter';
 import { useLocation, useParams } from 'wouter';
 import { useBackgroundMusic } from '@/hooks/useBackgroundMusic';
 import '../styles/premium-admin.scss';
+import AdminLoadingAnimation from '@/components/AdminLoadingAnimation';
 
 interface Hug {
   id: string;
@@ -326,59 +327,13 @@ const AdminConversation = () => {
   }
 
   if (loading) {
-    return (
-      <div className="min-h-screen relative overflow-hidden flex items-center justify-center">
-        {/* Premium Cosmic Background */}
-        <div className="premium-admin-bg">
-          <div className="premium-stars">
-            <div id="premium-stars"></div>
-            <div id="premium-stars2"></div>
-            <div id="premium-stars3"></div>
-          </div>
-          <div className="floating-particles">
-            <div className="particle particle-1"></div>
-            <div className="particle particle-2"></div>
-            <div className="particle particle-3"></div>
-            <div className="particle particle-4"></div>
-            <div className="particle particle-5"></div>
-          </div>
-        </div>
-
-        {/* Premium Cosmic Loading Animation */}
-        <div className="premium-cosmic-loader relative z-10">
-          <div className="cosmic-ring"></div>
-          <div className="cosmic-text">Loading Conversation</div>
-          <div className="cosmic-dots">
-            <div className="cosmic-dot"></div>
-            <div className="cosmic-dot"></div>
-            <div className="cosmic-dot"></div>
-          </div>
-        </div>
-      </div>
-    );
+    return <AdminLoadingAnimation message="Loading Conversation" />;
   }
 
   if (!hug) {
     return (
-      <div className="min-h-screen relative overflow-hidden flex items-center justify-center">
-        {/* Premium Cosmic Background */}
-        <div className="premium-admin-bg">
-          <div className="premium-stars">
-            <div id="premium-stars"></div>
-            <div id="premium-stars2"></div>
-            <div id="premium-stars3"></div>
-          </div>
-          <div className="floating-particles">
-            <div className="particle particle-1"></div>
-            <div className="particle particle-2"></div>
-            <div className="particle particle-3"></div>
-            <div className="particle particle-4"></div>
-            <div className="particle particle-5"></div>
-          </div>
-        </div>
-
-        <div className="relative z-20 text-center">
-          <h2 className="text-2xl font-bold premium-text-white mb-4">Conversation not found</h2>
+      <AdminLoadingAnimation message="Conversation not found">
+        <div className="text-center">
           <Link href="/admin/orders">
             <Button className="premium-glass-button rounded-full">
               <ArrowLeft className="h-4 w-4 mr-2" />
@@ -386,7 +341,7 @@ const AdminConversation = () => {
             </Button>
           </Link>
         </div>
-      </div>
+      </AdminLoadingAnimation>
     );
   }
 
