@@ -1299,6 +1299,26 @@ html {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8), 0 0 4px rgba(255, 255, 255, 0.3);
 }
 
+/* Premium Input Field Styles - Prevent White Background */
+input[type="number"]:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: white !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Specific styling for admin conversation inputs */
+.premium-glass-card input[type="number"]:focus {
+  background: rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(20px) saturate(220%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(220%) !important;
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
 /* Smooth Button Transitions for Admin */
 button, .premium-glass-button {
   transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
