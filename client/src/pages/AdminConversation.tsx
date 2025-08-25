@@ -60,9 +60,6 @@ const AdminConversation = () => {
   const [paymentMessage, setPaymentMessage] = useState('');
   const [sendingPayment, setSendingPayment] = useState(false);
 
-  // Success animation state
-  const [showSuccessAnimation, setShowSuccessAnimation] = useState(false);
-
   // Authentication check
   useEffect(() => {
     const isAuthenticated = sessionStorage.getItem('adminAuthenticated');
@@ -214,10 +211,6 @@ const AdminConversation = () => {
           title: "Reply Sent",
           description: "Your reply has been sent to the client via email",
         });
-
-        // Show success animation
-        setShowSuccessAnimation(true);
-        setTimeout(() => setShowSuccessAnimation(false), 3000);
       } else {
         toast({
           title: "Error",
@@ -286,10 +279,6 @@ const AdminConversation = () => {
           title: "Payment Request Sent",
           description: `Payment request for ₹${amount} has been sent to the client via email`,
         });
-
-        // Show success animation
-        setShowSuccessAnimation(true);
-        setTimeout(() => setShowSuccessAnimation(false), 3000);
       } else {
         toast({
           title: "Error",
@@ -376,22 +365,6 @@ const AdminConversation = () => {
 
       {/* Background Music */}
       <audio ref={audioRef} preload="auto" loop></audio>
-
-      {/* Success Animation Overlay */}
-      {showSuccessAnimation && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-          <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 text-center">
-            <DotLottieReact
-              src="https://lottie.host/1acdacde-7d62-49f5-b5cf-33c2bac05adb/fZK5Qybghm.lottie"
-              loop
-              autoplay
-              style={{ width: '300px', height: '300px' }}
-            />
-            <h3 className="text-2xl font-bold premium-text-white mt-4 mb-2">Message Sent Successfully!</h3>
-            <p className="premium-text-gray-300">Your message has been delivered to the client</p>
-          </div>
-        </div>
-      )}
 
       <div className="relative z-20 p-2 md:p-4 lg:p-6">
         <div className="max-w-5xl mx-auto">
