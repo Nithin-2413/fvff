@@ -470,11 +470,7 @@ const ContactForm = () => {
                   required
                   value={formData.serviceType}
                   onChange={handleInputChange}
-                  className="w-full h-12 px-4 py-2 border-2 border-gray-300 bg-white text-black rounded-xl text-sm focus:border-purple-500 focus:ring-2 focus:ring-purple-200 focus:outline-none transition-all duration-500 ease-in-out transform hover:scale-[1.02] hover:shadow-lg cursor-pointer"
-                  style={{
-                    background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
-                    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.08)'
-                  }}
+                  className="w-full"
                 >
                   <option value="">Select type</option>
                   {serviceTypes.map(type => <option key={type}>{type}</option>)}
@@ -488,11 +484,7 @@ const ContactForm = () => {
                 required
                 value={formData.deliveryType}
                 onChange={handleInputChange}
-                className="w-full h-12 px-4 py-2 border-2 border-gray-300 bg-white text-black rounded-xl text-sm focus:border-purple-500 focus:ring-2 focus:ring-purple-200 focus:outline-none transition-all duration-500 ease-in-out transform hover:scale-[1.02] hover:shadow-lg cursor-pointer"
-                style={{
-                  background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
-                  boxShadow: '0 4px 15px rgba(0, 0, 0, 0.08)'
-                }}
+                className="w-full"
               >
                 <option value="">Select delivery type</option>
                 <option value="Standard Delivery">Standard Delivery (10 days after dispatch)</option>
