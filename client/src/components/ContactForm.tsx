@@ -401,7 +401,7 @@ const ContactForm = () => {
                   required 
                   value={formData.name} 
                   onChange={handleInputChange} 
-                  className="rounded-xl h-12 border-2 border-input bg-background text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground" 
+                  className="rounded-xl h-12 border-2 border-gray-300 bg-white text-black focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-300 placeholder:text-gray-500" 
                 />
               </div>
               <div className="space-y-2">
@@ -412,7 +412,7 @@ const ContactForm = () => {
                   required 
                   value={formData.email} 
                   onChange={handleInputChange} 
-                  className="rounded-xl h-12 border-2 border-input bg-background text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground" 
+                  className="rounded-xl h-12 border-2 border-gray-300 bg-white text-black focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-300 placeholder:text-gray-500" 
                 />
               </div>
             </div>
@@ -424,7 +424,7 @@ const ContactForm = () => {
                 required 
                 value={formData.phone} 
                 onChange={handleInputChange} 
-                className="rounded-xl h-12 border-2 border-input bg-background text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground" 
+                className="rounded-xl h-12 border-2 border-gray-300 bg-white text-black focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-300 placeholder:text-gray-500" 
               />
             </div>
           </div>
@@ -439,7 +439,7 @@ const ContactForm = () => {
                   required 
                   value={formData.recipientName} 
                   onChange={handleInputChange} 
-                  className="rounded-xl h-12 border-2 border-input bg-background text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground" 
+                  className="rounded-xl h-12 border-2 border-gray-300 bg-white text-black focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-300 placeholder:text-gray-500" 
                 />
               </div>
               <div className="space-y-2">
@@ -449,7 +449,7 @@ const ContactForm = () => {
                   required 
                   value={formData.recipientAddress} 
                   onChange={handleInputChange} 
-                  className="rounded-xl h-12 border-2 border-input bg-background text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground" 
+                  className="rounded-xl h-12 border-2 border-gray-300 bg-white text-black focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-300 placeholder:text-gray-500" 
                   placeholder="Full address for delivery" 
                 />
               </div>
@@ -462,7 +462,7 @@ const ContactForm = () => {
                   required
                   value={formData.serviceType}
                   onChange={handleInputChange}
-                  className="w-full h-12 px-3 py-2 border-2 border-input bg-background text-foreground rounded-xl text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300"
+                  className="w-full h-12 px-3 py-2 border-2 border-gray-300 bg-white text-black rounded-xl text-sm focus:border-purple-500 focus:ring-2 focus:ring-purple-200 focus:outline-none transition-all duration-300"
                 >
                   <option value="">Select type</option>
                   {serviceTypes.map(type => <option key={type}>{type}</option>)}
@@ -476,7 +476,7 @@ const ContactForm = () => {
                 required
                 value={formData.deliveryType}
                 onChange={handleInputChange}
-                className="w-full h-12 px-3 py-2 border-2 border-input bg-background text-foreground rounded-xl text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300"
+                className="w-full h-12 px-3 py-2 border-2 border-gray-300 bg-white text-black rounded-xl text-sm focus:border-purple-500 focus:ring-2 focus:ring-purple-200 focus:outline-none transition-all duration-300"
               >
                 <option value="">Select delivery type</option>
                 <option value="Standard Delivery">Standard Delivery (10 days after dispatch)</option>
@@ -494,7 +494,7 @@ const ContactForm = () => {
                 required 
                 value={formData.feelings} 
                 onChange={handleInputChange} 
-                className="rounded-xl border-2 border-input bg-background text-foreground min-h-[100px] focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground" 
+                className="rounded-xl border-2 border-gray-300 bg-white text-black min-h-[100px] focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-300 placeholder:text-gray-500" 
               />
             </div>
             <div className="space-y-2">
@@ -504,7 +504,7 @@ const ContactForm = () => {
                 required 
                 value={formData.story} 
                 onChange={handleInputChange} 
-                className="rounded-xl border-2 border-input bg-background text-foreground min-h-[120px] focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground" 
+                className="rounded-xl border-2 border-gray-300 bg-white text-black min-h-[120px] focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-300 placeholder:text-gray-500" 
               />
             </div>
             <div className="space-y-2">
@@ -513,7 +513,7 @@ const ContactForm = () => {
                 name="specificDetails" 
                 value={formData.specificDetails} 
                 onChange={handleInputChange} 
-                className="rounded-xl border-2 border-input bg-background text-foreground min-h-[80px] focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground" 
+                className="rounded-xl border-2 border-gray-300 bg-white text-black min-h-[80px] focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-300 placeholder:text-gray-500" 
               />
             </div>
           </div>
