@@ -345,81 +345,8 @@ input[type="tel"]:-webkit-autofill:focus {
   -webkit-box-shadow: inset 0 0 0px 1000px white !important, 0 0 0 2px rgba(168, 85, 247, 0.2) !important;
 }
 
-/* Premium Select Dropdown Styling */
-select {
-  background-color: white !important;
-  color: black !important;
-  border: 2px solid #d1d5db !important;
-  border-radius: 12px !important;
-  padding: 12px 16px !important;
-  font-size: 14px !important;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e") !important;
-  background-position: right 12px center !important;
-  background-repeat: no-repeat !important;
-  background-size: 16px !important;
-  padding-right: 40px !important;
-  appearance: none !important;
-  -webkit-appearance: none !important;
-  -moz-appearance: none !important;
-  cursor: pointer !important;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
-}
-
-select:hover {
-  border-color: #9333ea !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important;
-  transform: translateY(-1px) !important;
-}
-
-select:focus {
-  border-color: #a855f7 !important;
-  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.15) !important;
-  outline: none !important;
-  transform: translateY(-1px) !important;
-}
-
-select:focus:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12), 0 0 0 3px rgba(168, 85, 247, 0.15) !important;
-}
-
-/* Premium Option Styling */
-select option {
-  background-color: white !important;
-  color: black !important;
-  padding: 12px 16px !important;
-  border-bottom: 1px solid #f3f4f6 !important;
-  transition: all 0.2s ease !important;
-  font-size: 14px !important;
-  line-height: 1.5 !important;
-}
-
-select option:hover,
-select option:focus {
-  background-color: #faf5ff !important;
-  color: #7c3aed !important;
-}
-
-select option:checked {
-  background-color: #a855f7 !important;
-  color: white !important;
-  font-weight: 500 !important;
-}
-
-/* Special styling for disabled/placeholder option */
-select option:first-child {
-  color: #9ca3af !important;
-  font-style: italic !important;
-}
-
-/* Enhanced focus states for premium feel */
-select:focus-visible {
-  border-color: #a855f7 !important;
-  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2) !important;
-}
-
-/* Smooth dropdown animation */
-@keyframes dropdown-slide-in {
+/* Custom Premium Dropdown Animations */
+@keyframes dropdown-fade-in {
   from {
     opacity: 0;
     transform: translateY(-8px) scale(0.95);
@@ -430,8 +357,15 @@ select:focus-visible {
   }
 }
 
-select[size]:focus {
-  animation: dropdown-slide-in 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+@keyframes dropdown-fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+  }
 }
 
 /* Times New Roman italic style for hero subtitle */

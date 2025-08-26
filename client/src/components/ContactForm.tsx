@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Heart, Send, MapPin, Smartphone, CheckCircle, XCircle, Clock } from 'lucide-react';
+import { Heart, Send, MapPin, Smartphone, CheckCircle, XCircle, Clock, ChevronDown } from 'lucide-react';
 
 interface LocationData {
   latitude: number;
@@ -34,6 +34,82 @@ interface FormData {
   specificDetails: string;
   location?: LocationData;
 }
+
+// Custom Premium Dropdown Component
+const PremiumDropdown = ({ label, value, onChange, options, placeholder, name, required = false }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleSelect = (optionValue) => {
+    onChange({ target: { name, value: optionValue } });
+    setIsOpen(false);
+  };
+
+  const selectedOption = options.find(opt => opt.value === value) || { label: placeholder };
+
+  return (
+    <div className="relative" ref={dropdownRef}>
+      <Label>{label} {required && '*'}</Label>
+      <div
+        className="w-full h-12 px-4 py-3 bg-white border-2 border-gray-300 rounded-xl cursor-pointer flex items-center justify-between transition-all duration-300 hover:border-gray-400 hover:shadow-md focus-within:border-purple-500 focus-within:shadow-lg"
+        onClick={() => setIsOpen(!isOpen)}
+        style={{
+          background: 'linear-gradient(135deg, #ffffff 0%, #fefefe 100%)',
+          boxShadow: isOpen ? '0 8px 25px rgba(0, 0, 0, 0.15)' : '0 2px 8px rgba(0, 0, 0, 0.08)'
+        }}
+      >
+        <span className={`text-sm ${!value ? 'text-gray-500' : 'text-black'}`}>
+          {selectedOption.label}
+        </span>
+        <ChevronDown 
+          className={`w-4 h-4 text-gray-500 transition-transform duration-300 ${
+            isOpen ? 'rotate-180' : 'rotate-0'
+          }`} 
+        />
+      </div>
+      
+      {/* Dropdown Options */}
+      <div
+        className={`absolute top-full left-0 right-0 z-50 mt-1 bg-white border border-gray-200 rounded-xl shadow-xl transition-all duration-300 ease-out ${
+          isOpen 
+            ? 'opacity-100 translate-y-0 scale-100' 
+            : 'opacity-0 translate-y-[-8px] scale-95 pointer-events-none'
+        }`}
+        style={{
+          background: 'linear-gradient(135deg, #ffffff 0%, #fefefe 100%)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(0, 0, 0, 0.08)'
+        }}
+      >
+        <div className="max-h-48 overflow-y-auto py-2">
+          {options.map((option, index) => (
+            <div
+              key={option.value || index}
+              className="px-4 py-3 text-sm cursor-pointer transition-all duration-200 hover:bg-gray-50 hover:text-purple-700 flex items-center"
+              onClick={() => handleSelect(option.value)}
+              style={{
+                borderBottom: index < options.length - 1 ? '1px solid rgba(0, 0, 0, 0.05)' : 'none'
+              }}
+            >
+              {option.label}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const ContactForm = () => {
   const { toast } = useToast();
@@ -378,9 +454,22 @@ const ContactForm = () => {
   };
 
   const serviceTypes = [
-    'Love Letter', 'Gratitude Message', 'Apology Letter',
-    'Birthday Message', 'Anniversary Letter', 'Thank You Note',
-    'Friendship Letter', 'Family Message', 'Custom Request'
+    { value: '', label: 'Select type' },
+    { value: 'Love Letter', label: 'Love Letter' },
+    { value: 'Gratitude Message', label: 'Gratitude Message' },
+    { value: 'Apology Letter', label: 'Apology Letter' },
+    { value: 'Birthday Message', label: 'Birthday Message' },
+    { value: 'Anniversary Letter', label: 'Anniversary Letter' },
+    { value: 'Thank You Note', label: 'Thank You Note' },
+    { value: 'Friendship Letter', label: 'Friendship Letter' },
+    { value: 'Family Message', label: 'Family Message' },
+    { value: 'Custom Request', label: 'Custom Request' }
+  ];
+
+  const deliveryTypes = [
+    { value: '', label: 'Select delivery type' },
+    { value: 'Standard Delivery', label: 'Standard Delivery (10 days after dispatch)' },
+    { value: 'Express Delivery', label: 'Express Delivery (2-3 days after dispatch) - ₹150 extra' }
   ];
 
   return (
@@ -463,33 +552,26 @@ const ContactForm = () => {
               </div>
             </div>
             <div className="grid md:grid-cols-1 gap-6">
-              <div className="space-y-2">
-                <Label>Type of Message *</Label>
-                <select
-                  name="serviceType"
-                  required
-                  value={formData.serviceType}
-                  onChange={handleInputChange}
-                  className="w-full"
-                >
-                  <option value="">Select type</option>
-                  {serviceTypes.map(type => <option key={type}>{type}</option>)}
-                </select>
-              </div>
+              <PremiumDropdown
+                label="Type of Message"
+                name="serviceType"
+                required
+                value={formData.serviceType}
+                onChange={handleInputChange}
+                options={serviceTypes}
+                placeholder="Select type"
+              />
             </div>
             <div className="space-y-2">
-              <Label>Delivery Type *</Label>
-              <select
+              <PremiumDropdown
+                label="Delivery Type"
                 name="deliveryType"
                 required
                 value={formData.deliveryType}
                 onChange={handleInputChange}
-                className="w-full"
-              >
-                <option value="">Select delivery type</option>
-                <option value="Standard Delivery">Standard Delivery (10 days after dispatch)</option>
-                <option value="Express Delivery">Express Delivery (2-3 days after dispatch) - ₹150 extra</option>
-              </select>
+                options={deliveryTypes}
+                placeholder="Select delivery type"
+              />
             </div>
           </div>
 
