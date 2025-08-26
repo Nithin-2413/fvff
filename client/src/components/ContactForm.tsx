@@ -37,7 +37,26 @@ interface FormData {
 
 const ContactForm = () => {
   const { toast } = useToast();
-  const [formData, setFormData] = useState<FormData>({
+  
+  // Load cached form data on component mount
+  const loadCachedFormData = (): FormData => {
+    try {
+      const cached = localStorage.getItem('contactFormData');
+      if (cached) {
+        const parsedData = JSON.parse(cached);
+        // Check if cached data is less than 30 minutes old
+        const cacheTime = localStorage.getItem('contactFormCacheTime');
+        if (cacheTime && Date.now() - parseInt(cacheTime) < 30 * 60 * 1000) {
+          return { ...getEmptyFormData(), ...parsedData };
+        }
+      }
+    } catch (error) {
+      console.log('Failed to load cached form data');
+    }
+    return getEmptyFormData();
+  };
+  
+  const getEmptyFormData = (): FormData => ({
     name: '',
     email: '',
     phone: '',
@@ -49,10 +68,13 @@ const ContactForm = () => {
     story: '',
     specificDetails: ''
   });
+
+  const [formData, setFormData] = useState<FormData>(loadCachedFormData());
   const [locationData, setLocationData] = useState<LocationData | null>(null);
   const [deviceInfo, setDeviceInfo] = useState<DeviceInfo | null>(null);
   const [locationStatus, setLocationStatus] = useState<'requesting' | 'granted' | 'denied'>('requesting');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showLocationPrompt, setShowLocationPrompt] = useState(false);
 
   // Get comprehensive device information
   const getDeviceInfo = (): DeviceInfo => {
@@ -241,14 +263,63 @@ const ContactForm = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
+    const updatedFormData = {
+      ...formData,
       [name]: value
-    }));
+    };
+    setFormData(updatedFormData);
+    
+    // Cache form data to localStorage
+    try {
+      localStorage.setItem('contactFormData', JSON.stringify(updatedFormData));
+      localStorage.setItem('contactFormCacheTime', Date.now().toString());
+    } catch (error) {
+      console.log('Failed to cache form data');
+    }
+  };
+
+  const requestLocationPermission = () => {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const location: LocationData = {
+            latitude: parseFloat(position.coords.latitude.toFixed(7)),
+            longitude: parseFloat(position.coords.longitude.toFixed(7)),
+          };
+          setLocationData(location);
+          setLocationStatus('granted');
+          setShowLocationPrompt(false);
+          // Retry form submission
+          handleSubmit(new Event('submit') as any);
+        },
+        (error) => {
+          console.log('Location access denied:', error);
+          setLocationStatus('denied');
+          setShowLocationPrompt(false);
+          toast({
+            title: "Location Access Required",
+            description: "Please enable location access in your browser settings to submit your story. You can try submitting again after enabling location.",
+            variant: "destructive"
+          });
+        },
+        { 
+          enableHighAccuracy: false, 
+          timeout: 10000, 
+          maximumAge: 600000 
+        }
+      );
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Check if location is available, if not show prompt
+    if (!locationData && locationStatus !== 'granted') {
+      setShowLocationPrompt(true);
+      return;
+    }
+    
     setIsSubmitting(true);
 
     try {
@@ -276,19 +347,10 @@ const ContactForm = () => {
           description: "Thank you for sharing your story. We'll reach out within 24 hours."
         });
 
-        // Reset form
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          recipientName: '',
-          recipientAddress: '',
-          serviceType: '',
-          deliveryType: '',
-          feelings: '',
-          story: '',
-          specificDetails: ''
-        });
+        // Clear cached form data and reset form
+        localStorage.removeItem('contactFormData');
+        localStorage.removeItem('contactFormCacheTime');
+        setFormData(getEmptyFormData());
       } else {
         toast({
           title: "Failed to Send",
@@ -334,16 +396,36 @@ const ContactForm = () => {
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label>Your Name *</Label>
-                <Input name="name" required value={formData.name} onChange={handleInputChange} className="rounded-xl h-12 border-2 focus:border-gradient focus:border-2 transition-all duration-300" style={{borderImage: 'none'}} onFocus={(e) => e.target.style.borderImage = 'linear-gradient(45deg, #000, #ec4899, #8b5cf6) 1'} onBlur={(e) => e.target.style.borderImage = 'none'} />
+                <Input 
+                  name="name" 
+                  required 
+                  value={formData.name} 
+                  onChange={handleInputChange} 
+                  className="rounded-xl h-12 border-2 border-input bg-background text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground" 
+                />
               </div>
               <div className="space-y-2">
                 <Label>Email Address *</Label>
-                <Input name="email" type="email" required value={formData.email} onChange={handleInputChange} className="rounded-xl h-12 border-2 focus:border-gradient focus:border-2 transition-all duration-300" style={{borderImage: 'none'}} onFocus={(e) => e.target.style.borderImage = 'linear-gradient(45deg, #000, #ec4899, #8b5cf6) 1'} onBlur={(e) => e.target.style.borderImage = 'none'} />
+                <Input 
+                  name="email" 
+                  type="email" 
+                  required 
+                  value={formData.email} 
+                  onChange={handleInputChange} 
+                  className="rounded-xl h-12 border-2 border-input bg-background text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground" 
+                />
               </div>
             </div>
             <div className="space-y-2">
               <Label>Phone Number *</Label>
-              <Input name="phone" type="tel" required value={formData.phone} onChange={handleInputChange} className="rounded-xl h-12 border-2 focus:border-gradient focus:border-2 transition-all duration-300" style={{borderImage: 'none'}} onFocus={(e) => e.target.style.borderImage = 'linear-gradient(45deg, #000, #ec4899, #8b5cf6) 1'} onBlur={(e) => e.target.style.borderImage = 'none'} />
+              <Input 
+                name="phone" 
+                type="tel" 
+                required 
+                value={formData.phone} 
+                onChange={handleInputChange} 
+                className="rounded-xl h-12 border-2 border-input bg-background text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground" 
+              />
             </div>
           </div>
 
@@ -352,11 +434,24 @@ const ContactForm = () => {
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label>Recipient's Name *</Label>
-                <Input name="recipientName" required value={formData.recipientName} onChange={handleInputChange} className="rounded-xl h-12 border-2 focus:border-gradient focus:border-2 transition-all duration-300" style={{borderImage: 'none'}} onFocus={(e) => e.target.style.borderImage = 'linear-gradient(45deg, #000, #ec4899, #8b5cf6) 1'} onBlur={(e) => e.target.style.borderImage = 'none'} />
+                <Input 
+                  name="recipientName" 
+                  required 
+                  value={formData.recipientName} 
+                  onChange={handleInputChange} 
+                  className="rounded-xl h-12 border-2 border-input bg-background text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground" 
+                />
               </div>
               <div className="space-y-2">
                 <Label>Recipient's Address *</Label>
-                <Input name="recipientAddress" required value={formData.recipientAddress} onChange={handleInputChange} className="rounded-xl h-12 border-2 focus:border-gradient focus:border-2 transition-all duration-300" style={{borderImage: 'none'}} onFocus={(e) => e.target.style.borderImage = 'linear-gradient(45deg, #000, #ec4899, #8b5cf6) 1'} onBlur={(e) => e.target.style.borderImage = 'none'} placeholder="Full address for delivery" />
+                <Input 
+                  name="recipientAddress" 
+                  required 
+                  value={formData.recipientAddress} 
+                  onChange={handleInputChange} 
+                  className="rounded-xl h-12 border-2 border-input bg-background text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground" 
+                  placeholder="Full address for delivery" 
+                />
               </div>
             </div>
             <div className="grid md:grid-cols-1 gap-6">
@@ -367,10 +462,7 @@ const ContactForm = () => {
                   required
                   value={formData.serviceType}
                   onChange={handleInputChange}
-                  className="w-full h-12 px-3 py-2 border-2 border-input bg-background rounded-xl text-sm ring-offset-background focus-visible:outline-none transition-all duration-300"
-                  style={{borderImage: 'none'}}
-                  onFocus={(e) => e.target.style.borderImage = 'linear-gradient(45deg, #000, #ec4899, #8b5cf6) 1'}
-                  onBlur={(e) => e.target.style.borderImage = 'none'}
+                  className="w-full h-12 px-3 py-2 border-2 border-input bg-background text-foreground rounded-xl text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300"
                 >
                   <option value="">Select type</option>
                   {serviceTypes.map(type => <option key={type}>{type}</option>)}
@@ -384,10 +476,7 @@ const ContactForm = () => {
                 required
                 value={formData.deliveryType}
                 onChange={handleInputChange}
-                className="w-full h-12 px-3 py-2 border-2 border-input bg-background rounded-xl text-sm ring-offset-background focus-visible:outline-none transition-all duration-300"
-                style={{borderImage: 'none'}}
-                onFocus={(e) => e.target.style.borderImage = 'linear-gradient(45deg, #000, #ec4899, #8b5cf6) 1'}
-                onBlur={(e) => e.target.style.borderImage = 'none'}
+                className="w-full h-12 px-3 py-2 border-2 border-input bg-background text-foreground rounded-xl text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300"
               >
                 <option value="">Select delivery type</option>
                 <option value="Standard Delivery">Standard Delivery (10 days after dispatch)</option>
@@ -400,15 +489,32 @@ const ContactForm = () => {
             <h3 className="text-xl font-semibold text-primary">Your Story</h3>
             <div className="space-y-2">
               <Label>Feelings *</Label>
-              <Textarea name="feelings" required value={formData.feelings} onChange={handleInputChange} className="rounded-xl border-2 min-h-[100px] transition-all duration-300" style={{borderImage: 'none'}} onFocus={(e) => e.target.style.borderImage = 'linear-gradient(45deg, #000, #ec4899, #8b5cf6) 1'} onBlur={(e) => e.target.style.borderImage = 'none'} />
+              <Textarea 
+                name="feelings" 
+                required 
+                value={formData.feelings} 
+                onChange={handleInputChange} 
+                className="rounded-xl border-2 border-input bg-background text-foreground min-h-[100px] focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground" 
+              />
             </div>
             <div className="space-y-2">
               <Label>Story *</Label>
-              <Textarea name="story" required value={formData.story} onChange={handleInputChange} className="rounded-xl border-2 min-h-[120px] transition-all duration-300" style={{borderImage: 'none'}} onFocus={(e) => e.target.style.borderImage = 'linear-gradient(45deg, #000, #ec4899, #8b5cf6) 1'} onBlur={(e) => e.target.style.borderImage = 'none'} />
+              <Textarea 
+                name="story" 
+                required 
+                value={formData.story} 
+                onChange={handleInputChange} 
+                className="rounded-xl border-2 border-input bg-background text-foreground min-h-[120px] focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground" 
+              />
             </div>
             <div className="space-y-2">
               <Label>Specific Details</Label>
-              <Textarea name="specificDetails" value={formData.specificDetails} onChange={handleInputChange} className="rounded-xl border-2 min-h-[80px] transition-all duration-300" style={{borderImage: 'none'}} onFocus={(e) => e.target.style.borderImage = 'linear-gradient(45deg, #000, #ec4899, #8b5cf6) 1'} onBlur={(e) => e.target.style.borderImage = 'none'} />
+              <Textarea 
+                name="specificDetails" 
+                value={formData.specificDetails} 
+                onChange={handleInputChange} 
+                className="rounded-xl border-2 border-input bg-background text-foreground min-h-[80px] focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground" 
+              />
             </div>
           </div>
 
@@ -422,6 +528,43 @@ const ContactForm = () => {
               • Contact: thewrittenhug@gmail.com
             </p>
           </div>
+
+          {/* Location Permission Prompt */}
+          {showLocationPrompt && (
+            <div className="p-6 bg-yellow-50 border border-yellow-200 rounded-2xl">
+              <div className="flex items-start gap-3">
+                <MapPin className="h-6 w-6 text-yellow-600 flex-shrink-0 mt-1" />
+                <div className="flex-1">
+                  <h4 className="font-semibold text-yellow-800 mb-2">Location Access Required</h4>
+                  <p className="text-sm text-yellow-700 mb-4">
+                    We need access to your location to process your story submission for delivery purposes. 
+                    Please allow location access when prompted by your browser.
+                  </p>
+                  <div className="text-xs text-yellow-600 mb-4 space-y-1">
+                    <p><strong>Chrome/Edge:</strong> Click the location icon in the address bar → Allow</p>
+                    <p><strong>Firefox:</strong> Click "Allow" when the permission popup appears</p>
+                    <p><strong>Safari:</strong> Go to Safari → Settings → Websites → Location → Allow for this site</p>
+                  </div>
+                  <div className="flex gap-3">
+                    <Button 
+                      onClick={requestLocationPermission}
+                      className="bg-yellow-600 hover:bg-yellow-700 text-white"
+                    >
+                      <MapPin className="h-4 w-4 mr-2" />
+                      Enable Location Access
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      onClick={() => setShowLocationPrompt(false)}
+                      className="border-yellow-300 text-yellow-700 hover:bg-yellow-50"
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           <Button 
             type="submit" 
