@@ -305,6 +305,46 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+/* Force styling for email and phone input fields */
+input[type="email"],
+input[type="tel"] {
+  background-color: white !important;
+  color: black !important;
+  border: 2px solid #d1d5db !important;
+  -webkit-text-fill-color: black !important;
+  -webkit-box-shadow: inset 0 0 0px 1000px white !important;
+  caret-color: black !important;
+}
+
+input[type="email"]:focus,
+input[type="tel"]:focus {
+  background-color: white !important;
+  color: black !important;
+  border-color: #a855f7 !important;
+  -webkit-text-fill-color: black !important;
+  -webkit-box-shadow: inset 0 0 0px 1000px white !important, 0 0 0 2px rgba(168, 85, 247, 0.2) !important;
+}
+
+input[type="email"]:-webkit-autofill,
+input[type="tel"]:-webkit-autofill,
+input[type="email"]:-webkit-autofill:hover,
+input[type="tel"]:-webkit-autofill:hover,
+input[type="email"]:-webkit-autofill:focus,
+input[type="tel"]:-webkit-autofill:focus {
+  -webkit-text-fill-color: black !important;
+  -webkit-box-shadow: inset 0 0 0px 1000px white !important;
+  background-color: white !important;
+  color: black !important;
+  border: 2px solid #d1d5db !important;
+  caret-color: black !important;
+}
+
+input[type="email"]:-webkit-autofill:focus,
+input[type="tel"]:-webkit-autofill:focus {
+  border-color: #a855f7 !important;
+  -webkit-box-shadow: inset 0 0 0px 1000px white !important, 0 0 0 2px rgba(168, 85, 247, 0.2) !important;
+}
+
 /* Times New Roman italic style for hero subtitle */
 .times-new-roman-italic {
   font-family: 'Times New Roman', Times, serif;
