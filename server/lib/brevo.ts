@@ -330,7 +330,7 @@ export async function sendPaymentEmail(params: EmailPaymentParams): Promise<bool
       ` : ''}
 
       <div style="text-align:center;margin:24px 0;">
-        <a href="${upiLink}" style="display:inline-block;background:linear-gradient(135deg,#4a90e2,#7bb3f2);color:#ffffff;text-decoration:none;padding:16px 32px;border-radius:25px;font-size:16px;font-weight:bold;box-shadow:0 4px 15px rgba(74,144,226,0.3);transition:all 0.3s ease;">
+        <a href="${upiLink}" style="display:inline-block;background:linear-gradient(135deg,#4a90e2,#7bb3f2);color:#ffffff;text-decoration:none;padding:16px 32px;border-radius:25px;font-size:16px;font-weight:bold;font-family:Arial,sans-serif;box-shadow:0 4px 15px rgba(74,144,226,0.3);transition:all 0.3s ease;">
           💳 Pay Now with UPI
         </a>
       </div>
