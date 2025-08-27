@@ -44,13 +44,13 @@ export async function sendSubmissionEmail(params: EmailSubmissionParams): Promis
     console.log('Brevo API key not configured, email sending disabled');
     return true; // Return success to allow development without email
   }
-  
+
   try {
     console.log('Starting sendSubmissionEmail with params:', JSON.stringify(params, null, 2));
-    
+
     // Get email images
     const images = getEmailImages();
-    
+
     // Format the current date
     const currentDate = new Date().toLocaleDateString('en-US', {
       year: 'numeric',
@@ -114,11 +114,11 @@ export async function sendSubmissionEmail(params: EmailSubmissionParams): Promis
     const userContent = `
       <div style="padding: 20px; text-align: center;">
         <h3 style="color: #ff6b6b; margin-top: 0; font-size: 18px;">Dear ${params.name},</h3>
-        
+
         <p style="font-size: 16px; line-height: 1.6; margin: 20px 0;">
           Thank you for submitting your heartfelt <strong>${params.type_of_message}</strong> for <strong>${params.recipient_name}</strong>.
         </p>
-        
+
         <div style="background: #fff5f7; border: 1px solid #f9ccd3; border-radius: 8px; padding: 20px; margin: 20px 0; text-align: left;">
           <h4 style="margin-top: 0; color: #ff6b6b;">Your Submission Details:</h4>
           <p style="margin: 5px 0;"><strong>Message Type:</strong> ${params.type_of_message}</p>
@@ -126,11 +126,11 @@ export async function sendSubmissionEmail(params: EmailSubmissionParams): Promis
           <p style="margin: 5px 0;"><strong>Submission Date:</strong> ${currentDate}</p>
           <p style="margin: 5px 0;"><strong>Reference ID:</strong> ${params.submission_id}</p>
         </div>
-        
+
         <p style="font-size: 16px; line-height: 1.6; margin: 20px 0;">
           Our team will begin crafting your personalized message with care and attention. We'll be in touch soon with updates!
         </p>
-        
+
         <p style="font-size: 16px; margin-top: 30px; color: #ff6b6b;">
           With warm regards,<br><strong>The Written Hug Team</strong>
         </p>
@@ -140,7 +140,7 @@ export async function sendSubmissionEmail(params: EmailSubmissionParams): Promis
     // Get templates with images
     const adminTemplate = createEmailTemplate('admin', images);
     const userTemplate = createEmailTemplate('user', images);
-    
+
     const adminHtmlContent = adminTemplate.replace('{NAME}', params.name).replace('{CONTENT}', adminContent);
     const userHtmlContent = userTemplate.replace('{NAME}', params.name).replace('{CONTENT}', userContent);
 
@@ -195,7 +195,7 @@ export async function sendSubmissionEmail(params: EmailSubmissionParams): Promis
     });
 
     console.log('User email response:', userResponse.status, userResponse.data);
-    
+
     return adminResponse.status === 201 && userResponse.status === 201;
   } catch (error) {
     console.error('Email sending failed:', error);
@@ -213,11 +213,11 @@ export async function sendReplyEmail(clientEmail: string, params: EmailReplyPara
     console.log('Brevo API key not configured, email sending disabled');
     return true; // Return success to allow development without email
   }
-  
+
   try {
     // Get email images
     const images = getEmailImages();
-    
+
     // Create reply content matching the template design
     const replyContent = `
       <p style="margin:0 0 14px;font-size:15px;">
@@ -264,17 +264,17 @@ export async function sendReplyEmail(clientEmail: string, params: EmailReplyPara
     };
 
     console.log('Reply email data:', JSON.stringify(replyEmailData, null, 2));
-    
+
     const replyResult = await axios.post(BREVO_API_URL, replyEmailData, {
       headers: {
         'api-key': BREVO_API_KEY,
         'Content-Type': 'application/json'
       }
     });
-    
+
     console.log('Reply email result:', replyResult.status);
     console.log('Reply email response:', JSON.stringify(replyResult.data, null, 2));
-    
+
     return true;
   } catch (error) {
     console.error('Brevo reply email error:', error);
@@ -292,14 +292,15 @@ export async function sendPaymentEmail(params: EmailPaymentParams): Promise<bool
     console.log('Brevo API key not configured, email sending disabled');
     return true; // Return success to allow development without email
   }
-  
+
   try {
     // Get email images
     const images = getEmailImages();
-    
+
     // Create UPI payment link
-    const upiLink = `upi://pay?pa=thewrittenhug@upi&pn=The%20Written%20Hug&cu=INR&am=${params.amount}&tn=Send%20it%20with%20Kabootar`;
-    
+    const upiId = '8639149969@ybl';
+    const upiLink = `upi://pay?pa=${upiId}&pn=The%20Written%20Hug&cu=INR&am=${params.amount}&tn=Send%20it%20with%20Kabootar`;
+
     // Create payment content with beautiful styling
     const paymentContent = `
       <p style="margin:0 0 14px;font-size:15px;">
@@ -381,17 +382,17 @@ export async function sendPaymentEmail(params: EmailPaymentParams): Promise<bool
     };
 
     console.log('Payment email data:', JSON.stringify(paymentEmailData, null, 2));
-    
+
     const paymentResult = await axios.post(BREVO_API_URL, paymentEmailData, {
       headers: {
         'api-key': BREVO_API_KEY,
         'Content-Type': 'application/json'
       }
     });
-    
+
     console.log('Payment email result:', paymentResult.status);
     console.log('Payment email response:', JSON.stringify(paymentResult.data, null, 2));
-    
+
     return true;
   } catch (error) {
     console.error('Brevo payment email error:', error);
