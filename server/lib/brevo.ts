@@ -299,7 +299,7 @@ export async function sendPaymentEmail(params: EmailPaymentParams): Promise<bool
 
     // Create UPI payment link
     const upiId = '8639149969@ybl';
-    const upiLink = `upi://pay?pa=${upiId}&pn=The%20Written%20Hug&cu=INR&am=${params.amount}&tn=Send%20it%20with%20Kabootar`;
+    const upiLink = `upi://pay?pa=${upiId}&pn=The%20written%20Hug&tn=Payment&am=${params.amount}&cu=INR`;
 
     // Create payment content with beautiful styling
     const paymentContent = `
