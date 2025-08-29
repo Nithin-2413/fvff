@@ -297,18 +297,8 @@ export async function sendPaymentEmail(params: EmailPaymentParams): Promise<bool
     // Get email images
     const images = getEmailImages();
 
-    // Create multiple UPI payment options for better compatibility
-    const upiId = '8639149969@ybl';
-    const merchantName = 'The Written Hug';
-    const transactionNote = 'Payment for Written Hug Service';
-    
-    // Primary UPI link (most compatible format)
-    const upiLink = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(merchantName)}&tn=${encodeURIComponent(transactionNote)}&am=${params.amount}&cu=INR&mode=02&purpose=00`;
-    
-    // Alternative UPI links for different apps
-    const gpayLink = `tez://upi/pay?pa=${upiId}&pn=${encodeURIComponent(merchantName)}&tn=${encodeURIComponent(transactionNote)}&am=${params.amount}&cu=INR`;
-    const phonepeLink = `phonepe://pay?pa=${upiId}&pn=${encodeURIComponent(merchantName)}&tn=${encodeURIComponent(transactionNote)}&am=${params.amount}&cu=INR`;
-    const paytmLink = `paytmmp://pay?pa=${upiId}&pn=${encodeURIComponent(merchantName)}&tn=${encodeURIComponent(transactionNote)}&am=${params.amount}&cu=INR`;
+    // Razorpay payment link
+    const razorpayLink = 'https://razorpay.me/@thewrittenhug';
 
     // Create payment content with multiple payment options
     const paymentContent = `
@@ -339,25 +329,12 @@ export async function sendPaymentEmail(params: EmailPaymentParams): Promise<bool
       ` : ''}
 
       <div style="text-align:center;margin:24px 0;">
-        <h4 style="margin:0 0 16px;font-size:16px;color:#4a90e2;font-weight:bold;">Choose Your UPI App:</h4>
+        <h4 style="margin:0 0 16px;font-size:16px;color:#4a90e2;font-weight:bold;">Complete Your Payment:</h4>
         
-        <!-- Primary UPI Button -->
+        <!-- Razorpay Payment Button -->
         <div style="margin-bottom:12px;">
-          <a href="${upiLink}" style="display:inline-block;background:linear-gradient(135deg,#4a90e2,#7bb3f2);color:#ffffff;text-decoration:none;padding:12px 24px;border-radius:25px;font-size:14px;font-weight:bold;font-family:Arial,sans-serif;box-shadow:0 4px 15px rgba(74,144,226,0.3);transition:all 0.3s ease;margin:4px;">
-            💳 Pay with Any UPI App
-          </a>
-        </div>
-        
-        <!-- Specific App Buttons -->
-        <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:12px;">
-          <a href="${gpayLink}" style="display:inline-block;background:linear-gradient(135deg,#34a853,#4caf50);color:#ffffff;text-decoration:none;padding:8px 16px;border-radius:20px;font-size:12px;font-weight:bold;font-family:Arial,sans-serif;margin:2px;">
-            Google Pay
-          </a>
-          <a href="${phonepeLink}" style="display:inline-block;background:linear-gradient(135deg,#5f259f,#7b2cbf);color:#ffffff;text-decoration:none;padding:8px 16px;border-radius:20px;font-size:12px;font-weight:bold;font-family:Arial,sans-serif;margin:2px;">
-            PhonePe
-          </a>
-          <a href="${paytmLink}" style="display:inline-block;background:linear-gradient(135deg,#002970,#0066cc);color:#ffffff;text-decoration:none;padding:8px 16px;border-radius:20px;font-size:12px;font-weight:bold;font-family:Arial,sans-serif;margin:2px;">
-            Paytm
+          <a href="${razorpayLink}" style="display:inline-block;background:linear-gradient(135deg,#4a90e2,#7bb3f2);color:#ffffff;text-decoration:none;padding:12px 24px;border-radius:25px;font-size:14px;font-weight:bold;font-family:Arial,sans-serif;box-shadow:0 4px 15px rgba(74,144,226,0.3);transition:all 0.3s ease;margin:4px;">
+            💳 Pay with Razorpay
           </a>
         </div>
       </div>
@@ -367,10 +344,9 @@ export async function sendPaymentEmail(params: EmailPaymentParams): Promise<bool
           💡 Payment Details:
         </p>
         <ul style="margin:0;padding-left:16px;font-size:13px;color:#555;line-height:1.5;">
-          <li><strong>UPI ID:</strong> ${upiId}</li>
           <li><strong>Amount:</strong> ₹${params.amount}</li>
-          <li><strong>Payee:</strong> ${merchantName}</li>
-          <li><strong>Note:</strong> ${transactionNote}</li>
+          <li><strong>Payment Link:</strong> razorpay.me/@thewrittenhug</li>
+          <li><strong>Service:</strong> The Written Hug</li>
         </ul>
       </div>
 
@@ -379,10 +355,9 @@ export async function sendPaymentEmail(params: EmailPaymentParams): Promise<bool
           🔒 Payment Instructions:
         </p>
         <ul style="margin:0;padding-left:16px;font-size:13px;color:#555;line-height:1.5;">
-          <li>Click any payment button above</li>
-          <li>Your UPI app will open with pre-filled details</li>
-          <li>Verify the amount and payee information</li>
-          <li>Enter your UPI PIN to complete the payment</li>
+          <li>Click the "Pay with Razorpay" button above</li>
+          <li>Enter the amount: ₹${params.amount}</li>
+          <li>Complete payment using your preferred method (UPI, Card, Net Banking)</li>
           <li>Take a screenshot of the success message</li>
           <li>Reply to this email with the screenshot for faster processing</li>
         </ul>
@@ -390,13 +365,13 @@ export async function sendPaymentEmail(params: EmailPaymentParams): Promise<bool
 
       <div style="background:#e8f5e8;border-radius:8px;padding:16px;margin:16px 0;border-left:4px solid #28a745;">
         <p style="margin:0 0 8px;font-size:14px;font-weight:bold;color:#28a745;">
-          ⚡ Manual Payment Option:
+          ⚡ Alternative Payment Method:
         </p>
         <p style="margin:0;font-size:13px;color:#555;line-height:1.5;">
-          If the buttons don't work, you can manually pay using any UPI app:<br>
-          <strong>UPI ID:</strong> ${upiId}<br>
+          If the button doesn't work, visit directly:<br>
+          <strong>Link:</strong> razorpay.me/@thewrittenhug<br>
           <strong>Amount:</strong> ₹${params.amount}<br>
-          <strong>Reference:</strong> ${transactionNote}
+          <strong>Reference:</strong> Written Hug Service
         </p>
       </div>
 
